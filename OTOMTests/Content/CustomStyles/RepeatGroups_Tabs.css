@@ -1,0 +1,15 @@
+﻿.tabHeader{
+    display:inline-block;
+    width:auto;
+    padding: 30px 10px;
+    border-radius:5px 5px;
+    background-color:pink;
+}
+
+.tabBody{
+    display:block;
+    width:50%;
+    padding: 30px 10px;
+    border-radius:5px 5px;
+    background-color:lightpink;
+}

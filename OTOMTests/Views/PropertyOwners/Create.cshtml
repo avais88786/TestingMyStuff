@@ -4,6 +4,8 @@
     ViewBag.Title = "Create";
 }
 
+@Styles.Render("~/Content/CustomStyles/RepeatGroups_Tabs.css")
+
 <h2>Create</h2>
 
 @using (Html.BeginForm()) {
@@ -31,18 +33,47 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.Property)
         </div>
-         @Html.MaxRepeatGroupValue(typeof( OTOMTests.Models.PropertyOwners))
-         
-        @{var maxnumbers = Html.MaxRepeatGroupValue(model => model.Property, "Property");
+        
+        <div id="RepeatGroupContainer">
+            @{var maxnumbers = Html.MaxRepeatGroupValue(model => model.Property);
+            @Html.Hidden("MaxPropertyRepeatValue", maxnumbers)
+                for (int i = 0; i < maxnumbers; i++)
+                {
+                    <div id="PropertyRepeatGroup_@i" class="editor-field" style="background-color:lightgrey;width:50%;margin-bottom:10px;">
+                        @Html.Raw("Property Id :" + i)
+                        @Html.EditorFor(model => model.Property, new { id = i })
+                    </div>
+                }
+            }
+        </div>
 
-          for (int i = 0; i < maxnumbers; i++) { 
-             <div class="editor-field" style="background-color:lightgrey;width:50%;">
-                @Html.EditorFor(model => model.Property)
-                @Html.ValidationMessageFor(model => model.Property)
-            </div>
-          }
-        }
+        
 
+        @Html.Hidden("currentPropertyRepeatGroupId",0)
+        @Html.Label("Add property", new { id = "addProperty", style = "text-decoration:underline;color:red;cursor:pointer" })
+        @Html.Label("Remove property", new { id = "removeProperty", style = "text-decoration:underline;color:red;cursor:pointer",hidden="hidden" })
+        
+        <br/><br/>
+        <div id="RepeatGroupContainer_Tabs" style="height:350px;">
+
+            @{var maxnumbersforTabs = Html.MaxRepeatGroupValue(model => model.Property);
+            for (int i = 1; i <= maxnumbersforTabs; i++)
+            {
+                <div id="repeatGroupTab_@i">
+                    <div class="tabHeader">
+                        @Html.Raw("Property " + i)
+                    </div>
+                    <div id="tabBody_@i" class="tabBody">
+                        Property Id : @i
+                        @Html.EditorFor(model => model.Property, new { id = i })
+                        
+                    </div>
+                </div>
+            }
+            }
+            @Html.Hidden("currentPropertyRepeatGroupId_Tab", 1)
+            @Html.Label("Add property", new { id = "addProperty_Tab", style = "text-decoration:underline;color:red;cursor:pointer;" })
+        </div>
         <p>
             <input type="submit" value="Create" />
         </p>
@@ -55,4 +86,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/Scripts/CustomScripts/PropertyRepeatGroup.js")
 }
