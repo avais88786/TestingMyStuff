@@ -1,0 +1,58 @@
+﻿@model OTOMTests.Models.PropertyOwners
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>PropertyOwners</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProposerName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProposerName)
+            @Html.ValidationMessageFor(model => model.ProposerName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DatePropertyBuilt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DatePropertyBuilt)
+            @Html.ValidationMessageFor(model => model.DatePropertyBuilt)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Property)
+        </div>
+         @Html.MaxRepeatGroupValue(typeof( OTOMTests.Models.PropertyOwners))
+         
+        @{var maxnumbers = Html.MaxRepeatGroupValue(model => model.Property, "Property");
+
+          for (int i = 0; i < maxnumbers; i++) { 
+             <div class="editor-field" style="background-color:lightgrey;width:50%;">
+                @Html.EditorFor(model => model.Property)
+                @Html.ValidationMessageFor(model => model.Property)
+            </div>
+          }
+        }
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
