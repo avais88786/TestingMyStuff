@@ -19,6 +19,7 @@
 
         for (var i = 2; i <= maxProperties; i++) {
             $("#repeatGroupTab_" + i).hide();
+            $("#tabBody_" + i).hide();
         }
 
 
@@ -70,13 +71,15 @@
 
     $("#addProperty_Tab").click(function () {
         var currentId = $("#currentPropertyRepeatGroupId_Tab").val();
-        $("#tabBody_" + currentId).hide(500);
+        $("#tabBody_" + currentId).hide();
         currentId = ++currentId;
         var repeatGroup = $("#tabBody_" + currentId);
 
         if (repeatGroup.length) {
+            $("#repeatGroupTab_" + currentId).show(500);
             repeatGroup.show(500);
             $("#currentPropertyRepeatGroupId_Tab").val(currentId);
+            repeatGroup.append()
         }
 
     });

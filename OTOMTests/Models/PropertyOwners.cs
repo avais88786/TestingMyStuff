@@ -8,6 +8,21 @@ using OTOMTests.Infrastructure;
 
 namespace OTOMTests.Models
 {
+    public class ConstructionType
+    {
+
+    }
+
+    public class PropertyOwnersViewModel
+    {
+        public IList<SelectListItems> ConstructionTypes { get; set; }
+
+        @Html.SelectListFor(x => x.ConstructionTypes)
+
+        Mapper.CreateMap<PropertyOwnersViewModel,PropertyOwners>()
+            .ForMember(ConstructionType => constructiontyperepo.GetItem(ConstructionTypes.Selected.Id)); 
+    }
+
     public class PropertyOwners
     {
         public PropertyOwners()
@@ -15,39 +30,16 @@ namespace OTOMTests.Models
             Property = new List<PropertyRepeatGroup>();
         }
 
-        private int _propertyOwnersId;
+        public ConstructionType ConstructionType { get; set; }
 
-        public int PropertyOwnersId
-        {
-            get { return _propertyOwnersId; }
-            set { _propertyOwnersId = value; }
-        }
+        public int PropertyOwnersId { get; set; }
 
-        private string _proposerName;
+        public string ProposerName { get; set; }
 
-        public string ProposerName
-        {
-            get { return _proposerName; }
-            set { _proposerName = value; }
-        }
-
-        private DateTime _datePropertyBuilt;
-
-        public DateTime DatePropertyBuilt
-        {
-            get { return _datePropertyBuilt; }
-            set { _datePropertyBuilt = value; }
-        }
-
-        private IEnumerable<PropertyRepeatGroup> _property;
+        public DateTime DatePropertyBuilt { get;set; }
 
         [UIHint("PropertyRepeatGroup")]
         [MaximumPropertyRepeatGroups(5)]
-        public IEnumerable<PropertyRepeatGroup> Property
-        {
-            get { return _property; }
-            set { _property = value; }
-        }
-
+        public IEnumerable<PropertyRepeatGroup> Property { get; set; }
     }
 }

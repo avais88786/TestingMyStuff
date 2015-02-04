@@ -59,7 +59,7 @@
             @{var maxnumbersforTabs = Html.MaxRepeatGroupValue(model => model.Property);
             for (int i = 1; i <= maxnumbersforTabs; i++)
             {
-                <div id="repeatGroupTab_@i">
+                <div id="repeatGroupTab_@i" style="display:inline;">
                     <div class="tabHeader">
                         @Html.Raw("Property " + i)
                     </div>
