@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using OTOMTests.Models;
 using OTOMTests.Infrastructure;
+using OTOMTests.Models.ViewModels;
 
 namespace OTOMTests.Controllers
 {
@@ -19,7 +20,7 @@ namespace OTOMTests.Controllers
 
         public ActionResult Index()
         {
-            Type type = typeof(PropertyOwners);
+            Type type = typeof(PropertyOwnersViewModel);
             var attr = type.GetProperty("Property").CustomAttributes;
             
             
@@ -34,7 +35,7 @@ namespace OTOMTests.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            PropertyOwners propertyowners = db.PropertyOwners.Find(id);
+            PropertyOwnersViewModel propertyowners = db.PropertyOwners.Find(id);
             if (propertyowners == null)
             {
                 return HttpNotFound();
@@ -47,7 +48,7 @@ namespace OTOMTests.Controllers
 
         public ActionResult Create()
         {
-            Type type = typeof(PropertyOwners);
+            Type type = typeof(PropertyOwnersViewModel);
             var attr = ((MaximumPropertyRepeatGroupsAttribute)type.GetProperty("Property").GetCustomAttributes(typeof(MaximumPropertyRepeatGroupsAttribute), false).SingleOrDefault()).MaxPRGValue;
             
             return View();
@@ -58,7 +59,7 @@ namespace OTOMTests.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PropertyOwners propertyowners)
+        public ActionResult Create(PropertyOwnersViewModel propertyowners)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +76,7 @@ namespace OTOMTests.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            PropertyOwners propertyowners = db.PropertyOwners.Find(id);
+            PropertyOwnersViewModel propertyowners = db.PropertyOwners.Find(id);
             if (propertyowners == null)
             {
                 return HttpNotFound();
@@ -88,7 +89,7 @@ namespace OTOMTests.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(PropertyOwners propertyowners)
+        public ActionResult Edit(PropertyOwnersViewModel propertyowners)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +105,7 @@ namespace OTOMTests.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            PropertyOwners propertyowners = db.PropertyOwners.Find(id);
+            PropertyOwnersViewModel propertyowners = db.PropertyOwners.Find(id);
             if (propertyowners == null)
             {
                 return HttpNotFound();
@@ -119,7 +120,7 @@ namespace OTOMTests.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PropertyOwners propertyowners = db.PropertyOwners.Find(id);
+            PropertyOwnersViewModel propertyowners = db.PropertyOwners.Find(id);
             db.PropertyOwners.Remove(propertyowners);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using OTOMTests.Models.ViewModels;
 
 namespace OTOMTests.Models
 {
@@ -17,6 +18,6 @@ namespace OTOMTests.Models
         {
         }
 
-        public DbSet<PropertyOwners> PropertyOwners { get; set; }
+        public DbSet<PropertyOwnersViewModel> PropertyOwners { get; set; }
     }
 }

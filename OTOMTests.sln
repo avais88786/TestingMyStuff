@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMTests", "OTOMTests\OTOM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMTests.Tests", "OTOMTests.Tests\OTOMTests.Tests.csproj", "{AC63826A-3B8B-454A-8F79-E78E0B3335C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMTests.StubRepository", "OTOMTests.StubRepository\OTOMTests.StubRepository.csproj", "{C8D35BCF-110A-4C11-890B-F2C40628AFEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMTests.Model", "OTOMTests.Model\OTOMTests.Model.csproj", "{53AED073-CF4D-46B3-A224-E00E97498491}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{AC63826A-3B8B-454A-8F79-E78E0B3335C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC63826A-3B8B-454A-8F79-E78E0B3335C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC63826A-3B8B-454A-8F79-E78E0B3335C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8D35BCF-110A-4C11-890B-F2C40628AFEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8D35BCF-110A-4C11-890B-F2C40628AFEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8D35BCF-110A-4C11-890B-F2C40628AFEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8D35BCF-110A-4C11-890B-F2C40628AFEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53AED073-CF4D-46B3-A224-E00E97498491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53AED073-CF4D-46B3-A224-E00E97498491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53AED073-CF4D-46B3-A224-E00E97498491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53AED073-CF4D-46B3-A224-E00E97498491}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

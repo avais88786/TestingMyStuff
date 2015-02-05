@@ -1,4 +1,4 @@
-﻿@model OTOMTests.Models.PropertyOwners
+﻿@model OTOMTests.Models.ViewModels.PropertyOwnersViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -28,18 +28,18 @@
             @Html.LabelFor(model => model.Property)
         </div>
         
-        @*<div id="RepeatGroupContainer">
+        <div id="RepeatGroupContainer">
             @{var maxnumbers = Html.MaxRepeatGroupValue(model => model.Property);
             @Html.Hidden("MaxPropertyRepeatValue", maxnumbers)
                 for (int i = 0; i < maxnumbers; i++)
                 {
-                    <div id="PropertyRepeatGroup_@i" class="editor-field" style="background-color:lightgrey;width:50%;margin-bottom:10px;">
+                    <div id="PropertyRepeatGroup_@i" class="editor-field" style="background-color:lightpink;width:50%;margin-bottom:10px;">
                         @Html.Raw("Property Id :" + i)
                         @Html.EditorFor(model => model.Property, new { id = i })
                     </div>
                 }
             }
-        </div>*@
+        </div>
 
         
 

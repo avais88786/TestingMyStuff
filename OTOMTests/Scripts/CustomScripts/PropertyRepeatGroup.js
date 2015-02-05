@@ -5,8 +5,8 @@
 
     function HideProperties() {
         
-        //$("#RepeatGroupContainer > div").hide();
-        //$("#PropertyRepeatGroup_0").show();
+        $("#RepeatGroupContainer > div").hide();
+        $("#PropertyRepeatGroup_0").show();
         //var maxProperties = $("#MaxPropertyRepeatValue").val();
 
         //for (var i = 1; i < maxProperties; i++) {
