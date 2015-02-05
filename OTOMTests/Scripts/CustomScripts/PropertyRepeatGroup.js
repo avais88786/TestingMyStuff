@@ -5,8 +5,8 @@
 
     function HideProperties() {
         
-        $("#RepeatGroupContainer > div").hide();
-        $("#PropertyRepeatGroup_0").show();
+        //$("#RepeatGroupContainer > div").hide();
+        //$("#PropertyRepeatGroup_0").show();
         //var maxProperties = $("#MaxPropertyRepeatValue").val();
 
         //for (var i = 1; i < maxProperties; i++) {
@@ -18,11 +18,14 @@
         var maxProperties = $("#MaxPropertyRepeatValue").val();
 
         for (var i = 2; i <= maxProperties; i++) {
-            $("#repeatGroupTab_" + i).hide();
+           // $("#repeatGroupTab_" + i).hide();
             $("#tabBody_" + i).hide();
+            $("#tabHeader_" + i).hide();
         }
-
-
+    
+        $("#tabHeader_1").css("cursor", "pointer");
+        $("#tabHeaderSelector_1").css("background-color", "lightgreen");
+        TabDelegateClickHandler(1, $("#tabBody_1"));
     };
 
 
@@ -79,10 +82,83 @@
             $("#repeatGroupTab_" + currentId).show(500);
             repeatGroup.show(500);
             $("#currentPropertyRepeatGroupId_Tab").val(currentId);
-            repeatGroup.append()
+            //repeatGroup.append()
         }
 
     });
 
+
+    $("#tabAdd").click(function () {
+        var currentId = $("#currentPropertyRepeatGroupId_Tab").val();
+        var selectedId = $("#selectedPropertyRepeatGroupId_Tab").val();
+        currentId = ++currentId;
+        var repeatGroup = $("#tabBody_" + currentId);
+
+        if (repeatGroup.length) {
+            $("#tabBody_" + selectedId).slideToggle();
+            $("#tabHeaderSelector_" + selectedId).css("background-color", "gray");
+
+
+            $("#tabHeader_" + currentId).fadeIn(500);
+            $("#tabHeader_" + currentId).css("cursor", "pointer");
+            $("#tabHeaderSelector_" + currentId).css("background-color", "lightgreen");
+
+            repeatGroup.slideToggle(500);
+            $("#currentPropertyRepeatGroupId_Tab").val(currentId);
+            $("#selectedPropertyRepeatGroupId_Tab").val(currentId);
+
+            TabDelegateClickHandler(currentId, repeatGroup);
+            var removeLabelId = "removeProperty" + currentId;
+            repeatGroup.append('<Label id="' + removeLabelId + '" class="removeTab">Remove Property</Label>')
+            //$(document).delegate("#tabHeader_" + currentId, "click", function () {
+            //    var oldId = $("#selectedPropertyRepeatGroupId_Tab").val();
+            //    if (oldId != currentId)
+            //    {
+            //        $("#tabBody_" + oldId).slideToggle();
+            //        repeatGroup.slideToggle(500);
+            //        $("#selectedPropertyRepeatGroupId_Tab").val(currentId);
+            //    }
+            //});
+            
+            RemoveTabDelegateClickHandler(currentId);
+
+        }
+
+    });
+    
+    function TabDelegateClickHandler(currentId, repeatGroup) {
+        $(document).delegate("#tabHeader_" + currentId, "click", function () {
+            var oldId = $("#selectedPropertyRepeatGroupId_Tab").val();
+            if (oldId != currentId) {
+                $("#tabBody_" + oldId).slideToggle();
+                $("#tabHeaderSelector_" + oldId).css("background-color", "gray");
+
+                repeatGroup.slideToggle(500);
+                $("#tabHeaderSelector_" + currentId).css("background-color", "lightgreen");
+
+                $("#selectedPropertyRepeatGroupId_Tab").val(currentId);
+            }
+        });
+    };
+
+    function RemoveTabDelegateClickHandler(selectedId) {
+        $(document).delegate("#removeProperty"+selectedId, "click", function () {
+            $("#tabBody_" + selectedId).remove();
+            $("#tabHeader_" + selectedId).remove();
+            selectedId = --selectedId;
+
+            for (var i = selectedId; i >= 1; i--) {
+                var element = $("#tabHeader_" + i);
+
+                if (element.length) {
+                    element.trigger("click");
+                    $("#selectedPropertyRepeatGroupId_Tab").val(i);
+                    break;
+                }
+
+            }
+
+        });
+    }
 
 });

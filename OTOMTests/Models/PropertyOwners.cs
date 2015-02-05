@@ -8,20 +8,20 @@ using OTOMTests.Infrastructure;
 
 namespace OTOMTests.Models
 {
-    public class ConstructionType
-    {
+    //public class ConstructionType
+    //{
 
-    }
+    //}
 
-    public class PropertyOwnersViewModel
-    {
-        public IList<SelectListItems> ConstructionTypes { get; set; }
+    //public class PropertyOwnersViewModel
+    //{
+    //    public IList<SelectListItems> ConstructionTypes { get; set; }
 
-        @Html.SelectListFor(x => x.ConstructionTypes)
+    //    @Html.SelectListFor(x => x.ConstructionTypes)
 
-        Mapper.CreateMap<PropertyOwnersViewModel,PropertyOwners>()
-            .ForMember(ConstructionType => constructiontyperepo.GetItem(ConstructionTypes.Selected.Id)); 
-    }
+    //    Mapper.CreateMap<PropertyOwnersViewModel,PropertyOwners>()
+    //        .ForMember(ConstructionType => constructiontyperepo.GetItem(ConstructionTypes.Selected.Id)); 
+    //}
 
     public class PropertyOwners
     {
@@ -30,16 +30,16 @@ namespace OTOMTests.Models
             Property = new List<PropertyRepeatGroup>();
         }
 
-        public ConstructionType ConstructionType { get; set; }
+       // public ConstructionType ConstructionType { get; set; }
 
         public int PropertyOwnersId { get; set; }
 
         public string ProposerName { get; set; }
 
-        public DateTime DatePropertyBuilt { get;set; }
+        
 
         [UIHint("PropertyRepeatGroup")]
-        [MaximumPropertyRepeatGroups(5)]
+        [MaximumPropertyRepeatGroups(25)]
         public IEnumerable<PropertyRepeatGroup> Property { get; set; }
     }
 }

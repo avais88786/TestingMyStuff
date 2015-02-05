@@ -2,16 +2,21 @@
 
 
 @*@foreach(var property in Model)*@
-  
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.PropertyId)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.PropertyId)
+</div>
+ 
 <div class="editor-label">
     @Html.LabelFor(model => model.PropertyType)
 </div>
 <div class="editor-field">
     @Html.EditorFor(model => model.PropertyType)
     @Html.ValidationMessageFor(model => model.PropertyType)
-    </div>
-
-
+</div>
 
 <div class="editor-label">
     @Html.LabelFor(model => model.PropertyPercentage)
@@ -20,3 +25,23 @@
     @Html.EditorFor(model => model.PropertyPercentage)
     @Html.ValidationMessageFor(model => model.PropertyPercentage)
 </div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.PurchaseDate)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.PurchaseDate)
+    @Html.ValidationMessageFor(model => model.PurchaseDate)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.YearBuilt)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.YearBuilt)
+    @Html.ValidationMessageFor(model => model.YearBuilt)
+</div>
+
+<div class="editor-field">
+    @Html.EditorFor(model => model.Address)
+ </div>

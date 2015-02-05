@@ -2,7 +2,7 @@
     display:inline-block;
     width:auto;
     padding: 30px 10px;
-    border-radius:5px 5px;
+    border-radius:5px 5px 0px 0px;
     background-color:pink;
 }
 
@@ -10,6 +10,37 @@
     /*display:block;*/
     width:50%;
     padding: 30px 10px;
-    border-radius:5px 5px;
+    border-radius:0px 5px 5px 5px;
     background-color:lightpink;
+}
+
+.tabAdd{
+    position:relative;
+    font-size:40px;
+    left:-5px;
+    top:10px;
+    width:auto;
+    display:inline-block;
+    border-radius:0px 5px 5px 0px;
+    padding:5px 10px 10px 10px;
+    background-color:gray;
+    cursor:pointer;
+}
+
+.removeTab{
+    float:right;
+    cursor:pointer;
+    color:red;
+    text-decoration:underline;
+    margin-right:20px;
+    font-size:15px;
+}
+
+.tabHeaderSelector{
+    background-color:gray;
+    position:relative;
+    width:inherit;
+    height:5px;
+    top:-15px;
+    
 }

@@ -23,18 +23,12 @@
             @Html.ValidationMessageFor(model => model.ProposerName)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DatePropertyBuilt)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DatePropertyBuilt)
-            @Html.ValidationMessageFor(model => model.DatePropertyBuilt)
-        </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Property)
         </div>
         
-        <div id="RepeatGroupContainer">
+        @*<div id="RepeatGroupContainer">
             @{var maxnumbers = Html.MaxRepeatGroupValue(model => model.Property);
             @Html.Hidden("MaxPropertyRepeatValue", maxnumbers)
                 for (int i = 0; i < maxnumbers; i++)
@@ -45,7 +39,7 @@
                     </div>
                 }
             }
-        </div>
+        </div>*@
 
         
 
@@ -54,24 +48,29 @@
         @Html.Label("Remove property", new { id = "removeProperty", style = "text-decoration:underline;color:red;cursor:pointer",hidden="hidden" })
         
         <br/><br/>
-        <div id="RepeatGroupContainer_Tabs" style="height:350px;">
+        <div id="RepeatGroupContainer_Tabs">
 
             @{var maxnumbersforTabs = Html.MaxRepeatGroupValue(model => model.Property);
-            for (int i = 1; i <= maxnumbersforTabs; i++)
-            {
-                <div id="repeatGroupTab_@i" style="display:inline;">
-                    <div class="tabHeader">
+              @Html.Hidden("MaxPropertyRepeatValue", maxnumbersforTabs)
+                  for (int i = 1; i <= maxnumbersforTabs; i++)
+                  {
+                    <div id="tabHeader_@i" class="tabHeader">
+                        <div id="tabHeaderSelector_@i" class="tabHeaderSelector"></div>
                         @Html.Raw("Property " + i)
                     </div>
+                  }
+                        <div id="tabAdd" class="tabAdd">+</div>
+                  for (int i = 1; i <= maxnumbersforTabs; i++)
+                  {   
                     <div id="tabBody_@i" class="tabBody">
                         Property Id : @i
                         @Html.EditorFor(model => model.Property, new { id = i })
-                        
+
                     </div>
-                </div>
-            }
+                  }
             }
             @Html.Hidden("currentPropertyRepeatGroupId_Tab", 1)
+            @Html.Hidden("selectedPropertyRepeatGroupId_Tab", 1)
             @Html.Label("Add property", new { id = "addProperty_Tab", style = "text-decoration:underline;color:red;cursor:pointer;" })
         </div>
         <p>
