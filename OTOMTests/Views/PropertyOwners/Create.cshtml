@@ -72,6 +72,7 @@
                 @Html.EditorFor(model => model.Properties)
     for (int i = 1; i <= maxnumbersforTabs; i++)
     {   
+        
                     <div id="tabBody_@i" class="tabBody">
                         Property Id : @i
                         @*@{Model.Property.ToList().Add(new PropertyRepeatGroup() {PropertyId = i });}*@
