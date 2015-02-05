@@ -20,7 +20,7 @@ namespace OTOMTests.Models.RepeatGroups
 
         public DateTime YearBuilt { get; set; }
 
-        //[UIHint("Address")]
-        //public Address Address { get; set; }
+        [UIHint("Address")]
+        public Address Address { get; set; }
     }
 }

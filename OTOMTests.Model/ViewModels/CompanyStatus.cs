@@ -8,6 +8,6 @@ namespace OTOMTests.Models
     public class CompanyStatus
     {
         public int CompanyStatusId { get; set; }
-        public string CompanyStatusValue { get; set; }
+        public string CompanyStatusText { get; set; }
     }
 }

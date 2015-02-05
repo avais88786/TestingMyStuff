@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using OTOMTests.Infrastructure;
+using System.Web.Mvc;
 
 namespace OTOMTests.Models.ViewModels
 {
@@ -27,7 +28,7 @@ namespace OTOMTests.Models.ViewModels
     {
         public PropertyOwnersViewModel()
         {
-            Property = new List<PropertyRepeatGroup>();
+            Property = new List<PropertyRepeatGroup>().AsEnumerable();
         }
 
        // public ConstructionType ConstructionType { get; set; }
@@ -36,10 +37,18 @@ namespace OTOMTests.Models.ViewModels
 
         public string ProposerName { get; set; }
 
-        public CompanyStatus CompanyStatus { get; set; }
+        public int CompanyStatus { get; set; }
+
+        public IList<SelectListItem> CompanyStatuses { get; set; }
 
         [UIHint("PropertyRepeatGroup")]
         [MaximumPropertyRepeatGroups(10)]
-        public IEnumerable<PropertyRepeatGroup> Property { get; set; }
+        public IEnumerable<PropertyRepeatGroup> Properties { get; set; }
+
+        [UIHint("TestRepeatGroup")]
+        [MaximumPropertyRepeatGroups(2)]
+        public IEnumerable<TestRepeatGroup> TestProperty { get; set; }
+
+
     }
 }

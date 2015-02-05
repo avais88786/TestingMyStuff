@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using OTOMTests.Models;
 using OTOMTests.Infrastructure;
 using OTOMTests.Models.ViewModels;
+using StructureMap;
+using OTOMTests.DependenctResolver;
+using AutoMapper;
 
 namespace OTOMTests.Controllers
 {
@@ -48,10 +51,19 @@ namespace OTOMTests.Controllers
 
         public ActionResult Create()
         {
-            Type type = typeof(PropertyOwnersViewModel);
-            var attr = ((MaximumPropertyRepeatGroupsAttribute)type.GetProperty("Property").GetCustomAttributes(typeof(MaximumPropertyRepeatGroupsAttribute), false).SingleOrDefault()).MaxPRGValue;
-            
-            return View();
+
+            Mapper.CreateMap<CompanyStatus, SelectListItem>()
+                  .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.CompanyStatusId))
+                  .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.CompanyStatusText));
+                
+            ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
+            //SelectList list = new SelectList(companyStatusRepo.GetAll());
+            PropertyOwnersViewModel vm = new PropertyOwnersViewModel();
+            vm.CompanyStatuses = Mapper.Map<IList<CompanyStatus>,IList<SelectListItem>>(companyStatusRepo.GetAll());
+
+            ViewBag.CompanyStatuses = vm.CompanyStatuses;
+
+            return View(vm);
         }
 
         //
@@ -59,13 +71,13 @@ namespace OTOMTests.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PropertyOwnersViewModel propertyowners)
+        public ActionResult Create([Bind(Include = "ProposerName,CompanyStatus,Property")] PropertyOwnersViewModel propertyowners)
         {
             if (ModelState.IsValid)
             {
                 db.PropertyOwners.Add(propertyowners);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
             return View(propertyowners);

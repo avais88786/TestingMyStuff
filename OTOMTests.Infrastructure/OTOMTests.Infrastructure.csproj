@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C8D35BCF-110A-4C11-890B-F2C40628AFEE}</ProjectGuid>
+    <ProjectGuid>{0D22B52B-D2B4-467B-8E22-529E647AB57B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OTOMTests.StubRepository</RootNamespace>
-    <AssemblyName>OTOMTests.StubRepository</AssemblyName>
+    <RootNamespace>OTOMTests.Infrastructure</RootNamespace>
+    <AssemblyName>OTOMTests.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,15 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompanyStatusRepository.cs" />
+    <Compile Include="Infrastructure\MaximumPropertyRepeatGroupsAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StubRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OTOMTests.Model\OTOMTests.Model.csproj">
-      <Project>{53aed073-cf4d-46b3-a224-e00e97498491}</Project>
-      <Name>OTOMTests.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

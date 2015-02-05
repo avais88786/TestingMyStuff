@@ -39,7 +39,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -131,13 +140,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ExtensionMethods.cs" />
-    <Compile Include="Infrastructure\MaximumPropertyRepeatGroupsAttribute.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\IPropertyOwnersRepository.cs" />
     <Compile Include="Models\OTOMTestsDataContext.cs" />
-    <Compile Include="Models\CompanyStatus.cs" />
-    <Compile Include="Models\ViewModels\PropertyOwnersViewModel.cs" />
-    <Compile Include="Models\RepeatGroups\PropertyRepeatGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -235,12 +238,27 @@
     <Content Include="Views\PropertyOwners\Delete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\PropertyRepeatGroup.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Address.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TestRepeatGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OTOMTests.DependenyResolver\OTOMTests.DependenyResolver.csproj">
+      <Project>{81511acd-6574-4289-ba99-dd5a73dd997a}</Project>
+      <Name>OTOMTests.DependenyResolver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OTOMTests.Infrastructure\OTOMTests.Infrastructure.csproj">
+      <Project>{0d22b52b-d2b4-467b-8e22-529e647ab57b}</Project>
+      <Name>OTOMTests.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OTOMTests.Model\OTOMTests.Model.csproj">
+      <Project>{53aed073-cf4d-46b3-a224-e00e97498491}</Project>
+      <Name>OTOMTests.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -270,6 +288,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
