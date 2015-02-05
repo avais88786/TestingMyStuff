@@ -15,17 +15,21 @@
 
         //$("#RepeatGroupContainer_Tabs > div > div").hide();
 
-        var maxProperties = $("#MaxPropertyRepeatValue").val();
+        //var maxProperties = $("#MaxPropertyRepeatValue").val();
 
-        for (var i = 2; i <= maxProperties; i++) {
-           // $("#repeatGroupTab_" + i).hide();
-            $("#tabBody_" + i).hide();
-            $("#tabHeader_" + i).hide();
-        }
+        //for (var i = 2; i <= maxProperties; i++) {
+        //   // $("#repeatGroupTab_" + i).hide();
+        //    $("#tabBody_" + i).hide();
+        //    $("#tabHeader_" + i).hide();
+        //}
     
-        $("#tabHeader_1").css("cursor", "pointer");
-        $("#tabHeaderSelector_1").css("background-color", "lightgreen");
-        TabDelegateClickHandler(1, $("#tabBody_1"));
+        $("#tabHeader_0").css("cursor", "pointer");
+        $("#tabHeaderSelector_0").css("background-color", "lightgreen");
+        TabDelegateClickHandler(0, $("#tabBody_0"));
+
+        $("#RepeatGroupContainer_Tabs > div:not([id$='0'],.tabAdd)").hide();
+        $(".nestedRepeatGroupContainer > div:not([id$='0'],.tabAdd)").hide();
+
     };
 
 
@@ -147,7 +151,7 @@
             $("#tabHeader_" + selectedId).remove();
             selectedId = --selectedId;
 
-            for (var i = selectedId; i >= 1; i--) {
+            for (var i = selectedId; i >= 0; i--) {
                 var element = $("#tabHeader_" + i);
 
                 if (element.length) {

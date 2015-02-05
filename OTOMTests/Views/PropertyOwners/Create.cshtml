@@ -28,12 +28,12 @@
         </div>
 
         <div class="editor-label">
-            @Html.DropDownListFor(model => model.CompanyStatuses, ViewBag.CompanyStatuses as SelectList)
+            @Html.DropDownListFor(model => model.CompanyStatus, Model.CompanyStatuses)
         </div>
 
         @*@Html.ListBoxFor(model => model.CompanyStatus, ViewBag.CompanyStatus as SelectList)*@
         <div class="editor-label">
-            @Html.LabelFor(model => model.Property)
+            @Html.LabelFor(model => model.Properties)
         </div>
         
         @*<div id="RepeatGroupContainer">
@@ -58,31 +58,32 @@
         <br/><br/>
         <div id="RepeatGroupContainer_Tabs">
 
-            @{var maxnumbersforTabs = Html.MaxRepeatGroupValue(model => model.Property);
+            @{ var maxnumbersforTabs = Html.MaxRepeatGroupValue(model => model.Properties);
               @Html.Hidden("MaxPropertyRepeatValue", maxnumbersforTabs)
-                  for (int i = 1; i <= maxnumbersforTabs; i++)
+                  for (int i = 0; i < maxnumbersforTabs; i++)
                   {
-                    <div id="tabHeader_@i" class="tabHeader">
+                    <div id="tabHeader_@i" class="tabHeader ">
                         <div id="tabHeaderSelector_@i" class="tabHeaderSelector"></div>
-                        @Html.Raw("Property " + i)
+                        
+                        @Html.Raw("Property " + (i+1))
                     </div>
                   }
                         <div id="tabAdd" class="tabAdd">+</div>
                 
-                @Html.EditorFor(model => model.Properties)
-    for (int i = 1; i <= maxnumbersforTabs; i++)
+                @*@Html.EditorFor(model => model.Properties)*@
+    for (int i = 0; i < maxnumbersforTabs; i++)
     {   
         
                     <div id="tabBody_@i" class="tabBody">
                         Property Id : @i
-                        @*@{Model.Property.ToList().Add(new PropertyRepeatGroup() {PropertyId = i });}*@
-                        @Html.EditorFor(x => Model, new { id = i })
+                        @{Model.Properties.Add(new PropertyRepeatGroup());}
+                        @Html.EditorFor(model => model.Properties[i])
 
                     </div>
                   }
             }
-            @Html.Hidden("currentPropertyRepeatGroupId_Tab", 1)
-            @Html.Hidden("selectedPropertyRepeatGroupId_Tab", 1)
+            @Html.Hidden("currentPropertyRepeatGroupId_Tab", 0)
+            @Html.Hidden("selectedPropertyRepeatGroupId_Tab", 0)
             @Html.Label("Add property", new { id = "addProperty_Tab", style = "text-decoration:underline;color:red;cursor:pointer;" })
         </div>
 

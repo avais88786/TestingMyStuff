@@ -28,7 +28,7 @@ namespace OTOMTests.Models.ViewModels
     {
         public PropertyOwnersViewModel()
         {
-            Property = new List<PropertyRepeatGroup>().AsEnumerable();
+            Properties = new List<PropertyRepeatGroup>();
         }
 
        // public ConstructionType ConstructionType { get; set; }
@@ -42,8 +42,8 @@ namespace OTOMTests.Models.ViewModels
         public IList<SelectListItem> CompanyStatuses { get; set; }
 
         [UIHint("PropertyRepeatGroup")]
-        [MaximumPropertyRepeatGroups(10)]
-        public IEnumerable<PropertyRepeatGroup> Properties { get; set; }
+        [MaximumPropertyRepeatGroups(5)]
+        public IList<PropertyRepeatGroup> Properties { get; set; }
 
         [UIHint("TestRepeatGroup")]
         [MaximumPropertyRepeatGroups(2)]

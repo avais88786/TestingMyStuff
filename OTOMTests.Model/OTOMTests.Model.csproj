@@ -48,6 +48,7 @@
     <Compile Include="IPropertyOwnersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyOwners.cs" />
+    <Compile Include="RepeatGroups\Location.cs" />
     <Compile Include="RepeatGroups\PropertyRepeatGroup.cs" />
     <Compile Include="ViewModels\CompanyStatus.cs" />
     <Compile Include="ViewModels\ICompanyStatusRepository.cs" />

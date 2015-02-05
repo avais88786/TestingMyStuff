@@ -239,6 +239,7 @@
     <Content Include="Views\Shared\EditorTemplates\PropertyRepeatGroup.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Address.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TestRepeatGroup.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\LocationRepeatGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

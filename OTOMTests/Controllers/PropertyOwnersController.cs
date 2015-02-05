@@ -60,9 +60,6 @@ namespace OTOMTests.Controllers
             //SelectList list = new SelectList(companyStatusRepo.GetAll());
             PropertyOwnersViewModel vm = new PropertyOwnersViewModel();
             vm.CompanyStatuses = Mapper.Map<IList<CompanyStatus>,IList<SelectListItem>>(companyStatusRepo.GetAll());
-
-            ViewBag.CompanyStatuses = vm.CompanyStatuses;
-
             return View(vm);
         }
 
@@ -71,7 +68,7 @@ namespace OTOMTests.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProposerName,CompanyStatus,Property")] PropertyOwnersViewModel propertyowners)
+        public ActionResult Create([Bind(Include = "ProposerName,CompanyStatus,Properties")] PropertyOwnersViewModel propertyowners)
         {
             if (ModelState.IsValid)
             {
