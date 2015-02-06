@@ -8,8 +8,10 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @RenderBody()
-
+    <div style="width:10%;float:left;display:inline-block;">PlaceHolderleftMenu </div>
+    <div style="width:75%;display:inline-block;">
+        @RenderBody()
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>

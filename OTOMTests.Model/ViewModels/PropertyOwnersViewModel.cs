@@ -41,6 +41,8 @@ namespace OTOMTests.Models.ViewModels
 
         public IList<SelectListItem> CompanyStatuses { get; set; }
 
+        public IList<SelectListItem> PropertyLocations { get; set; }
+
         [UIHint("PropertyRepeatGroup")]
         [MaximumPropertyRepeatGroups(5)]
         public IList<PropertyRepeatGroup> Properties { get; set; }

@@ -56,7 +56,11 @@
         <div id="nestedTabBody_@i" class="tabBody">
             @{ Model.Location.Add(new OTOMTests.Model.RepeatGroups.Location());}
             @*@Html.EditorFor(model => model.Location[i]);*@
-            @Html.Partial("EditorTemplates/LocationRepeatGroup", Model.Location[i])
+            @*@Html.Partial("EditorTemplates/LocationRepeatGroup", Model.Location[i], new ViewDataDictionary( new { PropertyLocations = ViewData["PropertyLocations"] }))@*new ViewDataDictionary(new { PropertyLocations = ViewData["PropertyLocations"] }))*@
+
+            @Html.LabelFor(model => model.Location)
+
+            @Html.DropDownListFor(model => model.PropertyLocationId[i], Model.PropertyLocations);@*// ViewData["PropertyLocations"] as IEnumerable<SelectListItem>)*@
         </div>
     }
 

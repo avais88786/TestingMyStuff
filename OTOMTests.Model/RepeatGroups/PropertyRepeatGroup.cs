@@ -6,15 +6,27 @@ using System.Linq;
 using System.Text;
 using OTOMTests.Model.RepeatGroups;
 using OTOMTests.Infrastructure;
+using System.Web.Mvc;
 
 namespace OTOMTests.Models.RepeatGroups
 {
     public class PropertyRepeatGroup
     {
+        
         public PropertyRepeatGroup()
         {
             Location = new List<Location>();
         }
+
+        public PropertyRepeatGroup(List<SelectListItem> list)
+        {
+            Location = new List<Location>();
+            PropertyLocations = list;
+        }
+
+        
+
+        
 
         [Editable(false)]
         public int PropertyId { get; set; }
@@ -26,6 +38,10 @@ namespace OTOMTests.Models.RepeatGroups
         public DateTime PurchaseDate { get; set; }
 
         public DateTime YearBuilt { get; set; }
+
+        public IList<int> PropertyLocationId { get; set; }
+
+        public IList<SelectListItem> PropertyLocations { get; set; }
 
         [UIHint("LocationRepeatGroup")]
         [MaximumPropertyRepeatGroups(5)]

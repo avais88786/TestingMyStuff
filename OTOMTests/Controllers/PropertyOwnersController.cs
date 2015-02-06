@@ -11,6 +11,8 @@ using OTOMTests.Models.ViewModels;
 using StructureMap;
 using OTOMTests.DependenctResolver;
 using AutoMapper;
+using OTOMTests.Model.RepeatGroups;
+using OTOMTests.Model;
 
 namespace OTOMTests.Controllers
 {
@@ -55,11 +57,18 @@ namespace OTOMTests.Controllers
             Mapper.CreateMap<CompanyStatus, SelectListItem>()
                   .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.CompanyStatusId))
                   .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.CompanyStatusText));
-                
+
+            Mapper.CreateMap<Location, SelectListItem>()
+                  .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.Id))
+                  .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.Text));
+
+
             ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
+            IRepository<Location> locationRepo = StructureMapContainer.Container.GetInstance<IRepository<Location>>();
             //SelectList list = new SelectList(companyStatusRepo.GetAll());
             PropertyOwnersViewModel vm = new PropertyOwnersViewModel();
             vm.CompanyStatuses = Mapper.Map<IList<CompanyStatus>,IList<SelectListItem>>(companyStatusRepo.GetAll());
+            vm.PropertyLocations = Mapper.Map<IList<Location>,IList<SelectListItem>>(locationRepo.GetAll());
             return View(vm);
         }
 

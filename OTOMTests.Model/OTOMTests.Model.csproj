@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="IPropertyOwnersRepository.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyOwners.cs" />
     <Compile Include="RepeatGroups\Location.cs" />

@@ -64,9 +64,9 @@
                   {
                     <div id="tabHeader_@i" class="tabHeader ">
 
-                        @if (i > 0) { 
+                        @*@if (i > 0) { 
                         <div id="tabRemove" class="tabRemove">X</div>
-                        }
+                        }*@
                         <div id="tabHeaderSelector_@i" class="tabHeaderSelector"></div>
                         
                         @Html.Raw("Property " + (i+1))
@@ -80,8 +80,8 @@
         
                     <div id="tabBody_@i" class="tabBody">
                         Property Id : @i
-                        @{Model.Properties.Add(new PropertyRepeatGroup());}
-                        @Html.EditorFor(model => model.Properties[i])
+                        @{Model.Properties.Add(new PropertyRepeatGroup(Model.PropertyLocations.ToList()));}
+                        @Html.EditorFor(model => model.Properties[i], new { PropertyLocations = Model.PropertyLocations.ToList() })
 
                     </div>
                   }
@@ -90,8 +90,6 @@
             @Html.Hidden("selectedPropertyRepeatGroupId_Tab", 0)
             @Html.Label("Add property", new { id = "addProperty_Tab", style = "text-decoration:underline;color:red;cursor:pointer;" })
         </div>
-
-
 
         <p>
             <input type="submit" value="Create" />
