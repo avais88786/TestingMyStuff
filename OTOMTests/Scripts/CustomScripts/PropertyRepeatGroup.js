@@ -106,6 +106,7 @@
             $("#tabHeader_" + currentId).fadeIn(500);
             $("#tabHeader_" + currentId).css("cursor", "pointer");
             $("#tabHeaderSelector_" + currentId).css("background-color", "lightgreen");
+            
 
             repeatGroup.slideToggle(500);
             $("#currentPropertyRepeatGroupId_Tab").val(currentId);
@@ -114,6 +115,7 @@
             TabDelegateClickHandler(currentId, repeatGroup);
             var removeLabelId = "removeProperty" + currentId;
             repeatGroup.append('<Label id="' + removeLabelId + '" class="removeTab">Remove Property</Label>')
+
             //$(document).delegate("#tabHeader_" + currentId, "click", function () {
             //    var oldId = $("#selectedPropertyRepeatGroupId_Tab").val();
             //    if (oldId != currentId)
