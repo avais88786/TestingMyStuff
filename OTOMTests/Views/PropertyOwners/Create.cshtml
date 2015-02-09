@@ -91,8 +91,10 @@
 
                             @{ var maxnumbersforTabs = Html.MaxRepeatGroupValue(model => model.Properties);
                                
-                               @*@Html.PartialRepeatGroup(model => model.Properties,Model.Properties, new ViewDataDictionary(new { Property = "Properties", maxValues = maxnumbersforTabs }));
-                            @Html.Partial(@"Partial\_PartialGenericRepeatGroup", Model.Properties.SingleOrDefault(), new ViewDataDictionary( new { Property = "Properties",maxValues = maxnumbersforTabs }));*@
+                               //Html.MaxRepeatGroupValue(model => model.Properties.Add(new PropertyRepeatGroup());
+                               
+                               @Html.PartialRepeatGroup(model => model.Properties, new ViewDataDictionary(new { Property = "Properties", maxValues = maxnumbersforTabs }))
+                            //Html.Partial(@"Partial\_PartialGenericRepeatGroup", Model.Properties.SingleOrDefault(), new ViewDataDictionary( new { Property = "Properties",maxValues = maxnumbersforTabs }));*@
                                
                             @Html.Hidden("MaxPropertyRepeatValue", maxnumbersforTabs)
     for (int i = 0; i < maxnumbersforTabs; i++)
@@ -133,7 +135,7 @@
         </section>
     </section>
     
-    @Html.Partial(@"Partial\TabTest")
+    @*@Html.Partial(@"Partial\TabTest")*@
     
 }
 

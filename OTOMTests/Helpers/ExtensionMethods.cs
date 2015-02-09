@@ -31,11 +31,14 @@ namespace OTOMTests.Helpers
             return attr;
         }
 
-        public static MvcHtmlString PartialRepeatGroup<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression, IList<PropertyRepeatGroup> base2, ViewDataDictionary viewDataDict)
+        public static MvcHtmlString PartialRepeatGroup<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression, ViewDataDictionary viewDataDict)
         {
             var propertyMetaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             var member = (MemberExpression)expression.Body;
             var value = expression.Compile();
+
+            //var x = member.Type.GetGenericArguments()[0]; // Gives underlying item type
+
             return null;
         }
 
