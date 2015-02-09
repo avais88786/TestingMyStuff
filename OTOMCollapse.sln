@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMCollapse", "OTOMCollapse\OTOMCollapse.csproj", "{FE2E3B3A-44DA-4E0F-BBD1-4D40BDC03D16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMCollapse.Tests", "OTOMCollapse.Tests\OTOMCollapse.Tests.csproj", "{AC63826A-3B8B-454A-8F79-E78E0B3335C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMCollapse.StubRepository", "OTOMCollapse.StubRepository\OTOMCollapse.StubRepository.csproj", "{C8D35BCF-110A-4C11-890B-F2C40628AFEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMCollapse.Models", "OTOMCollapse.Model\OTOMCollapse.Models.csproj", "{53AED073-CF4D-46B3-A224-E00E97498491}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMCollapse.DependenyResolver", "OTOMCollapse.DependenyResolver\OTOMCollapse.DependenyResolver.csproj", "{81511ACD-6574-4289-BA99-DD5A73DD997A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTOMCollapse.Infrastructure", "OTOMCollapse.Infrastructure\OTOMCollapse.Infrastructure.csproj", "{0D22B52B-D2B4-467B-8E22-529E647AB57B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE2E3B3A-44DA-4E0F-BBD1-4D40BDC03D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE2E3B3A-44DA-4E0F-BBD1-4D40BDC03D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE2E3B3A-44DA-4E0F-BBD1-4D40BDC03D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE2E3B3A-44DA-4E0F-BBD1-4D40BDC03D16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC63826A-3B8B-454A-8F79-E78E0B3335C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC63826A-3B8B-454A-8F79-E78E0B3335C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC63826A-3B8B-454A-8F79-E78E0B3335C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC63826A-3B8B-454A-8F79-E78E0B3335C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8D35BCF-110A-4C11-890B-F2C40628AFEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8D35BCF-110A-4C11-890B-F2C40628AFEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8D35BCF-110A-4C11-890B-F2C40628AFEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8D35BCF-110A-4C11-890B-F2C40628AFEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53AED073-CF4D-46B3-A224-E00E97498491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53AED073-CF4D-46B3-A224-E00E97498491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53AED073-CF4D-46B3-A224-E00E97498491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53AED073-CF4D-46B3-A224-E00E97498491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81511ACD-6574-4289-BA99-DD5A73DD997A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81511ACD-6574-4289-BA99-DD5A73DD997A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81511ACD-6574-4289-BA99-DD5A73DD997A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81511ACD-6574-4289-BA99-DD5A73DD997A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D22B52B-D2B4-467B-8E22-529E647AB57B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D22B52B-D2B4-467B-8E22-529E647AB57B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D22B52B-D2B4-467B-8E22-529E647AB57B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D22B52B-D2B4-467B-8E22-529E647AB57B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

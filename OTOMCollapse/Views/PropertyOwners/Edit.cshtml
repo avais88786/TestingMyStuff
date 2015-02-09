@@ -1,0 +1,46 @@
+﻿@model OTOMCollapse.Models.PropertyOwners
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>PropertyOwners</legend>
+
+        @Html.HiddenFor(model => model.PropertyOwnersId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProposerName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProposerName)
+            @Html.ValidationMessageFor(model => model.ProposerName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DatePropertyBuilt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DatePropertyBuilt)
+            @Html.ValidationMessageFor(model => model.DatePropertyBuilt)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
