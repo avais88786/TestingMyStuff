@@ -15,6 +15,11 @@ namespace OTOMCollapse.Models.RepeatGroups
         public PropertyRepeatGroup()
         {
             Location = new List<Location>();
+
+            for (int i = 0; i < 5; i++) 
+            {
+                Location.Add(new Location());
+            }
         }
 
         public PropertyRepeatGroup(List<SelectListItem> list)
@@ -39,7 +44,7 @@ namespace OTOMCollapse.Models.RepeatGroups
         public IList<SelectListItem> PropertyLocations { get; set; }
 
         [UIHint("LocationRepeatGroup")]
-        [MaximumPropertyRepeatGroups(5)]
+        [MaximumRepeatGroups(5)]
         public IList<Location> Location { get; set; }
 
         [UIHint("Address")]

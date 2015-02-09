@@ -6,7 +6,7 @@ using System.Web;
 
 namespace OTOMCollapse.Infrastructure
 {
-    public class MaximumPropertyRepeatGroupsAttribute : ValidationAttribute
+    public class MaximumRepeatGroupsAttribute : ValidationAttribute
     {
         private int _maxPRGValue;
         public int MaxPRGValue
@@ -17,7 +17,7 @@ namespace OTOMCollapse.Infrastructure
             }
         }
 
-        public MaximumPropertyRepeatGroupsAttribute(int value)
+        public MaximumRepeatGroupsAttribute(int value)
         {
             _maxPRGValue = value;
         }

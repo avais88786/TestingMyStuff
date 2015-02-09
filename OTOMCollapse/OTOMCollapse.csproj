@@ -245,6 +245,9 @@
     <Content Include="Views\PropertyOwners\Partial\_PartialStandardQuestions.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\_PartialGenericRepeatGroup.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\TabTest.cshtml" />
+    <Content Include="Views\PropertyOwners\Partial\_PartialPropertyDetailsQuestions.cshtml" />
+    <Content Include="Views\PropertyOwners\Partial\_PartialGeneralCoverQuestions.cshtml" />
+    <Content Include="Views\PropertyOwners\Partial\_PartialClaimsHistoryQuestions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

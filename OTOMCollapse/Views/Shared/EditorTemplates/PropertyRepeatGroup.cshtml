@@ -64,13 +64,8 @@
             for (int i = 0; i < maxLocations; i++)
             {
                 <div id="nestedTabBody_@i" class="tabBody">
-                    @{ Model.Location.Add(new OTOMCollapse.Model.RepeatGroups.Location());}
-                    @*@Html.EditorFor(model => model.Location[i]);*@
-                    @*@Html.Partial("EditorTemplates/LocationRepeatGroup", Model.Location[i], new ViewDataDictionary( new { PropertyLocations = ViewData["PropertyLocations"] }))@*new ViewDataDictionary(new { PropertyLocations = ViewData["PropertyLocations"] }))*@
-
                     @Html.LabelFor(model => model.Location)
-
-                    @Html.DropDownListFor(model => model.PropertyLocationId[i], Model.PropertyLocations);@*// ViewData["PropertyLocations"] as IEnumerable<SelectListItem>)*@
+                    @Html.DropDownListFor(model => model.PropertyLocationId[i], new List<SelectListItem>(){new SelectListItem(){Text = "Avais",Value="1"}}));@*// ViewData["PropertyLocations"] as IEnumerable<SelectListItem>)*@
                 </div>
             }
 

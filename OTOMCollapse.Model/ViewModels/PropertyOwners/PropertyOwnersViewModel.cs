@@ -13,8 +13,7 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
     {
         public PropertyOwnersViewModel()
         {
-            Properties = new List<PropertyRepeatGroup>();
-
+           
             //for (var i = 0; i < x; i++)
             //{
             //    Properties.Add(new PropertyRepeatGroup());
@@ -22,6 +21,10 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 
             DeclarationQuestions = new DeclarationQuestionsGroupViewModel();
             StandardQuestions = new StandardQuestionsGroupViewModel();
+            PropertyDetailsQuestions = new PropertyDetailsGroupViewModel();
+            GeneralCoversQuestions = new GeneralCoversGroupViewModel();
+            ClaimsHistoryQuestions = new ClaimsHistoryGroupViewModel();
+
         }
 
        // public ConstructionType ConstructionType { get; set; }
@@ -39,15 +42,22 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [Required]
         public string ProposerName { get; set; }
 
+        [Display(Name="Property Details")]
+        public PropertyDetailsGroupViewModel PropertyDetailsQuestions { get; set; }
+
+        [Display(Name="General Covers")]
+        public GeneralCoversGroupViewModel GeneralCoversQuestions { get; set; }
+
+        [Display(Name = "Claims History")]
+        public ClaimsHistoryGroupViewModel ClaimsHistoryQuestions { get; set; }
+
         public int CompanyStatus { get; set; }
 
         public IList<SelectListItem> CompanyStatuses { get; set; }
 
         public IList<SelectListItem> PropertyLocations { get; set; }
 
-        [UIHint("PropertyRepeatGroup")]
-        [MaximumPropertyRepeatGroups(10)]
-        public IList<PropertyRepeatGroup> Properties { get; set; }
+        
 
     }
 }

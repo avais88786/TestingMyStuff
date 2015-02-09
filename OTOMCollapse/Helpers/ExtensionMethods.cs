@@ -25,7 +25,7 @@ namespace OTOMCollapse.Helpers
             var y = ExpressionHelper.GetExpressionText(expression);
             //var x = ((MaximumPropertyRepeatGroupsAttribute)expression.Body.Type.GetCustomAttributes(typeof(MaximumPropertyRepeatGroupsAttribute), false).SingleOrDefault()).MaxPRGValue;
 
-            var attr = ((MaximumPropertyRepeatGroupsAttribute)propertyMetaData.ContainerType.GetProperty(propertyMetaData.PropertyName).GetCustomAttributes(typeof(MaximumPropertyRepeatGroupsAttribute), false).SingleOrDefault()).MaxPRGValue;
+            var attr = ((MaximumRepeatGroupsAttribute)propertyMetaData.ContainerType.GetProperty(propertyMetaData.PropertyName).GetCustomAttributes(typeof(MaximumRepeatGroupsAttribute), false).SingleOrDefault()).MaxPRGValue;
             //expression.
             return attr;
         }

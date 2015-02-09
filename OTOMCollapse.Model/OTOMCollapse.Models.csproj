@@ -53,8 +53,11 @@
     <Compile Include="RepeatGroups\PropertyRepeatGroup.cs" />
     <Compile Include="RepeatGroups\RepeatGroupBase.cs" />
     <Compile Include="ViewModels\CompanyStatus.cs" />
+    <Compile Include="ViewModels\PropertyOwners\ClaimsHistoryGroupViewModel.cs" />
     <Compile Include="ViewModels\PropertyOwners\DeclarationQuestionsGroupViewModel.cs" />
     <Compile Include="ViewModels\ICompanyStatusRepository.cs" />
+    <Compile Include="ViewModels\PropertyOwners\GeneralCoversGroupViewModel.cs" />
+    <Compile Include="ViewModels\PropertyOwners\PropertyDetailsGroupViewModel.cs" />
     <Compile Include="ViewModels\PropertyOwners\PropertyOwnersViewModel.cs" />
     <Compile Include="ViewModels\PropertyOwners\StandardQuestionsGroupViewModel.cs" />
   </ItemGroup>

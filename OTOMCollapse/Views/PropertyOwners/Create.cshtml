@@ -37,102 +37,84 @@
                     Property Details
                 </a>
                 <section id="accordion-propertyQuestions" class="accordion-section-content">
-                    <article>
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.ProposerName)
-                        </div>
+                    @*<article>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ProposerName)
+                </div>
 
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.ProposerName)
-                            @Html.ValidationMessageFor(model => model.ProposerName)
-                        </div>
-                    </article>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ProposerName)
+                    @Html.ValidationMessageFor(model => model.ProposerName)
+                </div>
+            </article>
 
-                    <article>
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.CompanyStatus)
-                        </div>
-                        <div class="editor-field">
-                            @Html.DropDownListFor(model => model.CompanyStatus, Model.CompanyStatuses)
-                        </div>
-                    </article>
+            <article>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.CompanyStatus)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(model => model.CompanyStatus, Model.CompanyStatuses)
+                </div>
+            </article>*@
 
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.Properties)
+                        @Html.LabelFor(model => model.PropertyDetailsQuestions)
                     </div>
+
+                    @Html.Partial(@"Partial\_PartialPropertyDetailsQuestions", Model.PropertyDetailsQuestions)
 
                     @{#region sequentialBelow}
                     @*<div id="RepeatGroupContainer">
-                            @{var maxnumbers = Html.MaxRepeatGroupValue(model => model.Property);
-                            @Html.Hidden("MaxPropertyRepeatValue", maxnumbers)
-                                for (int i = 0; i < maxnumbers; i++)
-                                {
-                                    <div id="PropertyRepeatGroup_@i" class="editor-field" style="background-color:lightpink;width:50%;margin-bottom:10px;">
-                                        @Html.Raw("Property Id :" + i)
-                                        @Html.EditorFor(model => model.Property, new { id = i })
-                                    </div>
-                                }
-                            }
+                @{var maxnumbers = Html.MaxRepeatGroupValue(model => model.Property);
+                @Html.Hidden("MaxPropertyRepeatValue", maxnumbers)
+                    for (int i = 0; i < maxnumbers; i++)
+                    {
+                        <div id="PropertyRepeatGroup_@i" class="editor-field" style="background-color:lightpink;width:50%;margin-bottom:10px;">
+                            @Html.Raw("Property Id :" + i)
+                            @Html.EditorFor(model => model.Property, new { id = i })
                         </div>
+                    }
+                }
+            </div>
 
 
 
-                        @Html.Hidden("currentPropertyRepeatGroupId",0)
-                        @Html.Label("Add property", new { id = "addProperty", style = "text-decoration:underline;color:red;cursor:pointer" })
-                        @Html.Label("Remove property", new { id = "removeProperty", style = "text-decoration:underline;color:red;cursor:pointer",hidden="hidden" })*@
+            @Html.Hidden("currentPropertyRepeatGroupId",0)
+            @Html.Label("Add property", new { id = "addProperty", style = "text-decoration:underline;color:red;cursor:pointer" })
+            @Html.Label("Remove property", new { id = "removeProperty", style = "text-decoration:underline;color:red;cursor:pointer",hidden="hidden" })*@
 
                     @{#endregion}
 
-                    <br /><br />
-                    <section class="PropertyRepeatGroupContainer">
-                        <div id="RepeatGroupContainer_Tabs">
+                </section>
+                   
+                
+            </section>
+            <section class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-GeneralQuestions">
+                    @Html.DisplayNameFor(model => model.GeneralCoversQuestions)
+                </a>
+                <section id="accordion-GeneralQuestions" class="accordion-section-content">
+                    @Html.Partial(@"Partial\_PartialGeneralCoverQuestions", Model.GeneralCoversQuestions)
+                </section>
+            </section>
 
-                           
+            <section class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-ClaimsQuestions">
+                    @Html.DisplayNameFor(model => model.ClaimsHistoryQuestions)
+                </a>
+                <section id="accordion-ClaimsQuestions" class="accordion-section-content">
+                    @Html.Partial(@"Partial\_PartialClaimsHistoryQuestions", Model.ClaimsHistoryQuestions)
 
-                            @{ var maxnumbersforTabs = Html.MaxRepeatGroupValue(model => model.Properties);
-                               
-                               //Html.MaxRepeatGroupValue(model => model.Properties.Add(new PropertyRepeatGroup());
-                               
-                               @Html.PartialRepeatGroup(model => model.Properties, new ViewDataDictionary(new { Property = "Properties", maxValues = maxnumbersforTabs }))
-                            //Html.Partial(@"Partial\_PartialGenericRepeatGroup", Model.Properties.SingleOrDefault(), new ViewDataDictionary( new { Property = "Properties",maxValues = maxnumbersforTabs }));*@
-                               
-                            @Html.Hidden("MaxPropertyRepeatValue", maxnumbersforTabs)
-    for (int i = 0; i < maxnumbersforTabs; i++)
-    {
-                            <div id="tabHeader_@i" class="tabHeader ">
-
-                                @*@if (i > 0) {
-                                    <div id="tabRemove" class="tabRemove">X</div>
-                                    }*@
-                                <div id="tabHeaderSelector_@i" class="tabHeaderSelector"></div>
-
-                                @Html.Raw("Property " + (i + 1))
-                            </div>
-    }
-                            <div id="tabAdd" class="tabAdd">+</div>
-
-    for (int i = 0; i < Model.Properties.Count; i++)
-    {
-
-                            <div id="tabBody_@i" class="tabBody">
-                                Property Id : @i
-                                @*@{Model.Properties.Add(new PropertyRepeatGroup(Model.PropertyLocations.ToList()));}*@
-                                @Html.EditorFor(model => model.Properties[i], new { PropertyLocations = Model.PropertyLocations.ToList() })
-
-                            </div>
-    }
-                            }
-                            @Html.Hidden("currentPropertyRepeatGroupId_Tab", 0)
-                            @Html.Hidden("selectedPropertyRepeatGroupId_Tab", 0)
-                            @Html.Label("Add property", new { id = "addProperty_Tab", style = "text-decoration:underline;color:red;cursor:pointer;" })
-                        </div>
-                    </section>
                     <p>
                         <input type="submit" value="Create" />
                     </p>
                 </section>
             </section>
+
         </section>
+
+       
+
     </section>
     
     @*@Html.Partial(@"Partial\TabTest")*@
