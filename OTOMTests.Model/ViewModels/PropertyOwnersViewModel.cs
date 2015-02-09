@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using OTOMTests.Infrastructure;
 using System.Web.Mvc;
+using OTOMTests.Model.ViewModels;
 
 namespace OTOMTests.Models.ViewModels
 {
@@ -29,12 +30,23 @@ namespace OTOMTests.Models.ViewModels
         public PropertyOwnersViewModel()
         {
             Properties = new List<PropertyRepeatGroup>();
+            DeclarationQuestions = new DeclarationQuestionsGroupViewModel();
+            StandardQuestions = new StandardQuestionsGroupViewModel();
         }
 
        // public ConstructionType ConstructionType { get; set; }
 
         public int PropertyOwnersId { get; set; }
 
+        [UIHint("DeclarationQuestionsTemplate")]
+        [Display(Name="Declaration Questions")]
+        public DeclarationQuestionsGroupViewModel DeclarationQuestions { get; set; }
+
+        [UIHint("StandardQuestionsTemplate")]
+        [Display(Name = "Standard Questions")]
+        public StandardQuestionsGroupViewModel StandardQuestions { get; set; }
+
+        [Required]
         public string ProposerName { get; set; }
 
         public int CompanyStatus { get; set; }
@@ -44,7 +56,7 @@ namespace OTOMTests.Models.ViewModels
         public IList<SelectListItem> PropertyLocations { get; set; }
 
         [UIHint("PropertyRepeatGroup")]
-        [MaximumPropertyRepeatGroups(5)]
+        [MaximumPropertyRepeatGroups(15)]
         public IList<PropertyRepeatGroup> Properties { get; set; }
 
         [UIHint("TestRepeatGroup")]

@@ -3,7 +3,7 @@
     width:auto;
     padding: 30px 10px;
     border-radius:5px 5px 0px 0px;
-    background-color:pink;
+    background-color:lightpink;
     -webkit-box-sizing: initial;
 }
 
@@ -61,6 +61,16 @@
 .nestedRepeatGroupContainer{
     border-style:solid;
     border-color:white;
+     border-radius:5px 5px;
+    background-color:hotpink;
+    padding:5px;
+    margin:5px;
+}
+
+.PropertyRepeatGroupContainer{
+    border-style:solid;
+    border-color:white;
+     border-radius:5px 5px;
     background-color:hotpink;
     padding:5px;
     margin:5px;

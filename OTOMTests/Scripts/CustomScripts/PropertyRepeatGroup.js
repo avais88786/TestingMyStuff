@@ -148,21 +148,28 @@
     };
 
     function RemoveTabDelegateClickHandler(selectedId) {
-        $(document).delegate("#removeProperty"+selectedId, "click", function () {
-            $("#tabBody_" + selectedId).remove();
-            $("#tabHeader_" + selectedId).remove();
-            selectedId = --selectedId;
+        $(document).delegate("#removeProperty" + selectedId, "click", function () {
+            $("#tabHeader_" + selectedId).fadeOut(500);
+            $("#tabBody_" + selectedId).slideUp(500, function () {
+                $("#tabBody_" + selectedId).remove();
+                $("#tabHeader_" + selectedId).remove();
 
-            for (var i = selectedId; i >= 0; i--) {
-                var element = $("#tabHeader_" + i);
 
-                if (element.length) {
-                    element.trigger("click");
-                    $("#selectedPropertyRepeatGroupId_Tab").val(i);
-                    break;
+                selectedId = --selectedId;
+
+                for (var i = selectedId; i >= 0; i--) {
+                    var element = $("#tabHeader_" + i);
+
+                    if (element.length) {
+                        element.trigger("click");
+                        $("#selectedPropertyRepeatGroupId_Tab").val(i);
+                        break;
+                    }
+
                 }
 
-            }
+            });
+            
 
         });
     }

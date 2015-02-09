@@ -1,4 +1,6 @@
 ﻿using OTOMTests.Infrastructure;
+using OTOMTests.Model.RepeatGroups;
+using OTOMTests.Models.RepeatGroups;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +23,7 @@ namespace OTOMTests.Helpers
             Type typee = helper.ViewData.ModelMetadata.ModelType;
             var propertyMetaData = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
             string htmlFieldName = ExpressionHelper.GetExpressionText(expression);
-            //var y = ExpressionHelper.GetExpressionText(expression);
+            var y = ExpressionHelper.GetExpressionText(expression);
             //var x = ((MaximumPropertyRepeatGroupsAttribute)expression.Body.Type.GetCustomAttributes(typeof(MaximumPropertyRepeatGroupsAttribute), false).SingleOrDefault()).MaxPRGValue;
 
             var attr = ((MaximumPropertyRepeatGroupsAttribute)propertyMetaData.ContainerType.GetProperty(propertyMetaData.PropertyName).GetCustomAttributes(typeof(MaximumPropertyRepeatGroupsAttribute), false).SingleOrDefault()).MaxPRGValue;
@@ -29,6 +31,15 @@ namespace OTOMTests.Helpers
             return attr;
         }
 
+        public static MvcHtmlString PartialRepeatGroup<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression, IList<PropertyRepeatGroup> base2, ViewDataDictionary viewDataDict)
+        {
+            var propertyMetaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            var member = (MemberExpression)expression.Body;
+            var value = expression.Compile();
+            return null;
+        }
+
+       // public static void EvaluateExpression<TModel,TVale>(this HtmlHelper<TModel> htmlHelper,Expression<Func<TModel,TVale>> expression)
 
         #region example
         //public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, object htmlAttributes)

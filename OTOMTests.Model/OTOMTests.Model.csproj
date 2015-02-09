@@ -51,9 +51,12 @@
     <Compile Include="PropertyOwners.cs" />
     <Compile Include="RepeatGroups\Location.cs" />
     <Compile Include="RepeatGroups\PropertyRepeatGroup.cs" />
+    <Compile Include="RepeatGroups\RepeatGroupBase.cs" />
     <Compile Include="ViewModels\CompanyStatus.cs" />
+    <Compile Include="ViewModels\DeclarationQuestionsGroupViewModel.cs" />
     <Compile Include="ViewModels\ICompanyStatusRepository.cs" />
     <Compile Include="ViewModels\PropertyOwnersViewModel.cs" />
+    <Compile Include="ViewModels\StandardQuestionsGroupViewModel.cs" />
     <Compile Include="ViewModels\TestRepeatGroup.cs" />
   </ItemGroup>
   <ItemGroup>

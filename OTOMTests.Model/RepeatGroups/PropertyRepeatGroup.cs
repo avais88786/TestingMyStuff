@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace OTOMTests.Models.RepeatGroups
 {
-    public class PropertyRepeatGroup
+    public class PropertyRepeatGroup : RepeatGroupBase
     {
         
         public PropertyRepeatGroup()
@@ -23,10 +23,6 @@ namespace OTOMTests.Models.RepeatGroups
             Location = new List<Location>();
             PropertyLocations = list;
         }
-
-        
-
-        
 
         [Editable(false)]
         public int PropertyId { get; set; }
@@ -50,4 +46,5 @@ namespace OTOMTests.Models.RepeatGroups
         [UIHint("Address")]
         public Address Address { get; set; }
     }
+
 }
