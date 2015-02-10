@@ -6,7 +6,8 @@
         
        @* @Html.Partial(@"Partial\_PartialGenericRepeatGroup",Model.Properties ,new ViewDataDictionary{{ "RepeatGroupName","Properties" }})*@
         
-        @Html.PartialRepeatGroup(model => model.Properties);
+        @*@Html.PartialRepeatGroup(model => model.Properties);*@
+        @Html.EditorFor(model => model.Properties);
 
 
       

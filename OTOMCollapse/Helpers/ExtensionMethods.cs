@@ -1,5 +1,6 @@
 ﻿using OTOMCollapse.Infrastructure;
 using OTOMCollapse.Models.RepeatGroups;
+using OTOMCollapse.Models.ViewModels.PropertyOwners;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,24 +49,30 @@ namespace OTOMCollapse.Helpers
             return System.Web.Mvc.Html.PartialExtensions.Partial(htmlHelper, @"Partial\_PartialGenericRepeatGroup",htmlHelper.ViewData.Model, new ViewDataDictionary{{ "RepeatGroupName", member.Name },{"Expression",expression}});
         }
 
-        public static MvcHtmlString EditorForRepeatGroup<TModel>(this HtmlHelper<TModel> htmlHelper, string PropertyNameToInvoke,int index)
+        public static MvcHtmlString EditorForRepeatGroup<TModel>(this HtmlHelper<TModel> htmlHelper, string PropertyNameToInvoke, int index)
         {
             var model = htmlHelper.ViewData.Model;
             var item = Expression.Parameter(model.GetType());
+            var m = Expression.Property(item, PropertyNameToInvoke);
+
+            var propertyInfo = model.GetType().GetProperty(PropertyNameToInvoke);
+           // var prop = Expression.Property(item, propertyInfo, new[] { Expression.Constant(index) });
+            var args = new Expression[] {Expression.Constant(index)};
+
             
-            var format = Expression.Constant(index);
+
+            var y = Expression.MakeIndex(m, typeof(List<PropertyRepeatGroup>).GetProperty("Item"), new[] { Expression.Constant(index) });
             
-            var prop = Expression.Property(item, PropertyNameToInvoke);
-            var args = new Expression[] { format,prop };
             //prop.
             
             Type type = model.GetType();
+            
             //then lambda
-            var lambda =  Expression.Lambda<Func<TModel,string>>(prop,item);
+            var lambda = Expression.Lambda<Func<PropertyDetailsGroupViewModel, PropertyRepeatGroup>>(y, item);
 
 
             //System.Web.Mvc.Html.EditorExtensions.EditorFor(htmlHelper,)
-            System.Web.Mvc.Html.EditorExtensions.EditorFor(htmlHelper, lambda);
+            //System.Web.Mvc.Html.EditorExtensions.EditorFor(htmlHelper, lambda);
             //System.Web.Mvc.Html.EditorExtensions.EditorFor(htmlHelper,((IList)model.GetType().GetProperty(PropertyNameToInvoke))[index]);
             return null;
         }
@@ -98,5 +105,7 @@ namespace OTOMCollapse.Helpers
         //}
 
         #endregion
+
+        
     }
 }
