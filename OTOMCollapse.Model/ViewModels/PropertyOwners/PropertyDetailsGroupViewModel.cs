@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using OTOMCollapse.Models.Helpers;
+
 
 namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 {
@@ -14,7 +16,7 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         {
             Properties = new List<PropertyRepeatGroup>();
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < this.GetMaxRepeatGroupValueOf(model => model.Properties); i++)
             {
                 Properties.Add(new PropertyRepeatGroup());
             }

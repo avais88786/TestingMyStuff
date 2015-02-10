@@ -5,7 +5,8 @@
         @Html.DisplayNameFor(model => model.LossesIn5Years)
     </div>
     <div class="editor-field">
-        @Html.RadioButtonFor(model => model.LossesIn5Years,true)
+        @Html.RadioButtonFor(model => model.LossesIn5Years, "Yes")
+        @Html.RadioButtonFor(model => model.LossesIn5Years, "No")
     </div>
 </article>
 

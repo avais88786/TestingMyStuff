@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using OTOMCollapse.Infrastructure;
 using System.Web.Mvc;
+using OTOMCollapse.Models.Helpers;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
@@ -16,10 +17,11 @@ namespace OTOMCollapse.Models.RepeatGroups
         {
             Location = new List<Location>();
 
-            for (int i = 0; i < 5; i++) 
+            for (int i = 0; i < this.GetMaxRepeatGroupValueOf(model => model.Location) ; i++) 
             {
                 Location.Add(new Location());
             }
+            
         }
 
         public PropertyRepeatGroup(List<SelectListItem> list)

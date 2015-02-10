@@ -8,18 +8,18 @@ namespace OTOMCollapse.Infrastructure
 {
     public class MaximumRepeatGroupsAttribute : ValidationAttribute
     {
-        private int _maxPRGValue;
-        public int MaxPRGValue
+        private int _value;
+        public int Value
         {
             get
             {
-                return _maxPRGValue;
+                return _value;
             }
         }
 
         public MaximumRepeatGroupsAttribute(int value)
         {
-            _maxPRGValue = value;
+            _value = value;
         }
 
         protected override System.ComponentModel.DataAnnotations.ValidationResult IsValid(object value, System.ComponentModel.DataAnnotations.ValidationContext validationContext)
