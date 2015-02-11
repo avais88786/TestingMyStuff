@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    public abstract class RepeatGroupBase
+    public abstract class RepeatGroupContainer
     {
-        public virtual RepeatGroupBase RepeatGroupProperty { get; set; }
+        public abstract RepeatGroupBase GetProperty(int i);
     }
 }

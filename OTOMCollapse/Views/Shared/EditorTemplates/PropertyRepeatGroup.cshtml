@@ -1,73 +1,73 @@
-﻿@model IList<PropertyRepeatGroup>
+﻿@model PropertyRepeatGroup
 
-@for (int i = 0; i < Model.Count; i++) { 
+
 
 <article>
     <div class="editor-label">
-        @Html.LabelFor(model => model[i].PropertyId)
+        @Html.LabelFor(model => model.PropertyId)
     </div>
     <div class="editor-field">
-        @Html.DisplayFor(model => model[i].PropertyId)
+        @Html.DisplayFor(model => model.PropertyId)
     </div>
 </article>
  
 <article>
     <div class="editor-label">
-        @Html.LabelFor(model => model[i].PropertyType)
+        @Html.LabelFor(model => model.PropertyType)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model[i].PropertyType)
-        @Html.ValidationMessageFor(model => model[i].PropertyType)
+        @Html.EditorFor(model => model.PropertyType)
+        @Html.ValidationMessageFor(model => model.PropertyType)
     </div>
 </article>
 
 <article>
     <div class="editor-label">
-        @Html.LabelFor(model => model[i].PropertyPercentage)
+        @Html.LabelFor(model => model.PropertyPercentage)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model[i].PropertyPercentage)
-        @Html.ValidationMessageFor(model => model[i].PropertyPercentage)
+        @Html.EditorFor(model => model.PropertyPercentage)
+        @Html.ValidationMessageFor(model => model.PropertyPercentage)
     </div>
 </article>
 
 <article>
     <div class="editor-label">
-        @Html.LabelFor(model => model[i].PurchaseDate)
+        @Html.LabelFor(model => model.PurchaseDate)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model[i].PurchaseDate)
-        @Html.ValidationMessageFor(model => model[i].PurchaseDate)
+        @Html.EditorFor(model => model.PurchaseDate)
+        @Html.ValidationMessageFor(model => model.PurchaseDate)
     </div>
 </article>
 
 <article>
     <div class="editor-label">
-        @Html.LabelFor(model => model[i].YearBuilt)
+        @Html.LabelFor(model => model.YearBuilt)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model[i].YearBuilt)
-        @Html.ValidationMessageFor(model => model[i].YearBuilt)
+        @Html.EditorFor(model => model.YearBuilt)
+        @Html.ValidationMessageFor(model => model.YearBuilt)
     </div>
 </article>
 
 <section>
     <div class="nestedRepeatGroupContainer">
         @{
-        for (int m = 0; m < Model[i].Location.Count; m++)
+        for (int m = 0; m < Model.Location.Count; m++)
         {
-            <div id="nestedTabHeader_@i" class="tabHeader">
-                <div id="tabHeaderSelector_@i" class="tabHeaderSelector"></div>
+            <div id="nestedTabHeader_@m" class="tabHeader">
+                <div id="tabHeaderSelector_@m" class="tabHeaderSelector"></div>
                 @Html.Raw("Location " + (m + 1))
             </div>
         }
         <div id="locationTabAdd" class="tabAdd">+</div>
 
-         for (int m = 0; m < Model[i].Location.Count; m++)
+         for (int m = 0; m < Model.Location.Count; m++)
             {
-                <div id="nestedTabBody_@i" class="tabBody">
-                    @Html.LabelFor(model => model[i].Location)
-                    @Html.DropDownListFor(model => model[i].PropertyLocationId[m], new List<SelectListItem>() { new SelectListItem() { Text = "Avais", Value = "1" } }));@*// ViewData["PropertyLocations"] as IEnumerable<SelectListItem>)*@
+                <div id="nestedTabBody_@m" class="tabBody">
+                    @Html.LabelFor(model => model.Location)
+                    @Html.DropDownListFor(model => model.PropertyLocationId[m], new List<SelectListItem>() { new SelectListItem() { Text = "Avais", Value = "1" } }));@*// ViewData["PropertyLocations"] as IEnumerable<SelectListItem>)*@
                 </div>
             }
 
@@ -76,13 +76,12 @@
 </section>
 
 <section>
-        @Html.EditorFor(model => model[i].Address)
+        @Html.EditorFor(model => model.Address)
 </section>
 
 @*@Html.Partial(@"Partial\TabTest")*@
 
    
-}
 
 
     

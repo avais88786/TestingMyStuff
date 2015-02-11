@@ -1,4 +1,4 @@
-﻿
+﻿@model OTOMCollapse.Models.RepeatGroups.RepeatGroupContainer
 
 
 @{string property = (String)ViewData["RepeatGroupName"];
@@ -30,6 +30,8 @@
                     @*@{Model.Properties.Add(new PropertyRepeatGroup(Model.PropertyLocations.ToList()));}*@
                     @{var x = new PropertyDetailsGroupViewModel();}
                     
+
+                    @Html.EditorFor(m => m.GetProperty(i).RepeatGroupProperty)
                     @*@Html.EditorForRepeatGroup(property, i);*@
                     @*@Html.EditorFor((PropertyRepeatGroup)Model.Properties[i])*@
 
