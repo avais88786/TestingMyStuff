@@ -52,18 +52,11 @@ namespace OTOMCollapse.Models.RepeatGroups
         [UIHint("Address")]
         public Address Address { get; set; }
 
-        public override RepeatGroupBase RepeatGroupProperty
-        {
-            get
-            {
-                return base.RepeatGroupProperty;
-            }
-            set
-            {
-                base.RepeatGroupProperty = value;
-            }
-        }
 
+        IList<RepeatGroupBase> RepeatGroupBase.repeatGroupBase
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 
 }

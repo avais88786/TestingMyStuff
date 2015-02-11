@@ -1,33 +1,42 @@
-﻿@model OTOMCollapse.Models.RepeatGroups.SubsidiaryRepeatGroup
+﻿@model IList<OTOMCollapse.Models.RepeatGroups.RepeatGroupBase>
+
+
+@{ var SubsidiaryCompanies = Model.Cast<SubsidiaryRepeatGroup>().ToList();
+   ViewData.TemplateInfo.HtmlFieldPrefix = "StandardQuestions";
+for (int i = 0; i < Model.Count; i++)
+{
+    
+
 
 <article>
     <div class="editor-label">
-        @Html.LabelFor(model => model.CompanyName)
+        @Html.LabelFor(model => SubsidiaryCompanies[i].CompanyName)
     </div>
     <div class="editor-field">
-        @Html.DisplayFor(model => model.CompanyName)
+        @Html.EditorFor(model => SubsidiaryCompanies[i].CompanyName)
     </div>
 </article>
 
 <article>
     <div class="editor-label">
-        @Html.LabelFor(model => model.EmployersReferenceNumber)
+        @Html.LabelFor(model => SubsidiaryCompanies[i].EmployersReferenceNumber)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model.EmployersReferenceNumber)
+        @Html.EditorFor(model => SubsidiaryCompanies[i].EmployersReferenceNumber)
         
-        @Html.ValidationMessageFor(model => model.EmployersReferenceNumber)
+        @Html.ValidationMessageFor(model => SubsidiaryCompanies[i].EmployersReferenceNumber)
     </div>
 </article>
 
 <article>
     <div class="editor-label">
-        @Html.LabelFor(model => model.TestRepeatGroups)
+        @Html.LabelFor(model => SubsidiaryCompanies[i].TestRepeatGroups)
     </div>
     <div class="editor-field">
        
-        @Html.Partial("~/Views/PropertyOwners/Partial/_PartialGenericRepeatGroup.cshtml",Model)
+       @* @Html.Partial("~/Views/PropertyOwners/Partial/_PartialGenericRepeatGroup.cshtml",Model)*@
     </div>
 </article>
 
-
+}
+}

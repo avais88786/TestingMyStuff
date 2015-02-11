@@ -1,0 +1,12 @@
+﻿@model OTOMCollapse.Models.RepeatGroups.RepeatGroupContainer
+
+
+<section class="accordion">
+    <section class="accordion-section2">
+        <a class="accordion-section-title2" href="#accordion-declarationQuestions">
+        </a>
+        <section id="accordion-declarationQuestions" class="accordion-section-content2">
+            @Html.EditorFor(model => model.GetProperty(0).repeatGroupBase, "SubsidiaryCompanyRepeatGroup")
+        </section>
+    </section>
+</section>

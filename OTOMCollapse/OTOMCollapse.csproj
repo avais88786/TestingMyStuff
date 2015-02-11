@@ -238,7 +238,7 @@
     <Content Include="Views\PropertyOwners\Create.cshtml" />
     <Content Include="Views\PropertyOwners\Edit.cshtml" />
     <Content Include="Views\PropertyOwners\Delete.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\PropertyRepeatGroup.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PropertyRepeatGroup2.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Address.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LocationRepeatGroup.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DeclarationQuestionsTemplate.cshtml" />
@@ -248,6 +248,9 @@
     <Content Include="Views\PropertyOwners\Partial\_PartialPropertyDetailsQuestions.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\_PartialGeneralCoverQuestions.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\_PartialClaimsHistoryQuestions.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SubsidiaryCompanyRepeatGroup.cshtml" />
+    <Content Include="Views\PropertyOwners\Partial\_PartialGenericRepeatGroupListStyle.cshtml" />
+    <Content Include="Views\PropertyOwners\EditorTemplates\PropertyRepeatGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

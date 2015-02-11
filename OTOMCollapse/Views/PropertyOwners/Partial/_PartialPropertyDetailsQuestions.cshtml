@@ -1,4 +1,4 @@
-﻿@model OTOMCollapse.Models.ViewModels.PropertyOwners.PropertyDetailsGroupViewModel
+﻿@model OTOMCollapse.Models.ViewModels.PropertyOwners.PropertyOwnersViewModel
 
 
 <section class="PropertyRepeatGroupContainer">
@@ -8,11 +8,32 @@
         
         @*@Html.PartialRepeatGroup(model => model.Properties);*@
         
-        @Html.Partial(@"Partial\_PartialGenericRepeatGroup", Model);
+        @*@Html.Partial(@"Partial\_PartialGenericRepeatGroup", Model);*@
 
         @*@Html.EditorFor(model => model.Properties);*@
 
+        @for (int i = 0; i < 10; i++)
+        {
+            <div id="tabHeader_@i" class="tabHeader ">
 
+                <div id="tabHeaderSelector_@i" class="tabHeaderSelector"></div>
+
+                @Html.Raw("Property " + (i + 1))
+            </div>
+        }
+        <div id="tabAdd" class="tabAdd">+</div>
+
+        @for (int i = 0; i < 10; i++)
+        {
+
+            <div id="tabBody_@i" class="tabBody">
+                Property Id : @i
+
+                @Html.EditorFor(m => m, "PropertyRepeatGroup");
+
+
+            </div>
+        }
       
         @Html.Hidden("currentPropertyRepeatGroupId_Tab", 0)
         @Html.Hidden("selectedPropertyRepeatGroupId_Tab", 0)

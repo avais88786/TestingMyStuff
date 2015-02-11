@@ -77,7 +77,7 @@ namespace OTOMCollapse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProposerName,CompanyStatus,Properties")] PropertyOwnersViewModel propertyowners)
+        public ActionResult Create(PropertyOwnersViewModel propertyowners)
         {
             if (ModelState.IsValid)
             {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    public class SubsidiaryRepeatGroup : RepeatGroupBase,RepeatGroupContainer
+    public class SubsidiaryRepeatGroup : RepeatGroupContainer,RepeatGroupBase
     {
         public SubsidiaryRepeatGroup()
         {
@@ -25,22 +25,15 @@ namespace OTOMCollapse.Models.RepeatGroups
         [UIHint("TestRepeatGroup")]
         public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
 
-        public override RepeatGroupBase RepeatGroupProperty
+        public override RepeatGroupBase GetProperty(int i)
         {
-            get
-            {
-                return base.RepeatGroupProperty;
-            }
-            set
-            {
-                base.RepeatGroupProperty = value;
-            }
+            return this.TestRepeatGroups[i];
+
         }
 
-        public RepeatGroupBase GetProperty(int i)
+        IList<RepeatGroupBase> RepeatGroupBase.repeatGroupBase
         {
-            return TestRepeatGroups[i].RepeatGroupProperty = TestRepeatGroups[i];
-
+            get { return new List<SubsidiaryRepeatGroup>() { new SubsidiaryRepeatGroup() }.Cast<RepeatGroupBase>().ToList(); }
         }
     }
 }

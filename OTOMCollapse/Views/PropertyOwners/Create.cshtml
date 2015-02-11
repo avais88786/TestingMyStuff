@@ -28,7 +28,8 @@
                     @Html.DisplayNameFor(model => model.StandardQuestions)
                 </a>
                 <section id="accordian-standardQuestions" class="accordion-section-content">
-                    @Html.Partial(@"Partial\_PartialStandardQuestions",Model.StandardQuestions)
+                    @Html.Partial(@"Partial\_PartialStandardQuestions", Model.StandardQuestions, new ViewDataDictionary { TemplateInfo = new TemplateInfo { HtmlFieldPrefix = "StandardQuestions" } })
+                    @*@Html.EditorFor(model =>model.StandardQuestions)*@
                 </section>
             
             </section>
@@ -61,7 +62,7 @@
                         @Html.LabelFor(model => model.PropertyDetailsQuestions)
                     </div>
 
-                    @Html.Partial(@"Partial\_PartialPropertyDetailsQuestions", Model.PropertyDetailsQuestions)
+                    @Html.Partial(@"Partial\_PartialPropertyDetailsQuestions", Model)
 
                     @{#region sequentialBelow}
                     @*<div id="RepeatGroupContainer">

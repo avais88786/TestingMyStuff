@@ -21,10 +21,15 @@
 
 
 <article>
-    <div class="editor-label">
+    <div class="repeat-group-label">
         @Html.LabelFor(model => model.SubsidiaryCompanies)
     </div>
     <div class="editor-field">
-        @Html.Partial(@"Partial\_PartialGenericRepeatGroup", Model);
-    </div>
+        @Html.Partial(@"Partial\_PartialGenericRepeatGroupListStyle", Model);
+      
+
+
+
+            @*@Html.Partial(@"Partial\_PartialGenericRepeatGroup", Model);*@
+</div>
 </article>

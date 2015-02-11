@@ -8,6 +8,7 @@ using System.Text;
 using OTOMCollapse.Models.Helpers;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using System.Collections;
 
 
 namespace OTOMCollapse.Models.ViewModels.PropertyOwners
@@ -28,9 +29,9 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [MaximumRepeatGroups(10)]
         public IList<PropertyRepeatGroup> Properties { get; set; }
 
-        public RepeatGroupBase GetProperty(int i)
+        public override RepeatGroupBase GetProperty(int i)
         {
-            return this.Properties[i].RepeatGroupProperty = this.Properties[i];
+            return this.Properties[i];
         }
     }
 }

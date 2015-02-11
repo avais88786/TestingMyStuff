@@ -13,11 +13,7 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
     {
         public StandardQuestionsGroupViewModel()
         {
-            SubsidiaryCompanies = new List<SubsidiaryRepeatGroup>();
-            for (int i=0;i< this.GetMaxRepeatGroupValueOf(model => model.SubsidiaryCompanies); i++)
-            {
-                SubsidiaryCompanies.Add(new SubsidiaryRepeatGroup());
-            }
+            SubsidiaryCompanies = new List<SubsidiaryRepeatGroup>(){new SubsidiaryRepeatGroup()};
         }
 
         [Range(0,double.MaxValue)]
@@ -29,9 +25,9 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [MaximumRepeatGroups(10)]
         public IList<SubsidiaryRepeatGroup> SubsidiaryCompanies { get; set; }
 
-        public RepeatGroupBase GetProperty(int i)
+        public override RepeatGroupBase GetProperty(int i)
         {
-            return this.SubsidiaryCompanies[i].RepeatGroupProperty = this.SubsidiaryCompanies[i];
+            return this.SubsidiaryCompanies[i];
         }
     }
 }

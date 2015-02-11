@@ -3,6 +3,7 @@
 
 @{string property = (String)ViewData["RepeatGroupName"];
   var expression = ViewData["Expression"];
+  
   }
 
 
@@ -24,7 +25,10 @@
 
                 <div id="tabBody_@i" class="tabBody">
                     Property Id : @i
-                    @Html.EditorFor(m => m.GetProperty(i).RepeatGroupProperty)
+                    
+                       @Html.EditorFor(m => m.GetProperty(i).repeatGroupBase);
+                    
+            
                 </div>
             }
         }

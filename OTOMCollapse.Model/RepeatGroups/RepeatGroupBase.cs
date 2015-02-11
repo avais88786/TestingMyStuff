@@ -5,9 +5,8 @@ using System.Text;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    public abstract class RepeatGroupBase
+    public interface RepeatGroupBase
     {
-        public string TemplateName { get; set; }
-        public virtual RepeatGroupBase RepeatGroupProperty { get; set; }
+        IList<RepeatGroupBase> repeatGroupBase { get;}
     }
 }

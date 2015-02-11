@@ -12,16 +12,9 @@ namespace OTOMCollapse.Models.RepeatGroups
 
         public decimal TestDecimal { get; set; }
 
-        public override RepeatGroupBase RepeatGroupProperty
+        IList<RepeatGroupBase> RepeatGroupBase.repeatGroupBase
         {
-            get
-            {
-                return base.RepeatGroupProperty;
-            }
-            set
-            {
-                base.RepeatGroupProperty = value;
-            }
+            get { throw new NotImplementedException(); }
         }
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    public interface RepeatGroupContainer
+    public abstract class RepeatGroupContainer
     {
-        RepeatGroupBase GetProperty(int i);
+        public abstract RepeatGroupBase GetProperty(int i);
     }
 }
