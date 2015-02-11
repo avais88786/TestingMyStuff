@@ -1,0 +1,33 @@
+﻿@model OTOMCollapse.Models.RepeatGroups.SubsidiaryRepeatGroup
+
+<article>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CompanyName)
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.CompanyName)
+    </div>
+</article>
+
+<article>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.EmployersReferenceNumber)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.EmployersReferenceNumber)
+        
+        @Html.ValidationMessageFor(model => model.EmployersReferenceNumber)
+    </div>
+</article>
+
+<article>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.TestRepeatGroups)
+    </div>
+    <div class="editor-field">
+       
+        @Html.Partial("~/Views/PropertyOwners/Partial/_PartialGenericRepeatGroup.cshtml",Model)
+    </div>
+</article>
+
+

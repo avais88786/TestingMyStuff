@@ -18,3 +18,13 @@
         @Html.EditorFor(model => model.TradingName)
     </div>
 </article>
+
+
+<article>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.SubsidiaryCompanies)
+    </div>
+    <div class="editor-field">
+        @Html.Partial(@"Partial\_PartialGenericRepeatGroup", Model);
+    </div>
+</article>

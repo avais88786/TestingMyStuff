@@ -26,38 +26,9 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 
         [UIHint("PropertyRepeatGroup")]
         [MaximumRepeatGroups(10)]
-        public List<PropertyRepeatGroup> Properties { get; set; }
+        public IList<PropertyRepeatGroup> Properties { get; set; }
 
-        //public MvcHtmlString test<TModel>(this HtmlHelper<TModel> htmlHelper, Type type)
-        //{
-        //    var item = Expression.Parameter(typeof(TModel));
-        //    var m = Expression.Property(item, "");
-
-        //    //var propertyInfo = model.GetType().GetProperty(PropertyNameToInvoke);
-        //    // var prop = Expression.Property(item, propertyInfo, new[] { Expression.Constant(index) });
-        //    var args = new Expression[] { Expression.Constant(0) };
-
-
-
-        //    var y = Expression.MakeIndex(m, typeof(List<PropertyRepeatGroup>).GetProperty("Item"), new[] { Expression.Constant(0) });
-
-        //    //prop.
-
-        //    //Type type = model.GetType();
-
-        //    //then lambda
-        //    var lambda = Expression.Lambda<Func<TModel, PropertyRepeatGroup>>(y, item);
-
-
-        //    //System.Web.Mvc.Html.EditorExtensions.EditorFor(htmlHelper,)
-        //    System.Web.Mvc.Html.EditorExtensions.EditorFor(htmlHelper, lambda);
-        //    return null;
-
-        //    //return System.Web.Mvc.Html.EditorExtensions.EditorFor(htmlHelper,null);
-        //}
-
-
-        public override RepeatGroupBase GetProperty(int i)
+        public RepeatGroupBase GetProperty(int i)
         {
             return this.Properties[i].RepeatGroupProperty = this.Properties[i];
         }
