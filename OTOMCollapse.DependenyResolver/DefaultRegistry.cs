@@ -19,7 +19,7 @@ namespace OTOMCollapse.DependenyResolver
             Scan(scan =>
             {
                 For<ICompanyStatusRepository>().Use<CompanyStatusRepository>();
-                For<IRepository<Location>>().Use<StubLocationRepository>();
+                For<IRepository<CodeListBase>>().Use<StubLocationRepository>();
             });
         }
     }

@@ -8,6 +8,6 @@ namespace OTOMCollapse.Models.ViewModels
 {
     public interface ICompanyStatusRepository
     {
-        List<CompanyStatus> GetAll();
+        List<CodeListBase> GetAll();
     }
 }

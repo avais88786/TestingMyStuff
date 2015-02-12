@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using OTOMCollapse.Infrastructure.Infrastructure;
 
 namespace OTOMCollapse.Models.Helpers
 {
@@ -21,8 +22,28 @@ namespace OTOMCollapse.Models.Helpers
 
             if (attr == null)
                 return 1;
-
+            
             return attr.Value;
+        }
+
+
+        public static IEnumerable<string> GetCodeListNames<T>(this T model) where T : class
+        {
+            Type modelType = model.GetType();
+
+            var codeListNames = new List<String>();
+
+            modelType.GetProperties().ToList().ForEach(p=> 
+            {
+                
+                CodeListNameAttribute codeListAttr = ((CodeListNameAttribute)p.GetCustomAttribute(typeof(CodeListNameAttribute), true));
+
+                if (codeListAttr != null)
+                    codeListNames.Add(codeListAttr.CodeListName);
+            });
+            
+
+            return codeListNames;
         }
 
         

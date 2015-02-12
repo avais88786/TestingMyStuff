@@ -13,12 +13,25 @@ using OTOMCollapse.DependenctResolver;
 using AutoMapper;
 using OTOMCollapse.Models.ViewModels.PropertyOwners;
 using OTOMCollapse.Models.RepeatGroups;
+using OTOMCollapse.Models.Helpers;
 
 namespace OTOMCollapse.Controllers
 {
     public class PropertyOwnersController : Controller
     {
         private OTOMTestsDataContext db = new OTOMTestsDataContext();
+
+        public PropertyOwnersController()
+        {
+            Mapper.CreateMap<CodeListBase, SelectListItem>()
+                  .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.ABICode))
+                  .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.Text));
+
+            //Mapper.CreateMap<SprinklerCodeList, SelectListItem>()
+            //      .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.ABICode))
+            //      .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.Text));
+                  
+        }
 
         //
         // GET: /PropertyOwners/
@@ -54,21 +67,15 @@ namespace OTOMCollapse.Controllers
         public ActionResult Create()
         {
 
-            Mapper.CreateMap<CompanyStatus, SelectListItem>()
-                  .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.CompanyStatusId))
-                  .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.CompanyStatusText));
-
-            Mapper.CreateMap<Location, SelectListItem>()
-                  .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.Id))
-                  .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.Text));
-
-
             ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
-            IRepository<Location> locationRepo = StructureMapContainer.Container.GetInstance<IRepository<Location>>();
+            IRepository<CodeListBase> sprinklersCodeListRepo = StructureMapContainer.Container.GetInstance<IRepository<CodeListBase>>();
             //SelectList list = new SelectList(companyStatusRepo.GetAll());
             PropertyOwnersViewModel vm = new PropertyOwnersViewModel();
-            vm.CompanyStatuses = Mapper.Map<IList<CompanyStatus>,IList<SelectListItem>>(companyStatusRepo.GetAll());
-            vm.PropertyLocations = Mapper.Map<IList<Location>,IList<SelectListItem>>(locationRepo.GetAll());
+            //IEnumerable<string> codeListNames
+            var x = vm.GetCodeListNames();
+
+            vm.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
+            vm.Sprinklers = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
             return View(vm);
         }
 
@@ -77,7 +84,7 @@ namespace OTOMCollapse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProposerName,CompanyStatus,Properties")] PropertyOwnersViewModel propertyowners)
+        public ActionResult Create(PropertyOwnersViewModel propertyowners)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +95,23 @@ namespace OTOMCollapse.Controllers
 
             return View(propertyowners);
         }
+
+        //public ActionResult DisplayCodeListSelectedValue(string id,string selectedText)
+        //{
+        //    ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
+        //    var x = Mapper.Map<IList<CompanyStatus>, IList<SelectListItem>>(companyStatusRepo.GetAll());
+        //    var z = x.Single(y => y.Value == id);
+
+        //    return Json(String.Concat(z.Text," ABI Code : ",z.Value));
+        //}
+
+        //public ActionResult DisplayCodeListSelectedValue(PropertyOwnersViewModel propertyowners)
+        //{
+        //   string z = String.Concat(propertyowners.Sprinkler, " ABI Code : ", z.Value)
+
+        //    return Json(String.Concat(z.Text, " ABI Code : ", z.Value));
+        //}
+
 
         //
         // GET: /PropertyOwners/Edit/5

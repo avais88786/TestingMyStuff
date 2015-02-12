@@ -1,5 +1,6 @@
 ﻿using OTOMCollapse.Models;
 using OTOMCollapse.Models.RepeatGroups;
+using OTOMCollapse.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,33 +10,37 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.StubRepository
 {
-    public class StubLocationRepository:IRepository<Location>
+    public class StubLocationRepository : IRepository<CodeListBase>
     {
-        public IList<Location> GetAll()
+        public IList<CodeListBase> GetAll()
         {
-            return new List<Location>(){
-                                        new Location(){
+            //switch (codeListName)
+            //{
+            //    case ""
+            //}
+
+            return new List<CodeListBase>(){
+                                        new CodeListBase(){
                                             Id = 1,
-                                            Text = "Airside"
+                                            Text = "Dry Charged",
+                                            ABICode = "B638 005"
                                         },
-                                        new Location(){
+                                        new CodeListBase(){
                                             Id = 2,
-                                            Text = "Arcade"
-                                        },new Location(){
+                                            Text = "Dual Supply",
+                                            ABICode = "B638 004"
+                                        },new CodeListBase(){
                                             Id = 3,
-                                            Text = "Below Ground Level"
-                                        },new Location(){
+                                            Text = "Public Mains",
+                                            ABICode = "B638 001"
+                                        },new CodeListBase(){
                                             Id = 4,
-                                            Text = "Block or Residential Flats"
-                                        },new Location(){
+                                            Text = "Pumps & Tanks",
+                                            ABICode = "B638 002"
+                                        },new CodeListBase(){
                                             Id = 5,
-                                            Text = "Business Park"
-                                        },new Location(){
-                                            Id = 6,
-                                            Text = "By Door"
-                                        },new Location(){
-                                            Id = 7,
-                                            Text = "Commercial Premises"
+                                            Text = "Single Supply",
+                                            ABICode = "B638 003"
                                         }
             };
         }

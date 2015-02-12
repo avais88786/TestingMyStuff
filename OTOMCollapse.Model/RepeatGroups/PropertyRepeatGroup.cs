@@ -15,18 +15,18 @@ namespace OTOMCollapse.Models.RepeatGroups
         
         public PropertyRepeatGroup()
         {
-            Location = new List<Location>();
+            Location = new List<SprinklerCodeList>();
 
             for (int i = 0; i < this.GetMaxRepeatGroupValueOf(model => model.Location) ; i++) 
             {
-                Location.Add(new Location());
+                Location.Add(new SprinklerCodeList());
             }
             
         }
 
         public PropertyRepeatGroup(List<SelectListItem> list)
         {
-            Location = new List<Location>();
+            Location = new List<SprinklerCodeList>();
             PropertyLocations = list;
         }
 
@@ -47,7 +47,7 @@ namespace OTOMCollapse.Models.RepeatGroups
 
         [UIHint("LocationRepeatGroup")]
         [MaximumRepeatGroups(5)]
-        public IList<Location> Location { get; set; }
+        public IList<SprinklerCodeList> Location { get; set; }
 
         [UIHint("Address")]
         public Address Address { get; set; }

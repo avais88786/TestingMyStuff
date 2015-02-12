@@ -18,6 +18,7 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
             {
                 SubsidiaryCompanies.Add(new SubsidiaryRepeatGroup());
             }
+            
         }
 
         [Range(0,double.MaxValue)]

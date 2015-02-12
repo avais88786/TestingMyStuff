@@ -1,10 +1,36 @@
-﻿.tabHeader{
+﻿
+
+.tabHeader{
     display:inline-block;
     width:auto;
-    padding: 30px 10px;
+    /*padding: 30px 10px;*/
     border-radius:5px 5px 0px 0px;
-    background-color:lightpink;
+    margin:0px;
     -webkit-box-sizing: initial;
+}
+
+.tabHeader li{
+    list-style:none;
+    display:inline-block;
+}
+
+.tabHeader a{
+    padding:9px 15px;
+            display:inline-block;
+            border-radius:3px 3px 0px 0px;
+            background:#7FB5DA;
+            padding: 30px 10px;
+            font-size:16px;
+            font-weight:600;
+            color:#4c4c4c;
+            transition:all linear 0.15s;
+            text-decoration:none;
+}
+
+.tabBodyContainer{
+    background-color :lightpink;
+    overflow:auto;
+ 
 }
 
 .tabBody{
@@ -13,6 +39,19 @@
     padding: 15px 10px;
     border-radius:0px 5px 5px 5px;
     background-color:lightpink;
+}
+
+.tabNextButton{
+    padding:10px 10px;
+    margin:10px 10px;
+    float:right;
+    border:1px solid white;
+    text-decoration:none;
+    background-color:lightgray;
+}
+
+.active {
+    background-color:lightgreen !important; 
 }
 
 .tabAdd{

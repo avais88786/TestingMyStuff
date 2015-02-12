@@ -14,7 +14,56 @@
     @Html.ValidationSummary(true)
     <legend>PropertyOwners</legend>
     <section>
-        <section class="accordion">
+        <article>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyStatus)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.CompanyStatus, Model.CompanyStatuses,"-- Please Select --", new { @class = "dropDownList" })
+            </div>
+        </article>
+
+        <article>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Sprinklers)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.Sprinkler, Model.Sprinklers, "-- Please Select --", new { @class = "dropDownList" })
+            </div>
+        </article>
+
+        <label id="dropDownValueSelector"></label>
+
+        <section class="tabs">
+            <ul class="tabHeader">
+                <li><a href="#declarationQuestionsTab" class="active">@Html.DisplayNameFor(model => model.DeclarationQuestions) </a></li>
+                <li><a href="#standardQuestionsTab">@Html.DisplayNameFor(model => model.StandardQuestions)</a></li>
+                <li><a href="#propertyDetailsQuestionsTab">@Html.DisplayNameFor(model => model.PropertyDetailsQuestions)</a></li>
+                <li><a href="#generalCoversQuestionsTab">@Html.DisplayNameFor(model => model.GeneralCoversQuestions)</a></li>
+                <li><a href="#claimsHistoryQuestionsTab">@Html.DisplayNameFor(model => model.ClaimsHistoryQuestions)</a></li>
+            </ul>
+
+            <section class="tabBodyContainer">
+                <section id="declarationQuestionsTab">
+                    @Html.EditorFor(model => model.DeclarationQuestions)
+                    <input type="button" data-href="#standardQuestionsTab" class="tabNextButton" value="Next"/>
+                </section>
+            
+                <section id="standardQuestionsTab">
+                    @Html.EditorFor(model => model.StandardQuestions)
+                    <input type="button" data-href="#propertyDetailsQuestionsTab" class="tabNextButton" value="Next" />
+                </section>
+
+                <section id="propertyDetailsQuestionsTab">
+                    @Html.EditorFor(model => model.PropertyDetailsQuestions)
+                    <input type="button" data-href="#propertyDetailsQuestionsTab" class="tabNextButton" value="Next" />
+                </section>
+            
+            </section>
+
+        </section>
+
+        @*<section class="accordion">
             <section class="accordion-section">
                 <a class="accordion-section-title" href="#accordion-declarationQuestions">
                     @Html.DisplayNameFor(model => model.DeclarationQuestions)
@@ -23,98 +72,15 @@
                     @Html.EditorFor(model => model.DeclarationQuestions)
                 </section>
             </section>
-            <section class="accordion-section">
-                <a class="accordion-section-title" href="#accordian-standardQuestions">
-                    @Html.DisplayNameFor(model => model.StandardQuestions)
-                </a>
-                <section id="accordian-standardQuestions" class="accordion-section-content">
-                    @Html.Partial(@"Partial\_PartialStandardQuestions",Model.StandardQuestions)
-                </section>
-            
-            </section>
-            <section class="accordion-section">
-                <a class="accordion-section-title" href="#accordion-propertyQuestions">
-                    Property Details
-                </a>
-                <section id="accordion-propertyQuestions" class="accordion-section-content">
-                    @*<article>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.ProposerName)
-                </div>
-
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.ProposerName)
-                    @Html.ValidationMessageFor(model => model.ProposerName)
-                </div>
-            </article>
-
-            <article>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.CompanyStatus)
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownListFor(model => model.CompanyStatus, Model.CompanyStatuses)
-                </div>
-            </article>*@
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.PropertyDetailsQuestions)
-                    </div>
-
-                    @Html.Partial(@"Partial\_PartialPropertyDetailsQuestions", Model.PropertyDetailsQuestions)
-
-                    @{#region sequentialBelow}
-                    @*<div id="RepeatGroupContainer">
-                @{var maxnumbers = Html.MaxRepeatGroupValue(model => model.Property);
-                @Html.Hidden("MaxPropertyRepeatValue", maxnumbers)
-                    for (int i = 0; i < maxnumbers; i++)
-                    {
-                        <div id="PropertyRepeatGroup_@i" class="editor-field" style="background-color:lightpink;width:50%;margin-bottom:10px;">
-                            @Html.Raw("Property Id :" + i)
-                            @Html.EditorFor(model => model.Property, new { id = i })
-                        </div>
-                    }
-                }
-            </div>
+        </section>*@
 
 
 
-            @Html.Hidden("currentPropertyRepeatGroupId",0)
-            @Html.Label("Add property", new { id = "addProperty", style = "text-decoration:underline;color:red;cursor:pointer" })
-            @Html.Label("Remove property", new { id = "removeProperty", style = "text-decoration:underline;color:red;cursor:pointer",hidden="hidden" })*@
 
-                    @{#endregion}
 
-                </section>
-                   
-                
-            </section>
-            <section class="accordion-section">
-                <a class="accordion-section-title" href="#accordion-GeneralQuestions">
-                    @Html.DisplayNameFor(model => model.GeneralCoversQuestions)
-                </a>
-                <section id="accordion-GeneralQuestions" class="accordion-section-content">
-                    @Html.Partial(@"Partial\_PartialGeneralCoverQuestions", Model.GeneralCoversQuestions)
-                </section>
-            </section>
-
-            <section class="accordion-section">
-                <a class="accordion-section-title" href="#accordion-ClaimsQuestions">
-                    @Html.DisplayNameFor(model => model.ClaimsHistoryQuestions)
-                </a>
-                <section id="accordion-ClaimsQuestions" class="accordion-section-content">
-                    @Html.Partial(@"Partial\_PartialClaimsHistoryQuestions", Model.ClaimsHistoryQuestions)
-
-                    <p>
-                        <input type="submit" value="Create" />
-                    </p>
-                </section>
-            </section>
-
-        </section>
-
-       
-
+        <p>
+            <input type="submit" value="Create" />
+        </p>
     </section>
     
     @*@Html.Partial(@"Partial\TabTest")*@
@@ -129,4 +95,5 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/CustomScripts/PropertyRepeatGroup.js")
     @Scripts.Render("~/Scripts/CustomScripts/SectionsEventHandlers.js")
+@Scripts.Render("~/Scripts/CustomScripts/DropDowns.js")
 }
