@@ -57,14 +57,14 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [Required]
         public string CompanyStatus { get; set; }
 
-        [CodeListName("CompanyStatuses")]
+        [CodeListName("Trades")]
         public IList<SelectListItem> CompanyStatuses { get; set; }
 
         [Required]
-        public string Sprinkler { get; set; }
+        public string Trade { get; set; }
 
         [CodeListName("Sprinklers")]
-        public IList<SelectListItem> Sprinklers { get; set; }
+        public IList<SelectListItem> Trades { get; set; }
 
     }
 }

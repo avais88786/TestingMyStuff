@@ -6,7 +6,9 @@
         var x = $('#gg').first().data('container');
         var y = $('#gg').first().data('property');
         
-        $('.placeholder').last().load("PropertyOwners/avais", { container: x, property: y }, function () {
+        var t = $('form').serialize();
+
+        $('.placeholder').last().load("avais", { container: x, property: y, viewModel: t }, function () {
             alert('hiiiii');
         });
         //$.post("PropertyOwners/avais", { container: x, property: y }, function (data) {
@@ -15,9 +17,6 @@
 
     });
 
-    //function GiveMe(model){
-
-    //    va
-    //};
+    
 
 });

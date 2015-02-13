@@ -141,6 +141,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PropertyOwnersController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -262,6 +263,7 @@
     <Content Include="Views\PropertyOwners\EditorTemplates\StandardQuestions.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\_PartialGenericRepeatGroupListStyle.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SubsidiaryCompanyRepeatGroup.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -81,7 +81,7 @@ namespace OTOMCollapse.Controllers
             var x = vm.GetCodeListNames();
             
             vm.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
-            vm.Sprinklers = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
+            vm.Trades = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
             return View(vm);
         }
 
@@ -102,7 +102,7 @@ namespace OTOMCollapse.Controllers
             return View(propertyowners);
         }
 
-        public ActionResult avais(string container, string property)
+        public ActionResult avais(string container, string property,PropertyOwnersViewModel viewModel)
         {
             var x = propertyMapping[container];
             x.propertyName = property;

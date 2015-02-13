@@ -1,5 +1,4 @@
 ﻿
-
 .tabHeader{
     display:inline-block;
     width:auto;
@@ -8,6 +7,9 @@
     margin:0px;
     -webkit-box-sizing: initial;
 }
+
+
+
 
 .tabHeader li{
     list-style:none;
@@ -18,7 +20,8 @@
     padding:9px 15px;
             display:inline-block;
             border-radius:3px 3px 0px 0px;
-            background:#7FB5DA;
+            background-color:lightgray;
+            /*background:#7FB5DA;*/
             padding: 30px 10px;
             font-size:16px;
             font-weight:600;
@@ -28,6 +31,7 @@
 }
 
 .tabBodyContainer{
+    margin-top:10px;
     background-color :lightpink;
     overflow:auto;
  
