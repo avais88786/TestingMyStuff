@@ -59,6 +59,11 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -203,6 +208,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\CustomScripts\DropDowns.js" />
+    <Content Include="Scripts\CustomScripts\GenericListStyle.js" />
     <Content Include="Scripts\CustomScripts\SectionsEventHandlers.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -248,6 +255,13 @@
     <Content Include="Views\PropertyOwners\Partial\_PartialPropertyDetailsQuestions.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\_PartialGeneralCoverQuestions.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\_PartialClaimsHistoryQuestions.cshtml" />
+    <Content Include="Views\PropertyOwners\EditorTemplates\ClaimsHistoryQuestions.cshtml" />
+    <Content Include="Views\PropertyOwners\EditorTemplates\DeclarationQuestions.cshtml" />
+    <Content Include="Views\PropertyOwners\EditorTemplates\GeneralCoverQuestions.cshtml" />
+    <Content Include="Views\PropertyOwners\EditorTemplates\PropertyDetailsQuestions.cshtml" />
+    <Content Include="Views\PropertyOwners\EditorTemplates\StandardQuestions.cshtml" />
+    <Content Include="Views\PropertyOwners\Partial\_PartialGenericRepeatGroupListStyle.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SubsidiaryCompanyRepeatGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

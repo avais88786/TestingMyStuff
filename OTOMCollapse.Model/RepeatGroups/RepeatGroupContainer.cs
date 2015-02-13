@@ -8,6 +8,7 @@ namespace OTOMCollapse.Models.RepeatGroups
 {
     public interface RepeatGroupContainer
     {
-        RepeatGroupBase GetProperty(int i);
+        string propertyName { get; set; }
+        RepeatGroupBase GetProperty();
     }
 }

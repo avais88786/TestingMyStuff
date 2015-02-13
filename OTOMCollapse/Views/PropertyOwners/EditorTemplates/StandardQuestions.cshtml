@@ -25,6 +25,13 @@
         @Html.LabelFor(model => model.SubsidiaryCompanies)
     </div>
     <div class="editor-field">
-        @Html.Partial(@"Partial\_PartialGenericRepeatGroup", Model);
+        @Html.Partial(@"Partial\_PartialGenericRepeatGroupListStyle", Model, new ViewDataDictionary { {"prop" , Model.SubsidiaryCompanies.GetType().GetGenericArguments()[0]} })
+        @Html.Test(Model,model => model.SubsidiaryCompanies)
+
+        <input type="hidden" value="xyz" />
+
     </div>
-</article>
+    <input type="button" id="subsidiaryRepeatGroup" value="Add" />
+ </article>
+
+

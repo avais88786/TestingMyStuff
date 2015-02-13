@@ -30,9 +30,37 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [MaximumRepeatGroups(10)]
         public IList<SubsidiaryRepeatGroup> SubsidiaryCompanies { get; set; }
 
-        public RepeatGroupBase GetProperty(int i)
+        public RepeatGroupBase GetProperty()
         {
-            return this.SubsidiaryCompanies[i].RepeatGroupProperty = this.SubsidiaryCompanies[i];
+            switch (propertyToReturn)
+            {
+                case "SubsidiaryCompanies":
+                    return new SubsidiaryRepeatGroup();
+                    
+                case "avais":
+                    return null;
+                
+                default :
+                    return null;
+
+            }
+
+            
+            //return this.SubsidiaryCompanies[i].RepeatGroupProperty = this.SubsidiaryCompanies[i];
+        }
+
+
+        private string propertyToReturn = "SubsidiaryCompanies";
+        public string propertyName
+        {
+            get
+            {
+                return propertyToReturn;
+            }
+            set
+            {
+                propertyToReturn = value;
+            }
         }
     }
 }

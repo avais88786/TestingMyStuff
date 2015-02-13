@@ -54,10 +54,10 @@
                     <input type="button" data-href="#propertyDetailsQuestionsTab" class="tabNextButton" value="Next" />
                 </section>
 
-                <section id="propertyDetailsQuestionsTab">
+                @*<section id="propertyDetailsQuestionsTab">
                     @Html.EditorFor(model => model.PropertyDetailsQuestions)
                     <input type="button" data-href="#propertyDetailsQuestionsTab" class="tabNextButton" value="Next" />
-                </section>
+                </section>*@
             
             </section>
 
@@ -95,5 +95,6 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/CustomScripts/PropertyRepeatGroup.js")
     @Scripts.Render("~/Scripts/CustomScripts/SectionsEventHandlers.js")
-@Scripts.Render("~/Scripts/CustomScripts/DropDowns.js")
+    @Scripts.Render("~/Scripts/CustomScripts/DropDowns.js")
+    @Scripts.Render("~/Scripts/CustomScripts/GenericListStyle.js")
 }

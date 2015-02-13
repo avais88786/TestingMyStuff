@@ -20,12 +20,18 @@ namespace OTOMCollapse.Controllers
     public class PropertyOwnersController : Controller
     {
         private OTOMTestsDataContext db = new OTOMTestsDataContext();
+        private Dictionary<string, RepeatGroupContainer> propertyMapping;
 
         public PropertyOwnersController()
         {
             Mapper.CreateMap<CodeListBase, SelectListItem>()
                   .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.ABICode))
                   .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.Text));
+
+            propertyMapping = new Dictionary<string, RepeatGroupContainer>();
+            propertyMapping.Add("StandardQuestionsGroupViewModel", new StandardQuestionsGroupViewModel());
+            propertyMapping.Add("SubsidiaryRepeatGroup", new SubsidiaryRepeatGroup());
+            
 
             //Mapper.CreateMap<SprinklerCodeList, SelectListItem>()
             //      .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.ABICode))
@@ -73,7 +79,7 @@ namespace OTOMCollapse.Controllers
             PropertyOwnersViewModel vm = new PropertyOwnersViewModel();
             //IEnumerable<string> codeListNames
             var x = vm.GetCodeListNames();
-
+            
             vm.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
             vm.Sprinklers = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
             return View(vm);
@@ -95,6 +101,15 @@ namespace OTOMCollapse.Controllers
 
             return View(propertyowners);
         }
+
+        public ActionResult avais(string container, string property)
+        {
+            var x = propertyMapping[container];
+            x.propertyName = property;
+            ViewData["property"] = property;
+            return PartialView("Partial/_PartialGenericRepeatGroupListStyle", x);
+        }
+
 
         //public ActionResult DisplayCodeListSelectedValue(string id,string selectedText)
         //{

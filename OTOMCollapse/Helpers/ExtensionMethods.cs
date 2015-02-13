@@ -77,6 +77,26 @@ namespace OTOMCollapse.Helpers
             return null;
         }
 
+
+        public static MvcHtmlString Test<TModel,TValue>(this HtmlHelper<TModel> htmlHelper, RepeatGroupContainer rpContainer,Expression<Func<TModel,TValue>> expression)
+        {
+            var builder = new TagBuilder("input");
+            string htmlFieldName = ExpressionHelper.GetExpressionText(expression);
+            // Create valid id
+            builder.GenerateId("gg");
+
+            // Add attributes
+            builder.Attributes.Add("type", "hidden");
+            //builder.MergeAttribute("data-container", rpContainer.GetType().Name);
+            builder.MergeAttribute("data-container", expression.Parameters[0].Type.Name);
+            
+            builder.MergeAttribute("data-property", htmlFieldName);
+            builder.MergeAttribute("type", "hidden");
+            //builder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+
+            // Render tag
+            return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
+        }
        
 
        // public static void EvaluateExpression<TModel,TVale>(this HtmlHelper<TModel> htmlHelper,Expression<Func<TModel,TVale>> expression)

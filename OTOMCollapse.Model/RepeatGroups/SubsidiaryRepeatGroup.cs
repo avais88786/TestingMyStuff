@@ -25,22 +25,24 @@ namespace OTOMCollapse.Models.RepeatGroups
         [UIHint("TestRepeatGroup")]
         public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
 
-        public override RepeatGroupBase RepeatGroupProperty
+        public RepeatGroupBase GetProperty()
+        {
+            return new TestRepeatGroup();
+            //return TestRepeatGroups[i].RepeatGroupProperty = TestRepeatGroups[i];
+
+        }
+
+        private string RepeatingGroupPropertyName;
+        public string propertyName
         {
             get
             {
-                return base.RepeatGroupProperty;
+                return RepeatingGroupPropertyName;
             }
             set
             {
-                base.RepeatGroupProperty = value;
+                RepeatingGroupPropertyName = value;
             }
-        }
-
-        public RepeatGroupBase GetProperty(int i)
-        {
-            return TestRepeatGroups[i].RepeatGroupProperty = TestRepeatGroups[i];
-
         }
     }
 }

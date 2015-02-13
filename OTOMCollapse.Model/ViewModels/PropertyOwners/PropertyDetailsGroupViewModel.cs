@@ -28,9 +28,22 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [MaximumRepeatGroups(10)]
         public IList<PropertyRepeatGroup> Properties { get; set; }
 
-        public RepeatGroupBase GetProperty(int i)
+        public RepeatGroupBase GetProperty()
         {
-            return this.Properties[i].RepeatGroupProperty = this.Properties[i];
+            return new PropertyRepeatGroup();
+            //return this.Properties[i].RepeatGroupProperty = this.Properties[i];
+        }
+
+        public string propertyName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
