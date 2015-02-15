@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,6 +38,19 @@ namespace OTOMCollapse.Controllers
     }
 
     public class RepeatGroup
+    {
+        public RepeatGroup()
+        {
+            nestedRepeatGroup = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
+        }
+
+        public string id { get; set; }
+
+        [UIHint("NestedRepeatGroup")]
+        public List<NestedRepeatGroup> nestedRepeatGroup { get; set; }
+    }
+
+    public class NestedRepeatGroup
     {
         public string id { get; set; }
     }

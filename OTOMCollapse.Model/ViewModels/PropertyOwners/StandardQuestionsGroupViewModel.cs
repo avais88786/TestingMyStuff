@@ -11,13 +11,18 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 {
     public class StandardQuestionsGroupViewModel : RepeatGroupContainer
     {
+        private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() { 
+        { "SubsidiaryCompanies", typeof(SubsidiaryRepeatGroup) }, 
+        { "TestRepeatGroups", typeof(TestRepeatGroup) } 
+        };
+
         public StandardQuestionsGroupViewModel()
         {
             SubsidiaryCompanies = new List<SubsidiaryRepeatGroup>();
-            for (int i=0;i< this.GetMaxRepeatGroupValueOf(model => model.SubsidiaryCompanies); i++)
-            {
-                SubsidiaryCompanies.Add(new SubsidiaryRepeatGroup());
-            }
+            //for (int i=0;i< this.GetMaxRepeatGroupValueOf(model => model.SubsidiaryCompanies); i++)
+            //{
+            //    SubsidiaryCompanies.Add(new SubsidiaryRepeatGroup());
+            //}
             
         }
 
@@ -30,37 +35,22 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [MaximumRepeatGroups(10)]
         public IList<SubsidiaryRepeatGroup> SubsidiaryCompanies { get; set; }
 
-        public RepeatGroupBase GetProperty()
+
+        [UIHint("TestRepeatGroup")]
+        [MaximumRepeatGroups(5)]
+        public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
+
+        public RepeatGroupBase GetPropertyType(string propertyName)
         {
-            switch (propertyToReturn)
-            {
-                case "SubsidiaryCompanies":
-                    return new SubsidiaryRepeatGroup();
-                    
-                case "avais":
-                    return null;
-                
-                default :
-                    return null;
-
-            }
-
-            
-            //return this.SubsidiaryCompanies[i].RepeatGroupProperty = this.SubsidiaryCompanies[i];
+            return (RepeatGroupBase)Activator.CreateInstance(propertyTypeMap[propertyName]);
         }
 
 
-        private string propertyToReturn = "SubsidiaryCompanies";
-        public string propertyName
+        public string GetTemplateName(string forProperty)
         {
-            get
-            {
-                return propertyToReturn;
-            }
-            set
-            {
-                propertyToReturn = value;
-            }
+            string templateName = ((UIHintAttribute)this.GetType().GetProperty(forProperty).GetCustomAttributes(typeof(UIHintAttribute), false).FirstOrDefault()).UIHint;
+
+            return templateName;
         }
     }
 }

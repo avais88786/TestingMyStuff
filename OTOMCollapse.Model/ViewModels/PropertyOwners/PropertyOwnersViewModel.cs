@@ -12,6 +12,12 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 {
     public class PropertyOwnersViewModel
     {
+        private Dictionary<string, Type> propertyMapping = new Dictionary<string, Type>() { 
+        { "StandardQuestionsGroupViewModel", typeof(StandardQuestionsGroupViewModel) },
+        { "SubsidiaryRepeatGroup", typeof(SubsidiaryRepeatGroup) } ,
+        {"TestRepeatGroup",typeof(TestRepeatGroup)}
+        };
+
         public PropertyOwnersViewModel()
         {
            
@@ -66,5 +72,13 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [CodeListName("Sprinklers")]
         public IList<SelectListItem> Trades { get; set; }
 
+
+
+
+        public RepeatGroupContainer GetRepeatGroupContainerType(string container)
+        {
+            var type = propertyMapping[container];
+            return (RepeatGroupContainer)Activator.CreateInstance(type);
+        }
     }
 }

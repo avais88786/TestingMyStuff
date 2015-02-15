@@ -1,13 +1,31 @@
 ﻿﻿@model OTOMCollapse.Models.RepeatGroups.RepeatGroupContainer
 
-@{var x = ViewData; }
-<section class="accordion">
-    <section class="accordion-section2">
-        <a class="accordion-section-title2" href="#accordion-declarationQuestions">
-        </a>
-        <section id="accordion-declarationQuestions" class="accordion-section-content2">
-            @Html.EditorFor(model => model.GetProperty().RepeatGroupProperty, "SubsidiaryCompanyRepeatGroup")
-        </section>
-    </section>
-</section>
-<div class="placeholder"></div>
+@{var templateInfo = (string)ViewData["htmlFieldPrefix"];
+  int index = (int)ViewData["Index"];
+  string propertyName = (string)ViewData["property"];
+  //var x = Model.GetTemplateName(propertyName);
+  }
+
+        @{if (index == 0)
+          {
+            <section id=@Html.Raw("RepeatGroupContainer" + ViewData["idToAppend"]) class="listContainer" style="border:1px solid white;"  >
+                <div data-placeholderelementid=@Html.Raw("placeholder" + ViewData["idToAppend"]) class="placeholder" style="background-color:deeppink;">
+                    @Html.EditorFor(model => model.GetPropertyType(propertyName).RepeatGroupProperty, Model.GetTemplateName(propertyName), templateInfo)
+
+                    @*This Does not work :
+                    @*Html.EditorFor(model => model.GetProperty().RepeatGroupProperty, "SubsidiaryCompanyRepeatGroup", new ViewDataDictionary(ViewData) { TemplateInfo = ViewData.TemplateInfo })
+                    @*Brings: StandardQuestions.SubsidiaryCompanies[0].RepeatGroupProperty.CompanyName*@
+                </div>
+            </section>
+          }
+          else 
+          { 
+            <div data-placeholderelementid=@Html.Raw("placeholder" + ViewData["idToAppend"]+index) class="placeholder" style="background-color:deeppink;">
+                    @Html.EditorFor(model => model.GetPropertyType(propertyName).RepeatGroupProperty, Model.GetTemplateName(propertyName), templateInfo)@*, new ViewDataDictionary(ViewData) { TemplateInfo = templateInfo })*@
+                <input type="button" value="Remove" style="float:right;" data-placeholderelementidtoremove=@Html.Raw("placeholder" + ViewData["idToAppend"] + index) data-mappedaddelementid=@Html.Raw("add" + ViewData["idToAppend"]) />
+            </div>
+          }}
+
+
+        
+

@@ -14,6 +14,8 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 {
     public class PropertyDetailsGroupViewModel : RepeatGroupContainer
     {
+        private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() { { "Properties", typeof(PropertyRepeatGroup) } };
+
         public PropertyDetailsGroupViewModel()
         {
             Properties = new List<PropertyRepeatGroup>();
@@ -28,22 +30,15 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [MaximumRepeatGroups(10)]
         public IList<PropertyRepeatGroup> Properties { get; set; }
 
-        public RepeatGroupBase GetProperty()
+        public RepeatGroupBase GetPropertyType(string propertyName)
         {
-            return new PropertyRepeatGroup();
-            //return this.Properties[i].RepeatGroupProperty = this.Properties[i];
+            return (RepeatGroupBase)Activator.CreateInstance(propertyTypeMap[propertyName]);
         }
 
-        public string propertyName
+
+        public string GetTemplateName(string forProperty)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
     }
 }

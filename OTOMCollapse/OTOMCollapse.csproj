@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Models\OTOMTestsDataContext.cs" />
+    <Compile Include="Models\RepeatGroupViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +265,9 @@
     <Content Include="Views\PropertyOwners\Partial\_PartialGenericRepeatGroupListStyle.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SubsidiaryCompanyRepeatGroup.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\EditorTemplates\NestedRepeatGroup.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TestRepeatGroup.cshtml" />
+    <Content Include="Views\PropertyOwners\EditorTemplates\TestRepeatGroupsNested1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

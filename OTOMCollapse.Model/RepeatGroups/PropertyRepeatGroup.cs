@@ -56,12 +56,9 @@ namespace OTOMCollapse.Models.RepeatGroups
         {
             get
             {
-                return base.RepeatGroupProperty;
+                return this;
             }
-            set
-            {
-                base.RepeatGroupProperty = value;
-            }
+            
         }
 
     }

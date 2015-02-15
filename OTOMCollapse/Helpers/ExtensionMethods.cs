@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
 namespace OTOMCollapse.Helpers
 {
@@ -78,28 +80,121 @@ namespace OTOMCollapse.Helpers
         }
 
 
-        public static MvcHtmlString Test<TModel,TValue>(this HtmlHelper<TModel> htmlHelper, RepeatGroupContainer rpContainer,Expression<Func<TModel,TValue>> expression)
+        public static MvcHtmlString RenderAddMoreButtonFor<TModel,TValue>(this HtmlHelper<TModel> htmlHelper,Expression<Func<TModel,TValue>> expression)
         {
-            var builder = new TagBuilder("input");
-            string htmlFieldName = ExpressionHelper.GetExpressionText(expression);
+            var hiddenElementTagBuilder = new TagBuilder("input");
+            string propertyName = ExpressionHelper.GetExpressionText(expression); //RepeatingGroup
+            string containerName = expression.Parameters[0].Type.Name;            //RepeatingGroupContainer
+            int maxValue = ((MaximumRepeatGroupsAttribute)((MemberExpression)expression.Body).Member.GetCustomAttribute(typeof(MaximumRepeatGroupsAttribute), false)).Value;
+            StringBuilder htmlFieldPrefix = GetHtmlFieldPrefix<TModel>(htmlHelper, propertyName);  //Get HtmlPrefix that should be used for next repeatinggroup
+
+            string currentHtmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
+            //int currentIndexTag_Template = currentHtmlFieldPrefix.LastIndexOf('[');
+            //int currentIndex = 0;
+
+            //if (currentIndexTag_Template >= 0)
+            //    Int32.TryParse(currentHtmlFieldPrefix[currentIndexTag_Template + 1].ToString(), out currentIndex);
+
+            var idPrefix = currentHtmlFieldPrefix.Replace('.', '_');
+            idPrefix = idPrefix.Replace('[', '_');
+            idPrefix = idPrefix.Replace(']', '_');
+
+            //Could use Regex:
+            //Regex pattern = new Regex(@"[.\[\]]");
+            //var gggg = pattern.Replace(template, "_");
+            
             // Create valid id
-            builder.GenerateId("gg");
+            hiddenElementTagBuilder.GenerateId("hidden" + idPrefix + propertyName);
 
             // Add attributes
-            builder.Attributes.Add("type", "hidden");
+            hiddenElementTagBuilder.Attributes.Add("type", "hidden");
             //builder.MergeAttribute("data-container", rpContainer.GetType().Name);
-            builder.MergeAttribute("data-container", expression.Parameters[0].Type.Name);
+            hiddenElementTagBuilder.MergeAttribute("data-container", containerName);
             
-            builder.MergeAttribute("data-property", htmlFieldName);
-            builder.MergeAttribute("type", "hidden");
+            hiddenElementTagBuilder.MergeAttribute("data-property", propertyName);
+            hiddenElementTagBuilder.MergeAttribute("data-maxpossiblevalue", maxValue.ToString());
+            hiddenElementTagBuilder.MergeAttribute("data-currentdisplayedrepeatinggroupsonpage", "1");
+            hiddenElementTagBuilder.MergeAttribute("data-currentindex", "0");
+            hiddenElementTagBuilder.MergeAttribute("data-htmlfieldprefix", htmlFieldPrefix.ToString());
             //builder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
 
             // Render tag
-            return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
-        }
-       
 
-       // public static void EvaluateExpression<TModel,TVale>(this HtmlHelper<TModel> htmlHelper,Expression<Func<TModel,TVale>> expression)
+            var addButtonTagBuilder = new TagBuilder("input");
+            addButtonTagBuilder.GenerateId("add" + idPrefix + propertyName);
+            addButtonTagBuilder.Attributes.Add("type", "button");
+            addButtonTagBuilder.Attributes.Add("value", "Add");
+            addButtonTagBuilder.Attributes.Add("data-hiddenforelementid", "#hidden" + idPrefix + propertyName);
+            addButtonTagBuilder.Attributes.Add("data-placeholderelementid", "#RepeatGroupContainer" + idPrefix + propertyName);
+            var outputTags = new StringBuilder();
+            outputTags.Append(hiddenElementTagBuilder.ToString(TagRenderMode.SelfClosing));
+            outputTags.Append(addButtonTagBuilder.ToString(TagRenderMode.SelfClosing));
+
+
+            return MvcHtmlString.Create(outputTags.ToString());
+        }
+
+
+        public static MvcHtmlString RenderGenericPartialFor<TModel, Tvalue>(this HtmlHelper<TModel> htmlHelper,string partialViewName, TModel model, Expression<Func<TModel, Tvalue>> expression)
+        {
+            string propertyName = ExpressionHelper.GetExpressionText(expression);
+            string containerName = expression.Parameters[0].Type.Name;
+
+            StringBuilder htmlFieldPrefix = GetHtmlFieldPrefix<TModel>(htmlHelper, propertyName);
+            htmlFieldPrefix.Append("[0]"); //zeroth index
+
+            string currentHtmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
+
+            var idPrefix = currentHtmlFieldPrefix.Replace('.', '_');
+            idPrefix = idPrefix.Replace('[', '_');
+            idPrefix = idPrefix.Replace(']', '_');
+
+            //int currentIndexTag_Template = currentHtmlFieldPrefix.LastIndexOf('[');
+            //int currentIndex = 0;
+
+            //if (currentIndexTag_Template >= 0)
+            //    Int32.TryParse(currentHtmlFieldPrefix[currentIndexTag_Template + 1].ToString(), out currentIndex);
+
+            var viewData = new ViewDataDictionary(htmlHelper.ViewData)
+            {
+                TemplateInfo = new TemplateInfo()
+                {
+                    FormattedModelValue = htmlHelper.ViewData.TemplateInfo.FormattedModelValue,
+                    HtmlFieldPrefix = ""
+                }
+            };
+
+            if (viewData.ContainsKey("idToAppend"))
+                viewData.Remove("idToAppend");
+            viewData.Add("idToAppend", idPrefix + propertyName);
+
+            if (viewData.ContainsKey("Index"))
+                viewData.Remove("Index");
+            viewData.Add("Index", 0);
+
+            if (viewData.ContainsKey("htmlFieldPrefix"))
+                viewData.Remove("htmlFieldPrefix");
+            viewData.Add("htmlFieldPrefix", htmlFieldPrefix.ToString());
+
+            if (viewData.ContainsKey("property"))
+                viewData.Remove("property");
+            viewData.Add("property",propertyName);
+
+            return PartialExtensions.Partial(htmlHelper, partialViewName, model, viewData);
+        }
+
+        private static StringBuilder GetHtmlFieldPrefix<TModel>(HtmlHelper<TModel> htmlHelper, string propertyName)
+        {
+            StringBuilder htmlFieldPrefix = new StringBuilder();
+            if (htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix != "")
+            {
+                htmlFieldPrefix.Append(htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix);
+                htmlFieldPrefix.Append(propertyName == "" ? "" : "." + propertyName);
+            }
+            else
+                htmlFieldPrefix.Append(propertyName);
+            return htmlFieldPrefix;
+        }
 
         #region example
         //public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, object htmlAttributes)

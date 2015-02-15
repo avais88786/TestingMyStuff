@@ -24,13 +24,19 @@
     <div class="editor-label">
         @Html.LabelFor(model => model.SubsidiaryCompanies)
     </div>
+    @*@Html.EditorFor(model => model.SubsidiaryCompanies[0], "SubsidiaryCompanyRepeatGroup")*@
+    <br/>
     <div class="editor-field">
-        @Html.Partial(@"Partial\_PartialGenericRepeatGroupListStyle", Model, new ViewDataDictionary { {"prop" , Model.SubsidiaryCompanies.GetType().GetGenericArguments()[0]} })
-        @Html.Test(Model,model => model.SubsidiaryCompanies)
-        <input type="submit" value="xyz" id="subsidiaryCompaniesSubmit" />
-        @Html.ActionLink("get", "avais", Model);
+        @Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle",Model,model=>model.SubsidiaryCompanies)
+        @Html.RenderAddMoreButtonFor(model => model.SubsidiaryCompanies)
     </div>
-    <input type="button" id="subsidiaryRepeatGroup" value="Add" />
+
+    <br/>
+
+    <div class="editor-field">
+        @Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model, model => model.TestRepeatGroups)
+        @Html.RenderAddMoreButtonFor(model => model.TestRepeatGroups)
+    </div>
  </article>
 
 

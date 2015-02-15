@@ -102,12 +102,18 @@ namespace OTOMCollapse.Controllers
             return View(propertyowners);
         }
 
-        public ActionResult avais(string container, string property,PropertyOwnersViewModel viewModel)
+        public ActionResult avais(string container, string property, int nextIndex, string htmlTemplateFieldPrefix)
         {
-            var x = propertyMapping[container];
-            x.propertyName = property;
+            PropertyOwnersViewModel viewModel = new PropertyOwnersViewModel();
+            var type = viewModel.GetRepeatGroupContainerType(container);
+            //var x = propertyMapping[container];
+            //x.propertyName = property;
             ViewData["property"] = property;
-            return PartialView("Partial/_PartialGenericRepeatGroupListStyle", x);
+            ViewData["Index"] = nextIndex;
+            ViewData["idToAppend"] = container + property;
+
+            ViewData["htmlFieldPrefix"] = String.Format("{0}[{1}]", htmlTemplateFieldPrefix, nextIndex);
+            return PartialView("Partial/_PartialGenericRepeatGroupListStyle", type);
         }
 
 
