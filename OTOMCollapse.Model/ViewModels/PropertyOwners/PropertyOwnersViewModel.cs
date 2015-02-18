@@ -60,13 +60,13 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         [Display(Name = "Claims History")]
         public ClaimsHistoryGroupViewModel ClaimsHistoryQuestions { get; set; }
 
-        [Required]
+        //[Required]
         public string CompanyStatus { get; set; }
 
         [CodeListName("Trades")]
         public IList<SelectListItem> CompanyStatuses { get; set; }
 
-        [Required]
+        //[Required]
         public string Trade { get; set; }
 
         [CodeListName("Sprinklers")]

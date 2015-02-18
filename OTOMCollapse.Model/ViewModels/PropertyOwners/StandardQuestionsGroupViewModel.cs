@@ -42,7 +42,8 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 
         public RepeatGroupBase GetPropertyType(string propertyName)
         {
-            return (RepeatGroupBase)Activator.CreateInstance(propertyTypeMap[propertyName]);
+            return (RepeatGroupBase)Activator.CreateInstance(this.GetType().GetProperty(propertyName).PropertyType.GetGenericArguments()[0]);
+            //return (RepeatGroupBase)Activator.CreateInstance(propertyTypeMap[propertyName]);
         }
 
 

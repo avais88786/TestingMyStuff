@@ -12,31 +12,29 @@
 
 <article>
     <div class="editor-label">
+        @Html.LabelFor(model => model.SubsidiaryCompanies)
+    </div>
+    @*@Html.EditorFor(model => model.SubsidiaryCompanies[0], "SubsidiaryCompanyRepeatGroup")*@
+    <br/>
+    <div class="editor-field">
+        @*@Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle",Model,model=>model.SubsidiaryCompanies)
+        @Html.RenderAddMoreButtonFor(model => model.SubsidiaryCompanies)*@
+    </div>
+
+    <br/>
+
+    <section class="listContainer" style="border:1px solid white;">
+        @Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model, model => model.TestRepeatGroups)
+        @*@Html.RenderAddMoreButtonFor(model => model.TestRepeatGroups)*@
+    </section>
+</article>
+
+<article>
+    <div class="editor-label">
         @Html.LabelFor(model => model.TradingName)
     </div>
     <div class="editor-field">
         @Html.EditorFor(model => model.TradingName)
     </div>
 </article>
-
-
-<article>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.SubsidiaryCompanies)
-    </div>
-    @*@Html.EditorFor(model => model.SubsidiaryCompanies[0], "SubsidiaryCompanyRepeatGroup")*@
-    <br/>
-    <div class="editor-field">
-        @Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle",Model,model=>model.SubsidiaryCompanies)
-        @Html.RenderAddMoreButtonFor(model => model.SubsidiaryCompanies)
-    </div>
-
-    <br/>
-
-    <div class="editor-field">
-        @Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model, model => model.TestRepeatGroups)
-        @Html.RenderAddMoreButtonFor(model => model.TestRepeatGroups)
-    </div>
- </article>
-
 

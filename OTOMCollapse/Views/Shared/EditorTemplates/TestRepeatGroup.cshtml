@@ -17,8 +17,9 @@
     <div class="editor-field">
         @Html.EditorFor(model => model.TestDecimal)
     </div>
-
-    @Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model, model => model.TestRepeatGroupsNested1)
-    @Html.RenderAddMoreButtonFor(model => model.TestRepeatGroupsNested1)
+    <section class="listContainer" style="border:1px solid white;">
+          @Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model, model => model.TestRepeatGroupsNested1)
+        @*    @Html.RenderAddMoreButtonFor(model => model.TestRepeatGroupsNested1)*@
+        </section>
 
 </article>

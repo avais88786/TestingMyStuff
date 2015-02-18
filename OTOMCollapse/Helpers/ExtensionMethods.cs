@@ -140,8 +140,17 @@ namespace OTOMCollapse.Helpers
             string propertyName = ExpressionHelper.GetExpressionText(expression);
             string containerName = expression.Parameters[0].Type.Name;
 
+            #region adding stuff
+
+            var hiddenElementTagBuilder = new TagBuilder("input");
+            int maxValue = ((MaximumRepeatGroupsAttribute)((MemberExpression)expression.Body).Member.GetCustomAttribute(typeof(MaximumRepeatGroupsAttribute), false)).Value;
+
+            #endregion
+
+            var compiledExpression = (IList)expression.Compile()(htmlHelper.ViewData.Model);
+            
             StringBuilder htmlFieldPrefix = GetHtmlFieldPrefix<TModel>(htmlHelper, propertyName);
-            htmlFieldPrefix.Append("[0]"); //zeroth index
+            //htmlFieldPrefix.Append("[0]"); //zeroth index
 
             string currentHtmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
 
@@ -154,6 +163,38 @@ namespace OTOMCollapse.Helpers
 
             //if (currentIndexTag_Template >= 0)
             //    Int32.TryParse(currentHtmlFieldPrefix[currentIndexTag_Template + 1].ToString(), out currentIndex);
+
+            #region addingStuff
+
+            // Create valid id
+            hiddenElementTagBuilder.GenerateId("hidden" + idPrefix + propertyName);
+
+            // Add attributes
+            hiddenElementTagBuilder.Attributes.Add("type", "hidden");
+            //builder.MergeAttribute("data-container", rpContainer.GetType().Name);
+            hiddenElementTagBuilder.MergeAttribute("data-container", containerName);
+
+            hiddenElementTagBuilder.MergeAttribute("data-property", propertyName);
+            hiddenElementTagBuilder.MergeAttribute("data-maxpossiblevalue", maxValue.ToString());
+            hiddenElementTagBuilder.MergeAttribute("data-currentdisplayedrepeatinggroupsonpage", (compiledExpression == null ||compiledExpression.Count == 0) ? "1" : compiledExpression.Count.ToString());
+            hiddenElementTagBuilder.MergeAttribute("data-currentindex", compiledExpression == null  ? "0" : compiledExpression.Count.ToString());
+            hiddenElementTagBuilder.MergeAttribute("data-htmlfieldprefix", htmlFieldPrefix.ToString());
+            //builder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+
+            // Render tag
+
+            var addButtonTagBuilder = new TagBuilder("input");
+            addButtonTagBuilder.GenerateId("add" + idPrefix + propertyName);
+            addButtonTagBuilder.Attributes.Add("type", "button");
+            addButtonTagBuilder.Attributes.Add("value", "Add");
+            addButtonTagBuilder.Attributes.Add("data-hiddenforelementid", "#hidden" + idPrefix + propertyName);
+            addButtonTagBuilder.Attributes.Add("data-placeholderelementid", "#RepeatGroupContainer" + idPrefix + propertyName);
+            var outputTags = new StringBuilder();
+            outputTags.Append(hiddenElementTagBuilder.ToString(TagRenderMode.SelfClosing));
+            outputTags.Append(addButtonTagBuilder.ToString(TagRenderMode.SelfClosing));
+
+            #endregion
+
 
             var viewData = new ViewDataDictionary(htmlHelper.ViewData)
             {
@@ -180,7 +221,45 @@ namespace OTOMCollapse.Helpers
                 viewData.Remove("property");
             viewData.Add("property",propertyName);
 
-            return PartialExtensions.Partial(htmlHelper, partialViewName, model, viewData);
+            var outputHtml = new StringBuilder();
+
+            if (compiledExpression == null || compiledExpression.Count == 0)
+            {
+                string stringHtmlFieldPrefix = String.Format("{0}[{1}]", htmlFieldPrefix.ToString(), 0);
+                if (viewData.ContainsKey("htmlFieldPrefix"))
+                    viewData.Remove("htmlFieldPrefix");
+                viewData.Add("htmlFieldPrefix", stringHtmlFieldPrefix);
+                //htmlFieldPrefix.Append("[0]");
+                outputHtml.Append(PartialExtensions.Partial(htmlHelper, partialViewName, model, viewData));
+            }
+            else
+            {
+               
+                for (int i = 0; i < compiledExpression.Count; i++)
+                {
+                    string stringHtmlFieldPrefix = String.Format("{0}[{1}]", htmlFieldPrefix.ToString(), i);
+                    if (viewData.ContainsKey("htmlFieldPrefix"))
+                        viewData.Remove("htmlFieldPrefix");
+                    viewData.Add("htmlFieldPrefix", stringHtmlFieldPrefix);
+
+                    if (viewData.ContainsKey("Index"))
+                        viewData.Remove("Index");
+                    viewData.Add("Index", i);
+
+                    //if (viewData.ContainsKey("htmlFieldPrefix"))
+                    //    viewData.Remove("htmlFieldPrefix");
+                    //viewData.Add("htmlFieldPrefix", htmlFieldPrefix.ToString());
+
+                    outputHtml.Append(PartialExtensions.Partial(htmlHelper, partialViewName, model, viewData));
+                }
+
+                //return MvcHtmlString.Create(outputHtml.ToString());
+            }
+
+            outputHtml.Append(outputTags);
+
+            return MvcHtmlString.Create(outputHtml.ToString());
+
         }
 
         private static StringBuilder GetHtmlFieldPrefix<TModel>(HtmlHelper<TModel> htmlHelper, string propertyName)

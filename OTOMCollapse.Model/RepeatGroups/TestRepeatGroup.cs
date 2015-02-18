@@ -21,7 +21,7 @@ namespace OTOMCollapse.Models.RepeatGroups
 
         [UIHint("TestRepeatGroupsNested1")]
         [MaximumRepeatGroups(3)]
-        public IList<TestRepeatGroupNested1> TestRepeatGroupsNested1 { get; set; }
+        public List<TestRepeatGroupNested1> TestRepeatGroupsNested1 { get; set; }
 
         public override RepeatGroupBase RepeatGroupProperty
         {

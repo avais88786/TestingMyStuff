@@ -47,14 +47,18 @@
             return;
         }
         
-        var placeHolderId = $(this).data('placeholderelementid');
+        //var placeHolderId = $(this).parent('section').id;//.data('placeholderelementid');
 
-        var placeHolder = $(placeHolderId);
+        //var placeHolder = $(placeHolderId);
+
+        var placeHolder = $(this).parent('section');
 
         var datas = "container=" + container + "&property=" + property + "&nextIndex=" + nextIndex + "&htmlTemplateFieldPrefix=" + htmlTemplateFieldPrefix;
 
         //var placeHolderDiv = $("[data-placeholderelementid=" + placeHolderId + "]").last();
         //var existingHtml = placeHolderDiv.html();
+
+        //sorry Dave cant use this :( it creates nest of nests for a single repeating group
         ////$("[data-placeholderelementid=" + placeHolderId + "]").load("PropertyOwners/avais", datas, function () {
         //placeHolderDiv.load("PropertyOwners/avais", datas, function () {
         //    //$(this).prepend(existingHtml);
@@ -80,17 +84,21 @@
 
     $("body").on("click", ":button[data-placeholderelementidtoremove]", function () {
         var divId = $(this).data('placeholderelementidtoremove');
-        $("div [data-placeholderelementid=" + divId + "]").fadeOut(500);
         
         var x = $(this).parent();
         var y = $(this).parent().parent('section');
-        $(this).parent().parent('section').siblings(':button[data-hiddenforelementid]').first().slideDown(300);
-        var hiddenElement = $(this).parent().parent('section').siblings(':hidden[data-currentdisplayedrepeatinggroupsonpage]').first();//.slideDown(300);
+        $(this).parent().siblings(':button[data-hiddenforelementid]').first().slideDown(300);
+        var hiddenElement = $(this).parent().siblings(':hidden[data-currentdisplayedrepeatinggroupsonpage]').first();//.slideDown(300);
 
         var currentDisplayedRepeatingGroups = hiddenElement.data('currentdisplayedrepeatinggroupsonpage');
         currentDisplayedRepeatingGroups = --currentDisplayedRepeatingGroups;
         hiddenElement.data('currentdisplayedrepeatinggroupsonpage', currentDisplayedRepeatingGroups);
         hiddenElement.attr('data-currentdisplayedrepeatinggroupsonpage', currentDisplayedRepeatingGroups);
+
+        $("div [data-placeholderelementid=" + divId + "]").fadeOut(500, function () {
+            $(this).remove();
+        });
+
 
         //var addButtonId = $(this).data('mappedaddelementid');
         //$(addButtonId).slideDown(1000);
