@@ -1,0 +1,53 @@
+﻿@if (Model == null)
+{
+    <text>@ViewData.ModelMetadata.NullDisplayText</text>
+}
+    @*else if (ViewData.TemplateInfo.TemplateDepth > 1)
+        {
+            <text>@ViewData.ModelMetadata.SimpleDisplayText</text>
+        }*@
+else
+{
+    <fieldset>
+        <!-- Form Name -->
+        <legend>Form Name</legend>
+
+        @foreach (var prop in ViewData.ModelMetadata.Properties.Where(pm => pm.ShowForDisplay && !ViewData.TemplateInfo.Visited(pm)))
+        {
+            
+            HelpText HelpText = AttributeUtilities.GetFirstAttribute<HelpText>(prop);
+            Pretext PreText = AttributeUtilities.GetFirstAttribute<Pretext>(prop);
+
+
+
+            //var CustomAttributes = ViewData.ModelMetadata.ContainerType.GetProperty(ViewData.ModelMetadata.PropertyName).GetCustomAttributes(typeof(T1), false);
+
+            if (prop.HideSurroundingHtml)
+            {
+                <text>@Html.Editor(prop.PropertyName)</text>
+            }
+            else
+            {
+                
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="passwordinput">@Html.Label(prop.PropertyName)</label>
+                    <div class="col-md-4">
+                        <div class="sqmPreInputLabel">
+                            @((PreText == null) ? "" : PreText.PreTextLabel)
+                        </div>
+                        @Html.Editor(prop.PropertyName)
+                        @Html.Partial("_Suffix")
+                        @if (HelpText != null)
+                        {
+                            <div class="sqmHelpIcon" data-tooltip="@HelpText.Advice">
+                                <img draggable="false" width="16px " src="~/EmbeddedResources?pathInfo=Content/Images/help_icon.png" />
+                                @*<a class="dqmHelpIcon">*@<span class="badge">?</span>@*</a>*@
+                            </div>
+                        }
+                        @Html.ValidationMessage(prop.PropertyName)
+                    </div>
+                </div>
+            }
+        }
+    </fieldset>
+}

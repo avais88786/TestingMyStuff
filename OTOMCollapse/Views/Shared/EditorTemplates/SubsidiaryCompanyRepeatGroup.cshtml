@@ -29,7 +29,7 @@
     </div>
 
     @Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model, model => model.TestRepeatGroups)
-    @Html.RenderAddMoreButtonFor(model => model.TestRepeatGroups)
+    @Html.RenderAddMoreButtonFor(x => x.TestRepeatGroups)
 </article>
 
 

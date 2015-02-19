@@ -64,7 +64,7 @@
         //    //$(this).prepend(existingHtml);
         //});
 
-        $.get("PropertyOwners/avais", datas, function (result) {
+        $.get("avais", datas, function (result) {
             currentDisplayedRepeatingGroups = currentDisplayedRepeatingGroups + 1;
             $(hiddenElementId).data('currentdisplayedrepeatinggroupsonpage', currentDisplayedRepeatingGroups);
             $(hiddenElementId).attr('data-currentdisplayedrepeatinggroupsonpage', currentDisplayedRepeatingGroups);
@@ -98,7 +98,6 @@
         $("div [data-placeholderelementid=" + divId + "]").fadeOut(500, function () {
             $(this).remove();
         });
-
 
         //var addButtonId = $(this).data('mappedaddelementid');
         //$(addButtonId).slideDown(1000);
