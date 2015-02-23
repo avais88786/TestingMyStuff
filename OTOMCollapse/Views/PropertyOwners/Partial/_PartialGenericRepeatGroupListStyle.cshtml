@@ -6,7 +6,7 @@
   //var x = Model.GetTemplateName(propertyName);
   }
 
-            <div data-placeholderelementid=@Html.Raw("placeholder" + ViewData["idToAppend"]+index) class="placeholder" style="background-color:deeppink;">
+            <div data-placeholderelementid=@Html.Raw("placeholder" + ViewData["idToAppend"]+index) class="placeholder" style="border: 2px solid white;">
                     
                 <input type="hidden" name=@Html.Raw((templateInfo.Substring(0,(templateInfo.Length - 3))) + ".Index") value=@index />
                 

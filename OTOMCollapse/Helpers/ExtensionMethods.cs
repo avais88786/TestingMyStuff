@@ -463,25 +463,13 @@ namespace OTOMCollapse.Helpers
         }
 
 
-        public static MvcHtmlString RenderAddMoreButton<TModel>(this HtmlHelper<TModel> htmlHelper)
+        public static MvcHtmlString RenderAddMoreButton<TModel>(this HtmlHelper<TModel> htmlHelper, string propertyName, int? maxValue, bool indexPresent)
         {
-            
-            string propertyName = (string)htmlHelper.ViewData["PropertyName"];// ExpressionHelper.GetExpressionText(expression); //RepeatingGroup
-            //string containerName = expression.Parameters[0].Type.Name;            //RepeatingGroupContainer
-
-            int? maxValue = null ;
-
-            if (htmlHelper.ViewData.ContainsKey("MaxRepeats"))
-                maxValue = (int)htmlHelper.ViewData["MaxRepeats"];//  ((MaximumRepeatGroupsAttribute)((MemberExpression)expression.Body).Member.GetCustomAttribute(typeof(MaximumRepeatGroupsAttribute), false)).Value;
-            
+           
             StringBuilder htmlFieldPrefix = GetHtmlFieldPrefix<TModel>(htmlHelper, "");  //Get HtmlPrefix that should be used for next repeatinggroup
 
             string currentHtmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
-            //int currentIndexTag_Template = currentHtmlFieldPrefix.LastIndexOf('[');
-            //int currentIndex = 0;
-
-            //if (currentIndexTag_Template >= 0)
-            //    Int32.TryParse(currentHtmlFieldPrefix[currentIndexTag_Template + 1].ToString(), out currentIndex);
+           
 
             var idPrefix = currentHtmlFieldPrefix.Replace('.', '_');
             idPrefix = idPrefix.Replace('[', '_');
@@ -490,10 +478,10 @@ namespace OTOMCollapse.Helpers
             //Could use Regex:
             //Regex pattern = new Regex(@"[.\[\]]");
             //var gggg = pattern.Replace(template, "_");
-            
+
             var outputTags = new StringBuilder();
 
-            if (!htmlHelper.ViewData.ContainsKey("Index"))
+            if (!indexPresent)
             {
                 var hiddenElementTagBuilder = new TagBuilder("input");
                 // Create valid id
@@ -507,7 +495,7 @@ namespace OTOMCollapse.Helpers
                 hiddenElementTagBuilder.MergeAttribute("data-property", propertyName);
                 hiddenElementTagBuilder.MergeAttribute("data-maxpossiblevalue", maxValue.ToString());
                 hiddenElementTagBuilder.MergeAttribute("data-currentdisplayedrepeatinggroupsonpage", ((IList)htmlHelper.ViewData.Model).Count.ToString());
-                hiddenElementTagBuilder.MergeAttribute("data-currentindex", (((IList)htmlHelper.ViewData.Model).Count-1).ToString());
+                hiddenElementTagBuilder.MergeAttribute("data-currentindex", (((IList)htmlHelper.ViewData.Model).Count - 1).ToString());
                 hiddenElementTagBuilder.MergeAttribute("data-htmlfieldprefix", htmlFieldPrefix.ToString());
                 //builder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
 
@@ -519,12 +507,118 @@ namespace OTOMCollapse.Helpers
                 addButtonTagBuilder.Attributes.Add("value", "Add");
                 addButtonTagBuilder.Attributes.Add("data-hiddenforelementid", "#hidden" + idPrefix);
                 addButtonTagBuilder.Attributes.Add("data-placeholderelementid", "#RepeatGroupContainer" + idPrefix);
-            
+
                 outputTags.Append(hiddenElementTagBuilder.ToString(TagRenderMode.SelfClosing));
                 outputTags.Append(addButtonTagBuilder.ToString(TagRenderMode.SelfClosing));
             }
 
             return MvcHtmlString.Create(outputTags.ToString());
+        }
+
+
+        public static MvcHtmlString RenderAddMoreButton<TModel>(this HtmlHelper<TModel> htmlHelper)
+        {
+            
+            string propertyName = (string)htmlHelper.ViewData["PropertyName"];// ExpressionHelper.GetExpressionText(expression); //RepeatingGroup
+            //string containerName = expression.Parameters[0].Type.Name;            //RepeatingGroupContainer
+
+            int? maxValue = null;
+
+            if (htmlHelper.ViewData.ContainsKey("MaxRepeats"))
+                maxValue = (int)htmlHelper.ViewData["MaxRepeats"];//  ((MaximumRepeatGroupsAttribute)((MemberExpression)expression.Body).Member.GetCustomAttribute(typeof(MaximumRepeatGroupsAttribute), false)).Value;
+            
+            bool indexPresent = htmlHelper.ViewData.ContainsKey("Index");
+
+            return RenderAddMoreButton<TModel>(htmlHelper, propertyName, maxValue, indexPresent);
+
+            #region refactored
+            //StringBuilder htmlFieldPrefix = GetHtmlFieldPrefix<TModel>(htmlHelper, "");  //Get HtmlPrefix that should be used for next repeatinggroup
+
+            //string currentHtmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
+            ////int currentIndexTag_Template = currentHtmlFieldPrefix.LastIndexOf('[');
+            ////int currentIndex = 0;
+
+            ////if (currentIndexTag_Template >= 0)
+            ////    Int32.TryParse(currentHtmlFieldPrefix[currentIndexTag_Template + 1].ToString(), out currentIndex);
+
+            //var idPrefix = currentHtmlFieldPrefix.Replace('.', '_');
+            //idPrefix = idPrefix.Replace('[', '_');
+            //idPrefix = idPrefix.Replace(']', '_');
+
+            ////Could use Regex:
+            ////Regex pattern = new Regex(@"[.\[\]]");
+            ////var gggg = pattern.Replace(template, "_");
+            
+            //var outputTags = new StringBuilder();
+
+            //if (!htmlHelper.ViewData.ContainsKey("Index"))
+            //{
+            //    var hiddenElementTagBuilder = new TagBuilder("input");
+            //    // Create valid id
+            //    hiddenElementTagBuilder.GenerateId("hidden" + idPrefix);
+
+            //    // Add attributes
+            //    hiddenElementTagBuilder.Attributes.Add("type", "hidden");
+            //    //builder.MergeAttribute("data-container", rpContainer.GetType().Name);
+            //    //hiddenElementTagBuilder.MergeAttribute("data-container", containerName);
+
+            //    hiddenElementTagBuilder.MergeAttribute("data-property", propertyName);
+            //    hiddenElementTagBuilder.MergeAttribute("data-maxpossiblevalue", maxValue.ToString());
+            //    hiddenElementTagBuilder.MergeAttribute("data-currentdisplayedrepeatinggroupsonpage", ((IList)htmlHelper.ViewData.Model).Count.ToString());
+            //    hiddenElementTagBuilder.MergeAttribute("data-currentindex", (((IList)htmlHelper.ViewData.Model).Count-1).ToString());
+            //    hiddenElementTagBuilder.MergeAttribute("data-htmlfieldprefix", htmlFieldPrefix.ToString());
+            //    //builder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+
+            //    // Render tag
+
+            //    var addButtonTagBuilder = new TagBuilder("input");
+            //    addButtonTagBuilder.GenerateId("add" + idPrefix + propertyName);
+            //    addButtonTagBuilder.Attributes.Add("type", "button");
+            //    addButtonTagBuilder.Attributes.Add("value", "Add");
+            //    addButtonTagBuilder.Attributes.Add("data-hiddenforelementid", "#hidden" + idPrefix);
+            //    addButtonTagBuilder.Attributes.Add("data-placeholderelementid", "#RepeatGroupContainer" + idPrefix);
+            
+            //    outputTags.Append(hiddenElementTagBuilder.ToString(TagRenderMode.SelfClosing));
+            //    outputTags.Append(addButtonTagBuilder.ToString(TagRenderMode.SelfClosing));
+            //}
+
+            //return MvcHtmlString.Create(outputTags.ToString());
+            #endregion
+        }
+
+
+        public static MvcHtmlString NestedEditorFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper,Expression<Func<TModel,TValue>> expression,string templateName, string htmlPrefixField)
+        {
+            string propertyName = ExpressionHelper.GetExpressionText(expression).Substring(4);
+
+            int maxValue = ((MaximumRepeatGroupsAttribute)((MemberExpression)expression.Body).Member.GetCustomAttribute(typeof(MaximumRepeatGroupsAttribute))).Value;
+
+            var viewData = new ViewDataDictionary(htmlHelper.ViewData);
+
+
+            viewData.Remove("Index");
+            viewData.Remove("PropertyName");
+            viewData.Remove("MaxRepeats");
+
+            viewData.Add("Test", "Hello");
+
+            viewData.Add("PropertyName", propertyName);
+            viewData.Add("MaxRepeats", maxValue);
+
+            if (htmlHelper.ViewData.ContainsKey("PropertyName"))
+                htmlHelper.ViewData.Remove("PropertyName");
+            htmlHelper.ViewData.Add("PropertyName", propertyName);
+
+
+            if (htmlHelper.ViewData.ContainsKey("MaxRepeats"))
+                htmlHelper.ViewData.Remove("MaxRepeats");
+            htmlHelper.ViewData.Add("MaxRepeats", maxValue);
+
+            //htmlHelper.ViewData = viewData;
+            //var x = expression.Compile()(htmlHelper.ViewData.Model);
+            return EditorExtensions.EditorFor(htmlHelper, expression, templateName, htmlPrefixField);
+
+            
         }
 
         #region example

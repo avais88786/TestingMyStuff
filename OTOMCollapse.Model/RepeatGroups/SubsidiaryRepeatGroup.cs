@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    public class SubsidiaryRepeatGroup : RepeatGroupBase//,RepeatGroupContainer
+    public class SubsidiaryRepeatGroup : RepeatGroupBase,RepeatGroupContainer
     {
         //private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() {{ "TestRepeatGroups", typeof(TestRepeatGroup) }};
 
         public SubsidiaryRepeatGroup()
         {
-            //TestRepeatGroups = new List<TestRepeatGroup>();
+            TestRepeatGroups = new List<TestRepeatGroup>(){new TestRepeatGroup()};
             //for (int i = 0; i < 10; i++)
             //{
             //    TestRepeatGroups.Add(new TestRepeatGroup());
@@ -25,21 +25,24 @@ namespace OTOMCollapse.Models.RepeatGroups
 
         public string EmployersReferenceNumber { get;set; }
 
-        //[UIHint("TestRepeatGroup")]
-        //[MaximumRepeatGroups(5)]
-        //public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
+        [UIHint("Address")]
+        public Address AddressInformation { get; set; }
 
-        public IEnumerable<RepeatGroupBase> GetPropertyType(string propertyName)
+        [UIHint("TestRepeatGroup")]
+        [MaximumRepeatGroups(5)]
+        public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
+
+        public RepeatGroupBase GetPropertyType(string propertyName)
         {
-            //return base.GetPropertyType(propertyTypeMap, propertyName);
-            //return (RepeatGroupBase)Activator.CreateInstance(propertyTypeMap[propertyName]);
-            return null;
+            return (RepeatGroupBase)Activator.CreateInstance(this.GetType().GetProperty(propertyName).PropertyType);
         }
 
 
         public string GetTemplateName(string forProperty)
         {
-            return null;
+            string templateName = ((UIHintAttribute)this.GetType().GetProperty(forProperty).GetCustomAttributes(typeof(UIHintAttribute), false).FirstOrDefault()).UIHint;
+
+            return templateName;
         }
 
         public override IEnumerable<RepeatGroupBase> RepeatGroupProperty

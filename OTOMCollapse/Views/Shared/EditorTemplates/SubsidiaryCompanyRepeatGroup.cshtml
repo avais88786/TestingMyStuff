@@ -1,5 +1,12 @@
 ﻿@model IList<OTOMCollapse.Models.RepeatGroups.SubsidiaryRepeatGroup>
 
+@{
+    string propertyName = (string)ViewData["PropertyName"];
+    int? maxValue = null ;
+    if (ViewData.ContainsKey("MaxRepeats"))
+    {maxValue = (int)ViewData["MaxRepeats"];}
+    bool indexPresent =  ViewData.ContainsKey("Index");
+}
 
 @Html.BeginListSection()
 
@@ -31,11 +38,24 @@
             </div>
         </article>
         
+        //@Html.Editor("AddressInformation",)
+        @*@Html.EditorFor(model => model[i].AddressInformation,"Address","")*@
+        @Html.EditorFor(model => model[i].AddressInformation,"","")
+        
+        @*@Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model,model => model[i].) @*, model => model.TestRepeatGroups)*@
+        
+        
+        @ViewData.Remove("Index");
+        @ViewData.Remove("PropertyName");
+        @ViewData.Remove("MaxRepeats");
+            
+        
+        @Html.NestedEditorFor(model => model[i].TestRepeatGroups,"","")
 
     }
 
     @Html.EndListSection()
-@Html.RenderAddMoreButton()
+@Html.RenderAddMoreButton(propertyName,maxValue,indexPresent)
     @*
     <article>
         <div class="editor-label">

@@ -8,38 +8,38 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    //public class TestRepeatGroup : RepeatGroupBase,RepeatGroupContainer
-    //{
-    //    public TestRepeatGroup()
-    //    {
-    //        TestRepeatGroupsNested1 = new List<TestRepeatGroupNested1>();
-    //    }
-        
-    //    public string TestString { get; set; }
+    public class TestRepeatGroup : RepeatGroupBase//, RepeatGroupContainer
+    {
+        public TestRepeatGroup()
+        {
+            TestRepeatGroupsNested1 = new List<TestRepeatGroupNested1>();
+        }
 
-    //    public decimal TestDecimal { get; set; }
+        public string TestString { get; set; }
 
-    //    [UIHint("TestRepeatGroupsNested1")]
-    //    [MaximumRepeatGroups(3)]
-    //    public List<TestRepeatGroupNested1> TestRepeatGroupsNested1 { get; set; }
+        public decimal TestDecimal { get; set; }
 
-    //    public override IList<RepeatGroupBase> RepeatGroupProperty
-    //    {
-    //        get
-    //        {
-    //            return null;
-    //        }
-    //    }
+        [UIHint("TestRepeatGroupsNested1")]
+        [MaximumRepeatGroups(3)]
+        public List<TestRepeatGroupNested1> TestRepeatGroupsNested1 { get; set; }
 
-    //    public IList<RepeatGroupBase> GetPropertyType(string propertyName)
-    //    {
-    //        return null;
-    //        //return new TestRepeatGroupNested1();
-    //    }
+        public override IEnumerable<RepeatGroupBase> RepeatGroupProperty
+        {
+            get
+            {
+                return new List<TestRepeatGroup>() { new TestRepeatGroup() }.Cast<RepeatGroupBase>();
+            }
+        }
 
-    //    public string GetTemplateName(string forProperty)
-    //    {
-    //        return "TestRepeatGroupsNested1";
-    //    }
-    //}
+        public IList<RepeatGroupBase> GetPropertyType(string propertyName)
+        {
+            return null;
+            //return new TestRepeatGroupNested1();
+        }
+
+        public string GetTemplateName(string forProperty)
+        {
+            return "TestRepeatGroupsNested1";
+        }
+    }
 }

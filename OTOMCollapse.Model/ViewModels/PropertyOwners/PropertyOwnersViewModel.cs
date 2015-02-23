@@ -16,7 +16,7 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         private Dictionary<string, Type> propertyMapping = new Dictionary<string, Type>() { 
         //{ "StandardQuestionsGroupViewModel", typeof(StandardQuestionsGroupViewModel) },
         //{ "SubsidiaryRepeatGroup", typeof(SubsidiaryRepeatGroup) } ,
-        //{"TestRepeatGroup",typeof(TestRepeatGroup)},
+        {"TestRepeatGroups",typeof(SubsidiaryRepeatGroup)},
         {"SubsidaryCompanies",typeof(PropertyOwnersViewModel)}
         };
 
