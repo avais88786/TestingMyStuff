@@ -9,49 +9,49 @@ using OTOMCollapse.Infrastructure;
 
 namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 {
-    public class StandardQuestionsGroupViewModel : RepeatGroupContainer
-    {
-        private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() { 
-        { "SubsidiaryCompanies", typeof(SubsidiaryRepeatGroup) }, 
-        { "TestRepeatGroups", typeof(TestRepeatGroup) } 
-        };
+    //public class StandardQuestionsGroupViewModel : RepeatGroupContainer
+    //{
+    //    //private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() { 
+    //    //{ "SubsidiaryCompanies", typeof(SubsidiaryRepeatGroup) }, 
+    //    //{ "TestRepeatGroups", typeof(TestRepeatGroup) } 
+    //    //};
 
-        public StandardQuestionsGroupViewModel()
-        {
-            SubsidiaryCompanies = new List<SubsidiaryRepeatGroup>();
-            //for (int i=0;i< this.GetMaxRepeatGroupValueOf(model => model.SubsidiaryCompanies); i++)
-            //{
-            //    SubsidiaryCompanies.Add(new SubsidiaryRepeatGroup());
-            //}
+    //    //public StandardQuestionsGroupViewModel()
+    //    //{
+    //    //    SubsidiaryCompanies = new List<SubsidiaryRepeatGroup>();
+    //    //    //for (int i=0;i< this.GetMaxRepeatGroupValueOf(model => model.SubsidiaryCompanies); i++)
+    //    //    //{
+    //    //    //    SubsidiaryCompanies.Add(new SubsidiaryRepeatGroup());
+    //    //    //}
             
-        }
+    //    //}
 
-        [Range(0,double.MaxValue)]
-        public decimal TargetPremium { get; set; }
+    //    //[Range(0,double.MaxValue)]
+    //    //public decimal TargetPremium { get; set; }
 
-        public string TradingName { get; set; }
+    //    //public string TradingName { get; set; }
 
-        [UIHint("SubsidiaryCompanyRepeatGroup")]
-        [MaximumRepeatGroups(10)]
-        public IList<SubsidiaryRepeatGroup> SubsidiaryCompanies { get; set; }
-
-
-        [UIHint("TestRepeatGroup")]
-        [MaximumRepeatGroups(5)]
-        public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
-
-        public RepeatGroupBase GetPropertyType(string propertyName)
-        {
-            return (RepeatGroupBase)Activator.CreateInstance(this.GetType().GetProperty(propertyName).PropertyType.GetGenericArguments()[0]);
-            //return (RepeatGroupBase)Activator.CreateInstance(propertyTypeMap[propertyName]);
-        }
+    //    //[UIHint("SubsidiaryCompanyRepeatGroup")]
+    //    //[MaximumRepeatGroups(10)]
+    //    //public IList<SubsidiaryRepeatGroup> SubsidiaryCompanies { get; set; }
 
 
-        public string GetTemplateName(string forProperty)
-        {
-            string templateName = ((UIHintAttribute)this.GetType().GetProperty(forProperty).GetCustomAttributes(typeof(UIHintAttribute), false).FirstOrDefault()).UIHint;
+    //    //[UIHint("TestRepeatGroup")]
+    //    //[MaximumRepeatGroups(5)]
+    //    //public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
 
-            return templateName;
-        }
-    }
+    //    //public RepeatGroupBase GetPropertyType(string propertyName)
+    //    //{
+    //    //    return (RepeatGroupBase)Activator.CreateInstance(this.GetType().GetProperty(propertyName).PropertyType.GetGenericArguments()[0]);
+    //    //    //return (RepeatGroupBase)Activator.CreateInstance(propertyTypeMap[propertyName]);
+    //    //}
+
+
+    //    //public string GetTemplateName(string forProperty)
+    //    //{
+    //    //    string templateName = ((UIHintAttribute)this.GetType().GetProperty(forProperty).GetCustomAttributes(typeof(UIHintAttribute), false).FirstOrDefault()).UIHint;
+
+    //    //    return templateName;
+    //    //}
+    //}
 }

@@ -29,8 +29,8 @@ namespace OTOMCollapse.Controllers
                   .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.Text));
 
             propertyMapping = new Dictionary<string, RepeatGroupContainer>();
-            propertyMapping.Add("StandardQuestionsGroupViewModel", new StandardQuestionsGroupViewModel());
-            propertyMapping.Add("SubsidiaryRepeatGroup", new SubsidiaryRepeatGroup());
+            //propertyMapping.Add("StandardQuestionsGroupViewModel", new StandardQuestionsGroupViewModel());
+            //propertyMapping.Add("SubsidiaryRepeatGroup", new SubsidiaryRepeatGroup());
             
 
             //Mapper.CreateMap<SprinklerCodeList, SelectListItem>()
@@ -80,9 +80,9 @@ namespace OTOMCollapse.Controllers
             //IEnumerable<string> codeListNames
             var x = vm.GetCodeListNames();
             
-            vm.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
-            vm.Trades = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
-            return View(vm);
+            //vm.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
+            //vm.Trades = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
+            return View("Object",vm);
         }
 
         //
@@ -92,33 +92,35 @@ namespace OTOMCollapse.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PropertyOwnersViewModel propertyowners)
         {
-            if (ModelState.IsValid)
-            {
-                db.PropertyOwners.Add(propertyowners);
-                db.SaveChanges();
-                return RedirectToAction("Create");
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    db.PropertyOwners.Add(propertyowners);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Create");
+            //}
 
             ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
             IRepository<CodeListBase> sprinklersCodeListRepo = StructureMapContainer.Container.GetInstance<IRepository<CodeListBase>>();
 
-            propertyowners.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
-            propertyowners.Trades = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
+            //propertyowners.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
+            //propertyowners.Trades = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
 
-            return View(propertyowners);
+            return View("Object",propertyowners);
         }
 
-        public ActionResult avais(string container, string property, int nextIndex, string htmlTemplateFieldPrefix)
+        public ActionResult avais(string property, int nextIndex, string htmlTemplateFieldPrefix)
         {
             PropertyOwnersViewModel viewModel = new PropertyOwnersViewModel();
-            var type = viewModel.GetRepeatGroupContainerType(container);
+            var type = viewModel.GetRepeatGroupContainerType(property);
             //var x = propertyMapping[container];
             //x.propertyName = property;
             ViewData["property"] = property;
             ViewData["Index"] = nextIndex;
-            ViewData["idToAppend"] = container + property;
+            ViewData["idToAppend"] = property;
+            ViewData["htmlFieldPrefix"] = htmlTemplateFieldPrefix;
 
-            ViewData["htmlFieldPrefix"] = String.Format("{0}[{1}]", htmlTemplateFieldPrefix, nextIndex);
+            //htmlTemplateFieldPrefix = htmlTemplateFieldPrefix.Substring(0,(htmlTemplateFieldPrefix.Length-3));
+            //ViewData["htmlFieldPrefix"] = String.Format("{0}[{1}]", htmlTemplateFieldPrefix, nextIndex);
             return PartialView("Partial/_PartialGenericRepeatGroupListStyle", type);
         }
 

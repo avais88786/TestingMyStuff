@@ -47,13 +47,9 @@
             return;
         }
         
-        //var placeHolderId = $(this).parent('section').id;//.data('placeholderelementid');
+        var placeHolder = $(this).siblings('section').first();//.closest('section');  //.parent('section').first()
 
-        //var placeHolder = $(placeHolderId);
-
-        var placeHolder = $(this).parent('section');
-
-        var datas = "container=" + container + "&property=" + property + "&nextIndex=" + nextIndex + "&htmlTemplateFieldPrefix=" + htmlTemplateFieldPrefix;
+        var datas = "property=" + property + "&nextIndex=" + nextIndex + "&htmlTemplateFieldPrefix=" + htmlTemplateFieldPrefix;
 
         //var placeHolderDiv = $("[data-placeholderelementid=" + placeHolderId + "]").last();
         //var existingHtml = placeHolderDiv.html();
@@ -64,7 +60,7 @@
         //    //$(this).prepend(existingHtml);
         //});
 
-        $.get("avais", datas, function (result) {
+        $.get("PropertyOwners/avais", datas, function (result) {
             currentDisplayedRepeatingGroups = currentDisplayedRepeatingGroups + 1;
             $(hiddenElementId).data('currentdisplayedrepeatinggroupsonpage', currentDisplayedRepeatingGroups);
             $(hiddenElementId).attr('data-currentdisplayedrepeatinggroupsonpage', currentDisplayedRepeatingGroups);

@@ -9,9 +9,9 @@ namespace OTOMCollapse.Models.RepeatGroups
     {
         public string TestRepeatGroupNestedProperty1 { get; set; }
 
-        public override RepeatGroupBase RepeatGroupProperty
+        public override IEnumerable<RepeatGroupBase> RepeatGroupProperty
         {
-            get { return this; }
+            get { return null; }
         }
     }
 }

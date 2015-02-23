@@ -10,7 +10,8 @@
                     
                 <input type="hidden" name=@Html.Raw((templateInfo.Substring(0,(templateInfo.Length - 3))) + ".Index") value=@index />
                 
-                @Html.EditorFor(model => model.GetPropertyType(propertyName).RepeatGroupProperty, Model.GetTemplateName(propertyName), templateInfo)
+                @Html.EditorFor(model => model.GetPropertyType(propertyName).RepeatGroupProperty, Model.GetTemplateName(propertyName))
+                @*@Html.EditorForModel(Model.GetTemplateName(propertyName))*@
                 
                 @{if (index > 0)
                  {

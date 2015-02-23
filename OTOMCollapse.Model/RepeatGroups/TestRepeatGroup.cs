@@ -8,37 +8,38 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    public class TestRepeatGroup : RepeatGroupBase,RepeatGroupContainer
-    {
-        public TestRepeatGroup()
-        {
-            TestRepeatGroupsNested1 = new List<TestRepeatGroupNested1>();
-        }
+    //public class TestRepeatGroup : RepeatGroupBase,RepeatGroupContainer
+    //{
+    //    public TestRepeatGroup()
+    //    {
+    //        TestRepeatGroupsNested1 = new List<TestRepeatGroupNested1>();
+    //    }
         
-        public string TestString { get; set; }
+    //    public string TestString { get; set; }
 
-        public decimal TestDecimal { get; set; }
+    //    public decimal TestDecimal { get; set; }
 
-        [UIHint("TestRepeatGroupsNested1")]
-        [MaximumRepeatGroups(3)]
-        public List<TestRepeatGroupNested1> TestRepeatGroupsNested1 { get; set; }
+    //    [UIHint("TestRepeatGroupsNested1")]
+    //    [MaximumRepeatGroups(3)]
+    //    public List<TestRepeatGroupNested1> TestRepeatGroupsNested1 { get; set; }
 
-        public override RepeatGroupBase RepeatGroupProperty
-        {
-            get
-            {
-                return this;
-            }
-        }
+    //    public override IList<RepeatGroupBase> RepeatGroupProperty
+    //    {
+    //        get
+    //        {
+    //            return null;
+    //        }
+    //    }
 
-        public RepeatGroupBase GetPropertyType(string propertyName)
-        {
-            return new TestRepeatGroupNested1();
-        }
+    //    public IList<RepeatGroupBase> GetPropertyType(string propertyName)
+    //    {
+    //        return null;
+    //        //return new TestRepeatGroupNested1();
+    //    }
 
-        public string GetTemplateName(string forProperty)
-        {
-            return "TestRepeatGroupsNested1";
-        }
-    }
+    //    public string GetTemplateName(string forProperty)
+    //    {
+    //        return "TestRepeatGroupsNested1";
+    //    }
+    //}
 }

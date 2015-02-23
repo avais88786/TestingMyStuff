@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    public class SubsidiaryRepeatGroup : RepeatGroupBase,RepeatGroupContainer
+    public class SubsidiaryRepeatGroup : RepeatGroupBase//,RepeatGroupContainer
     {
-        private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() {{ "TestRepeatGroups", typeof(TestRepeatGroup) }};
+        //private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() {{ "TestRepeatGroups", typeof(TestRepeatGroup) }};
 
         public SubsidiaryRepeatGroup()
         {
-            TestRepeatGroups = new List<TestRepeatGroup>();
+            //TestRepeatGroups = new List<TestRepeatGroup>();
             //for (int i = 0; i < 10; i++)
             //{
             //    TestRepeatGroups.Add(new TestRepeatGroup());
@@ -25,14 +25,15 @@ namespace OTOMCollapse.Models.RepeatGroups
 
         public string EmployersReferenceNumber { get;set; }
 
-        [UIHint("TestRepeatGroup")]
-        [MaximumRepeatGroups(5)]
-        public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
+        //[UIHint("TestRepeatGroup")]
+        //[MaximumRepeatGroups(5)]
+        //public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
 
-        public RepeatGroupBase GetPropertyType(string propertyName)
+        public IEnumerable<RepeatGroupBase> GetPropertyType(string propertyName)
         {
             //return base.GetPropertyType(propertyTypeMap, propertyName);
-            return (RepeatGroupBase)Activator.CreateInstance(propertyTypeMap[propertyName]);
+            //return (RepeatGroupBase)Activator.CreateInstance(propertyTypeMap[propertyName]);
+            return null;
         }
 
 
@@ -41,9 +42,9 @@ namespace OTOMCollapse.Models.RepeatGroups
             return null;
         }
 
-        public override RepeatGroupBase RepeatGroupProperty
+        public override IEnumerable<RepeatGroupBase> RepeatGroupProperty
         {
-            get { return this; }
+            get { return new List<SubsidiaryRepeatGroup>(){new SubsidiaryRepeatGroup()}.Cast<RepeatGroupBase>(); }
         }
     }
 }

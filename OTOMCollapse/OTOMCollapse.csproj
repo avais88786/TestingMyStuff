@@ -148,8 +148,6 @@
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Models\OTOMTestsDataContext.cs" />
     <Compile Include="Models\RepeatGroupViewModel.cs" />
-    <Compile Include="NewFolder1\BusinessLineController.cs" />
-    <Compile Include="NewFolder1\DataCaptureModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,7 +209,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="NewFolder1\Object.cshtml" />
+    <Content Include="Views\Shared\Object.cshtml" />
     <Content Include="NewFolder1\ViewModels.zip" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\CustomScripts\DropDowns.js" />
@@ -273,6 +271,7 @@
     <Content Include="Views\Shared\EditorTemplates\TestRepeatGroup.cshtml" />
     <Content Include="Views\PropertyOwners\EditorTemplates\TestRepeatGroupsNested1.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\_PartialGenericRepeatGroupAccordionStyle.cshtml" />
+    <Content Include="Views\PropertyOwners\EditorTemplates\SubsidiaryContainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,35 +1,52 @@
-﻿@model OTOMCollapse.Models.RepeatGroups.SubsidiaryRepeatGroup
+﻿@model IList<OTOMCollapse.Models.RepeatGroups.SubsidiaryRepeatGroup>
 
-<article>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.CompanyName)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.CompanyName)
-    </div>
-</article>
 
-<article>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.EmployersReferenceNumber)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.EmployersReferenceNumber)
+@Html.BeginListSection()
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+
+        Html.SetHtmlTemplateInfo(i);
+
+        <article>
+            <div class="editor-label">
+                @Html.LabelFor(model => model[i].CompanyName)
+            </div>
+            <div class="editor-field">
+                @*@Html.EditorFor(model => model[i].CompanyName)*@
+                @Html.Editor("CompanyName")
+            </div>
+        </article>
+
+        <article>
+            <div class="editor-label">
+                @Html.LabelFor(model => model[i].EmployersReferenceNumber)
+            </div>
+            <div class="editor-field">
+                @*@Html.EditorFor(model => model[i].EmployersReferenceNumber)*@
+                @*@Html.EditorFor(model => model[i].EmployersReferenceNumber)*@
+                @Html.Editor("EmployersReferenceNumber")@*,templateInfo)*@
+                @Html.ValidationMessage("EmployersReferenceNumber")
+                @*@Html.ValidationMessageFor(model => model[i].EmployersReferenceNumber)*@
+            </div>
+        </article>
         
-        @Html.ValidationMessageFor(model => model.EmployersReferenceNumber)
-    </div>
-</article>
 
-<article>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.TestRepeatGroups)
-    </div>
+    }
+
+    @Html.EndListSection()
+@Html.RenderAddMoreButton()
+    @*
+    <article>
+        <div class="editor-label">
+           @Html.LabelFor(model => model.TestRepeatGroups)*@
+    @*</div>
     <div class="editor-field">
        
-    </div>
+    </div>*@
 
-    @Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model, model => model.TestRepeatGroups)
-    @Html.RenderAddMoreButtonFor(x => x.TestRepeatGroups)
-</article>
+    @*@Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model)@*, model => model.TestRepeatGroups)*@
+    @*@Html.RenderAddMoreButtonFor(x => x.TestRepeatGroups)
+</article>*@
 
 

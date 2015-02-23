@@ -7,6 +7,6 @@ namespace OTOMCollapse.Models.RepeatGroups
 {
     public abstract class RepeatGroupBase
     {
-        public abstract RepeatGroupBase RepeatGroupProperty { get;}
+        public abstract IEnumerable<RepeatGroupBase> RepeatGroupProperty { get; }
     }
 }

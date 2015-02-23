@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models
 {
-    public class PropertyOwners
-    {
-        public int PropertyOwnersId { get; set; }
+    //public class PropertyOwners
+    //{
+    //    public int PropertyOwnersId { get; set; }
 
-        public string ProposerName { get; set; }
+    //    public string ProposerName { get; set; }
 
-        public int CompanyStatus { get; set; }
+    //    public int CompanyStatus { get; set; }
         
-        public IEnumerable<PropertyRepeatGroup> Property;
+    //    public IEnumerable<PropertyRepeatGroup> Property;
 
 
 
 
-    }
+    //}
 }

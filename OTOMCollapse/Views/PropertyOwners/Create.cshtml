@@ -12,7 +12,13 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    <legend>PropertyOwners</legend>
+    
+    <section>
+    
+        
+        @Html.EditorForModel()
+    @Html.Partial("Object")
+    @*<legend>PropertyOwners</legend>
     <section>
         <article>
             <div class="editor-label">
@@ -59,9 +65,9 @@
                     <input type="button" data-href="#propertyDetailsQuestionsTab" class="tabNextButton" value="Next" />
                 </section>*@
             
-            </section>
+            
 
-        </section>
+        
 
         @*<section class="accordion">
             <section class="accordion-section">

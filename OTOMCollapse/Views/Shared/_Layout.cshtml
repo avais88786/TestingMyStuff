@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
 </head>
 <body>
     <div style="width:10%;float:left;display:inline-block;">PlaceHolderleftMenu </div>
@@ -13,6 +14,7 @@
         @RenderBody()
     </div>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/CustomScripts/GenericListStyle.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
