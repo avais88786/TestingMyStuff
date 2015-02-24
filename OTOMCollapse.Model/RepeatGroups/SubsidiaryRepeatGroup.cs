@@ -34,7 +34,7 @@ namespace OTOMCollapse.Models.RepeatGroups
 
         public RepeatGroupBase GetPropertyType(string propertyName)
         {
-            return (RepeatGroupBase)Activator.CreateInstance(this.GetType().GetProperty(propertyName).PropertyType);
+            return (RepeatGroupBase)Activator.CreateInstance(this.GetType().GetProperty(propertyName).PropertyType.GetGenericArguments()[0]);
         }
 
 

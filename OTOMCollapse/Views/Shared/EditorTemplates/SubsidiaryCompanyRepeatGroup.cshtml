@@ -44,13 +44,16 @@
         
         @*@Html.RenderGenericPartialFor(@"Partial\_PartialGenericRepeatGroupListStyle", Model,model => model[i].) @*, model => model.TestRepeatGroups)*@
         
-        
-        @ViewData.Remove("Index");
-        @ViewData.Remove("PropertyName");
-        @ViewData.Remove("MaxRepeats");
-            
-        
-        @Html.NestedEditorFor(model => model[i].TestRepeatGroups,"","")
+     
+        {
+            ViewData["PropertyName"] = "TestRepeatGroups";
+            ViewData["MaxRepeats"]  = 5;
+            ViewData.Remove("Index");        
+        }
+                                  
+        //Html.AlterViewData(model => model[i].TestRepeatGroups);
+        @*@Html.NestedEditorFor(model => model[i].TestRepeatGroups,"","")*@
+        @Html.EditorFor(model => model[i].TestRepeatGroups,"")
 
     }
 

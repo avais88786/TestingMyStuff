@@ -593,18 +593,6 @@ namespace OTOMCollapse.Helpers
 
             int maxValue = ((MaximumRepeatGroupsAttribute)((MemberExpression)expression.Body).Member.GetCustomAttribute(typeof(MaximumRepeatGroupsAttribute))).Value;
 
-            var viewData = new ViewDataDictionary(htmlHelper.ViewData);
-
-
-            viewData.Remove("Index");
-            viewData.Remove("PropertyName");
-            viewData.Remove("MaxRepeats");
-
-            viewData.Add("Test", "Hello");
-
-            viewData.Add("PropertyName", propertyName);
-            viewData.Add("MaxRepeats", maxValue);
-
             if (htmlHelper.ViewData.ContainsKey("PropertyName"))
                 htmlHelper.ViewData.Remove("PropertyName");
             htmlHelper.ViewData.Add("PropertyName", propertyName);
@@ -617,9 +605,26 @@ namespace OTOMCollapse.Helpers
             //htmlHelper.ViewData = viewData;
             //var x = expression.Compile()(htmlHelper.ViewData.Model);
             return EditorExtensions.EditorFor(htmlHelper, expression, templateName, htmlPrefixField);
-
+            
             
         }
+
+        public static void AlterViewData<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression)
+        {
+            string propertyName = ExpressionHelper.GetExpressionText(expression).Substring(4);
+
+            int maxValue = ((MaximumRepeatGroupsAttribute)((MemberExpression)expression.Body).Member.GetCustomAttribute(typeof(MaximumRepeatGroupsAttribute))).Value;
+
+            if (htmlHelper.ViewData.ContainsKey("PropertyName"))
+                htmlHelper.ViewData.Remove("PropertyName");
+            htmlHelper.ViewData.Add("PropertyName", propertyName);
+
+
+            if (htmlHelper.ViewData.ContainsKey("MaxRepeats"))
+                htmlHelper.ViewData.Remove("MaxRepeats");
+            htmlHelper.ViewData.Add("MaxRepeats", maxValue);
+        }
+
 
         #region example
         //public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, object htmlAttributes)
