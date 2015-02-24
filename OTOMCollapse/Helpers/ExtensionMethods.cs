@@ -16,7 +16,7 @@ namespace OTOMCollapse.Helpers
 {
     public static class ExtensionMethods
     {
-        public static void SetHtmlTemplateInfo<TModel>(this HtmlHelper<TModel> htmlHelper,int listIndex)
+        public static MvcHtmlString SetHtmlTemplateInfo<TModel>(this HtmlHelper<TModel> htmlHelper,int listIndex)
         {
             int actualindex = 0;
             if (htmlHelper.ViewData.ContainsKey("Index"))
@@ -28,7 +28,16 @@ namespace OTOMCollapse.Helpers
             htmlTemplateFieldPrefix = htmlTemplateFieldPrefix.Substring(0, (htmlTemplateFieldPrefix.Length - 3));
             htmlTemplateFieldPrefix = String.Format("{0}[{1}]", htmlTemplateFieldPrefix, actualindex);
 
-            htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix = htmlTemplateFieldPrefix;    
+            htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix = htmlTemplateFieldPrefix;
+    
+            //on postback 
+            var templateInfo = (string)htmlHelper.ViewData["htmlFieldPrefix"];
+            var hiddenIndexTag = new TagBuilder("input");
+            hiddenIndexTag.MergeAttribute("name", (templateInfo.Substring(0, (templateInfo.Length - 3))) + ".Index");
+            hiddenIndexTag.MergeAttribute("value", actualindex.ToString());
+            hiddenIndexTag.Attributes.Add("type", "hidden");
+            return MvcHtmlString.Create(hiddenIndexTag.ToString(TagRenderMode.SelfClosing));
+
         }
 
         public static MvcHtmlString BeginListSection<TModel>(this HtmlHelper<TModel> htmlHelper)
@@ -39,16 +48,7 @@ namespace OTOMCollapse.Helpers
 
             if (index == 0)
             {
-                var templateInfo =(string) htmlHelper.ViewData["htmlFieldPrefix"];
-                var hiddenIndexTag = new TagBuilder("input");
-                hiddenIndexTag.MergeAttribute("name", (templateInfo.Substring(0, (templateInfo.Length - 3))) + ".Index");
-                hiddenIndexTag.MergeAttribute("value", index.ToString());
-                hiddenIndexTag.Attributes.Add("type", "hidden");
-                
-
-                
-                
-                return MvcHtmlString.Create("<section class=\"listStyle\">" + hiddenIndexTag.ToString(TagRenderMode.SelfClosing));
+                return MvcHtmlString.Create("<section class=\"listStyle\">");
             }
                 
             return null;
@@ -589,22 +589,42 @@ namespace OTOMCollapse.Helpers
 
         public static MvcHtmlString NestedEditorFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper,Expression<Func<TModel,TValue>> expression,string templateName, string htmlPrefixField)
         {
-            string propertyName = ExpressionHelper.GetExpressionText(expression).Substring(4);
+            string propertyName = ((MemberExpression)expression.Body).Member.Name;
 
             int maxValue = ((MaximumRepeatGroupsAttribute)((MemberExpression)expression.Body).Member.GetCustomAttribute(typeof(MaximumRepeatGroupsAttribute))).Value;
 
-            if (htmlHelper.ViewData.ContainsKey("PropertyName"))
-                htmlHelper.ViewData.Remove("PropertyName");
-            htmlHelper.ViewData.Add("PropertyName", propertyName);
+            string parentRepeatGroupName = (string)htmlHelper.ViewDataContainer.ViewData["PropertyName"];
+            int? parentRepeatGroupMaxValue = null;
+            if (htmlHelper.ViewDataContainer.ViewData.ContainsKey("MaxRepeats"))
+                parentRepeatGroupMaxValue = (int)htmlHelper.ViewDataContainer.ViewData["MaxRepeats"]; 
+            string parentHtmlFieldPrefix = (string)htmlHelper.ViewDataContainer.ViewData["htmlFieldPrefix"];
+            int parentRepeatGroupIndex = 0;
+            if (htmlHelper.ViewDataContainer.ViewData.ContainsKey("Index"))
+                parentRepeatGroupIndex = (int)htmlHelper.ViewDataContainer.ViewData["Index"];            
 
+            htmlHelper.ViewDataContainer.ViewData.Remove("PropertyName");
+            htmlHelper.ViewDataContainer.ViewData.Add("PropertyName", propertyName);
+            
+            htmlHelper.ViewDataContainer.ViewData.Remove("MaxRepeats");
+            htmlHelper.ViewDataContainer.ViewData.Add("MaxRepeats", maxValue);
 
-            if (htmlHelper.ViewData.ContainsKey("MaxRepeats"))
-                htmlHelper.ViewData.Remove("MaxRepeats");
-            htmlHelper.ViewData.Add("MaxRepeats", maxValue);
+            //if (htmlHelper.ViewData.ContainsKey("MaxRepeats"))
+            //    htmlHelper.ViewData.Remove("MaxRepeats");
+            //htmlHelper.ViewData.Add("MaxRepeats", maxValue);
 
-            //htmlHelper.ViewData = viewData;
-            //var x = expression.Compile()(htmlHelper.ViewData.Model);
-            return EditorExtensions.EditorFor(htmlHelper, expression, templateName, htmlPrefixField);
+            string htmlFieldPrefix = htmlHelper.ViewDataContainer.ViewData.TemplateInfo.HtmlFieldPrefix;
+            htmlHelper.ViewDataContainer.ViewData["htmlFieldPrefix"] = htmlFieldPrefix + "." + propertyName + "[0]";
+
+            htmlHelper.ViewDataContainer.ViewData.Remove("Index");
+
+            MvcHtmlString editorHtmlReturned = EditorExtensions.EditorFor(htmlHelper, expression, templateName, htmlPrefixField);
+
+            htmlHelper.ViewDataContainer.ViewData["PropertyName"] = parentRepeatGroupName;
+            htmlHelper.ViewDataContainer.ViewData["MaxRepeats"] = parentRepeatGroupMaxValue;
+            htmlHelper.ViewDataContainer.ViewData["htmlFieldPrefix"] = parentHtmlFieldPrefix;
+            htmlHelper.ViewDataContainer.ViewData["Index"] = parentRepeatGroupIndex;
+
+            return editorHtmlReturned; 
             
             
         }

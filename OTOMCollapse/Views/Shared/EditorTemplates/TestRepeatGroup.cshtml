@@ -8,14 +8,14 @@
 @Html.BeginListSection()
 
 @for (int i = 0; i < Model.Count; i++)
-    {
-
+{
+    @Html.SetHtmlTemplateInfo(i);
     <article>
         <div class="editor-label">
             @Html.Label("TestString")
         </div>
         <div class="editor-field">
-            @Html.Editor("TestString")
+            @Html.EditorFor(model => model[i].TestString,"","TestString")
         </div>
     </article>
     
@@ -24,7 +24,7 @@
             @Html.Label("TestDecimal")
         </div>
         <div class="editor-field">
-            @Html.Editor("TestDecimal")
+            @Html.EditorFor(model => model[i].TestDecimal, "", "TestDecimal")
         </div>
 
     </article>

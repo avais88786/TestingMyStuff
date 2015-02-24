@@ -8,7 +8,7 @@
 
             <div data-placeholderelementid=@Html.Raw("placeholder" + ViewData["idToAppend"]+index) class="placeholder" style="border: 2px solid white;">
                     
-                <input type="hidden" name=@Html.Raw((templateInfo.Substring(0,(templateInfo.Length - 3))) + ".Index") value=@index />
+                @*<input type="hidden" name=@Html.Raw((templateInfo.Substring(0,(templateInfo.Length - 3))) + ".Index") value=@index />*@
                 
                 @Html.EditorFor(model => model.GetPropertyType(propertyName).RepeatGroupProperty, Model.GetTemplateName(propertyName))
                 @*@Html.EditorForModel(Model.GetTemplateName(propertyName))*@

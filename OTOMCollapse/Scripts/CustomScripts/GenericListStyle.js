@@ -47,7 +47,8 @@
             return;
         }
         
-        var placeHolder = $(this).siblings('section').first();//.closest('section');  //.parent('section').first()
+        var xx = $(this).prevAll('section');
+        var placeHolder = $(this).prev().prev('section');//.siblings('section').first();//.closest('section');  //.parent('section').first()
 
         var datas = "property=" + property + "&nextIndex=" + nextIndex + "&htmlTemplateFieldPrefix=" + htmlTemplateFieldPrefix;
 
