@@ -1,23 +1,29 @@
-﻿﻿@model OTOMCollapse.Models.RepeatGroups.RepeatGroupContainer
+﻿﻿@model OTOMCollapse.ViewModels.RepeatGroupBase
 
-@{var templateInfo = (string)ViewData["htmlFieldPrefix"];
+@{
   int index = (int)ViewData["Index"];
   string propertyName = (string)ViewData["property"];
+
+  string htmlTemplateFieldPrefix = (string)ViewData["htmlFieldPrefix"];
+  htmlTemplateFieldPrefix = htmlTemplateFieldPrefix.Substring(0, (htmlTemplateFieldPrefix.Length - 3));
+  htmlTemplateFieldPrefix = String.Format("{0}[{1}]", htmlTemplateFieldPrefix, index);
+  ViewData.Remove("Index");
   //var x = Model.GetTemplateName(propertyName);
   }
 
-            <div data-placeholderelementid=@Html.Raw("placeholder" + ViewData["idToAppend"]+index) class="placeholder" style="border: 2px solid white;">
+         
                     
                 @*<input type="hidden" name=@Html.Raw((templateInfo.Substring(0,(templateInfo.Length - 3))) + ".Index") value=@index />*@
                 
-                @Html.EditorFor(model => model.GetPropertyType(propertyName).RepeatGroupProperty, Model.GetTemplateName(propertyName))
-                @*@Html.EditorForModel(Model.GetTemplateName(propertyName))*@
+                <section>
+                    @Html.EditorForModel("", htmlTemplateFieldPrefix)
+                </section>
                 
-                @{if (index > 0)
+                @*@{if (index > 0)
                  {
                     <input type="button" value="Remove" style="float:right;" data-placeholderelementidtoremove=@Html.Raw("placeholder" + ViewData["idToAppend"] + index) data-mappedaddelementid=@Html.Raw("add" + ViewData["idToAppend"]) />
-                 }}
-            </div>
+                 }}*@
+        
         
 
 

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using OTOMCollapse.Infrastructure.Infrastructure;
 using System.Collections;
 
-namespace OTOMCollapse.Models.ViewModels.PropertyOwners
+namespace OTOMCollapse.ViewModels.PropertyOwners
 {
     public class PropertyOwnersViewModel : IRepeatGroupContainer
     {
@@ -23,7 +23,8 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
         public PropertyOwnersViewModel()
         {
             SubsidaryCompanies = new List<SubsidiaryRepeatGroup>() { new SubsidiaryRepeatGroup() };
-            
+                //, new SubsidiaryRepeatGroup() , new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup() };
+            TestRepeatGroups = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
 
        // public ConstructionType ConstructionType { get; set; }
@@ -35,6 +36,9 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 
         [MaximumRepeatGroups(10)]
         public List<SubsidiaryRepeatGroup> SubsidaryCompanies { get; set; }
+
+        [MaximumRepeatGroups(5)]
+        public IList<NestedRepeatGroup> TestRepeatGroups { get; set; }
 
         #region hidden
 
@@ -84,18 +88,8 @@ namespace OTOMCollapse.Models.ViewModels.PropertyOwners
 
         public RepeatGroupBase GetPropertyType(string propertyName)
         {
-            Type type = this.GetType().GetProperty(propertyName).PropertyType;
-            var x3 = type.GetGenericArguments()[0];
-
-            var hg = Create(type);
-           // var listInstance = (IList)(typeof(List<>).MakeGenericType(type)); 
-            var list = (IEnumerable<RepeatGroupBase>)Activator.CreateInstance(type);
-
-            //var x = Activator.CreateInstance(this.GetType().GetProperty(propertyName).PropertyType) as IList<RepeatGroupBase>;
-            //return list;
-            return new SubsidiaryRepeatGroup();//.Cast<RepeatGroupBase>().ToList();
-
-            //return new Activator.CreateInstance(this.GetType().GetProperty(propertyName).PropertyType);
+            
+            return (RepeatGroupBase)Activator.CreateInstance(this.GetType().GetProperty(propertyName).PropertyType.GetGenericArguments()[0]);
         }
 
         public List<T> Create<T>(T type)

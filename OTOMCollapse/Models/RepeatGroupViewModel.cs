@@ -6,12 +6,12 @@ using System.Web;
 
 namespace OTOMCollapse.Models
 {
-    public class RepeatGroupViewModel
-    {
-        public PropertyOwnersViewModel viewModel { get; set; }
+    //public class RepeatGroupViewModel
+    //{
+    //    public PropertyOwnersViewModel viewModel { get; set; }
 
-        public string container { get; set; }
+    //    public string container { get; set; }
 
-        public string property { get; set; }
-    }
+    //    public string property { get; set; }
+    //}
 }

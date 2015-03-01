@@ -145,10 +145,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AttributeUtilities.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Models\OTOMTestsDataContext.cs" />
     <Compile Include="Models\RepeatGroupViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\PropertyOwners\ClaimsHistoryGroupViewModel.cs" />
+    <Compile Include="ViewModels\PropertyOwners\DeclarationQuestionsGroupViewModel.cs" />
+    <Compile Include="ViewModels\PropertyOwners\GeneralCoversGroupViewModel.cs" />
+    <Compile Include="ViewModels\PropertyOwners\PropertyDetailsGroupViewModel.cs" />
+    <Compile Include="ViewModels\PropertyOwners\PropertyOwnersViewModel.cs" />
+    <Compile Include="ViewModels\PropertyOwners\StandardQuestionsGroupViewModel.cs" />
+    <Compile Include="ViewModels\PropertyOwners\SubsidiaryRepeatGroup.cs" />
+    <Compile Include="ViewModels\RepeatGroupBase.cs" />
+    <Compile Include="ViewModels\RepeatGroupContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\CustomStyles\Accordion.css" />
@@ -209,7 +219,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Views\Shared\Object.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Object.cshtml" />
     <Content Include="NewFolder1\ViewModels.zip" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\CustomScripts\DropDowns.js" />
@@ -244,11 +254,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\PropertyOwners\Index.cshtml" />
-    <Content Include="Views\PropertyOwners\Details.cshtml" />
     <Content Include="Views\PropertyOwners\Create.cshtml" />
-    <Content Include="Views\PropertyOwners\Edit.cshtml" />
-    <Content Include="Views\PropertyOwners\Delete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\PropertyRepeatGroup.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Address.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LocationRepeatGroup.cshtml" />
@@ -265,7 +271,6 @@
     <Content Include="Views\PropertyOwners\EditorTemplates\PropertyDetailsQuestions.cshtml" />
     <Content Include="Views\PropertyOwners\EditorTemplates\StandardQuestions.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\_PartialGenericRepeatGroupListStyle.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\SubsidiaryCompanyRepeatGroup.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\EditorTemplates\NestedRepeatGroup.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TestRepeatGroup.cshtml" />
@@ -287,10 +292,6 @@
     <ProjectReference Include="..\OTOMCollapse.Infrastructure\OTOMCollapse.Infrastructure.csproj">
       <Project>{0d22b52b-d2b4-467b-8e22-529e647ab57b}</Project>
       <Name>OTOMCollapse.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OTOMCollapse.Model\OTOMCollapse.Models.csproj">
-      <Project>{53aed073-cf4d-46b3-a224-e00e97498491}</Project>
-      <Name>OTOMCollapse.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,5 @@
 ﻿using OTOMCollapse.Infrastructure;
+using OTOMCollapse.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,29 +9,22 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    public class SubsidiaryRepeatGroup : RepeatGroupBase//,IRepeatGroupContainer
+    public class SubsidiaryRepeatGroup : RepeatGroupBase,IRepeatGroupContainer
     {
         //private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() {{ "TestRepeatGroups", typeof(TestRepeatGroup) }};
 
         public SubsidiaryRepeatGroup()
         {
-            TestRepeatGroups = new List<TestRepeatGroup>(){new TestRepeatGroup()};
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    TestRepeatGroups.Add(new TestRepeatGroup());
-            //}
+            NestedRepeatGroup = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
 
         public string CompanyName { get; set; }
 
         public string EmployersReferenceNumber { get;set; }
 
-        [UIHint("Address")]
-        public Address AddressInformation { get; set; }
-
-        [UIHint("TestRepeatGroup")]
+        [Display(Name="Nested Repeat Group")]
         [MaximumRepeatGroups(5)]
-        public IList<TestRepeatGroup> TestRepeatGroups { get; set; }
+        public IList<NestedRepeatGroup> NestedRepeatGroup { get; set; }
 
         public RepeatGroupBase GetPropertyType(string propertyName)
         {
@@ -45,6 +39,12 @@ namespace OTOMCollapse.Models.RepeatGroups
             return templateName;
         }
 
-      
+    }
+
+    public class NestedRepeatGroup : RepeatGroupBase
+    {
+        public int TestInt { get; set; }
+
+        public string TestString { get; set; }
     }
 }

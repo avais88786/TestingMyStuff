@@ -1,8 +1,6 @@
-﻿@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+﻿
 
-if (Model == null)
+@if (Model == null)
 {
     <text>@ViewData.ModelMetadata.NullDisplayText</text>
 }
@@ -12,20 +10,16 @@ if (Model == null)
         }*@
 else
 {
-    <fieldset>
-        <!-- Form Name -->
-        <legend>Form Name</legend>
-
+    <section>
         @foreach (var prop in ViewData.ModelMetadata.Properties.Where(pm => pm.ShowForDisplay && !ViewData.TemplateInfo.Visited(pm)))
         {
             
             //HelpText HelpText = AttributeUtilities.GetFirstAttribute<HelpText>(prop);
-            //Pretext PreText = AttributeUtilities.GetFirstAttribute<Pretext>(prop);
-
-            ViewData["MaxRepeats"] = 5;
-            ViewData["PropertyName"] = prop.PropertyName;
-            ViewData["htmlFieldPrefix"] = prop.PropertyName + "[0]";
             
+            OTOMCollapse.Infrastructure.MaximumRepeatGroupsAttribute max = AttributeUtilities.GetFirstAttribute<OTOMCollapse.Infrastructure.MaximumRepeatGroupsAttribute>(prop);
+            
+
+          
             //var CustomAttributes = ViewData.ModelMetadata.ContainerType.GetProperty(ViewData.ModelMetadata.PropertyName).GetCustomAttributes(typeof(T1), false);
 
             if (prop.HideSurroundingHtml)
@@ -42,6 +36,11 @@ else
                             @*@((PreText == null) ? "" : PreText.PreTextLabel)*@
                         </div>
                         @Html.Editor(prop.PropertyName)
+                        
+                        @*@if (prop.ContainerType.IsSubclassOf(typeof(OTOMCollapse.ViewModels.RepeatGroupBase)) && ViewData.ModelMetadata.Properties.Last().PropertyName == prop.PropertyName)
+                        {
+                            <input type="button" value="Remove" style="float:right;" data-placeholderelementidtoremove=@Html.Raw("placeholder" + ViewData["idToAppend"]) data-mappedaddelementid=@Html.Raw("add" + ViewData["idToAppend"]) />
+                        }*@
                         @*@Html.Partial("_Suffix")*@
                         @*@if (HelpText != null)
                         {
@@ -52,13 +51,18 @@ else
                         @*}*@
                         @Html.ValidationMessage(prop.PropertyName)
                     </div>
+                        <br/>
+                         @Html.RenderRemoveButton(prop.PropertyName)
+                        if (max != null)
+                        {
+                            <br/>
+                            @Html.RenderAddMoreButton(max.Value, prop.PropertyName, prop.ContainerType.FullName, prop.Model)
+                        }
+    
                 @*</div>*@
             }
         }
-    </fieldset>
+</section>
 }
-<p>
-            <input type="submit" value="Create" />
-        </p>
 
-}
+

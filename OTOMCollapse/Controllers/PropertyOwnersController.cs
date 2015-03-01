@@ -13,76 +13,37 @@ using OTOMCollapse.DependenctResolver;
 using AutoMapper;
 using OTOMCollapse.Models.ViewModels.PropertyOwners;
 using OTOMCollapse.Models.RepeatGroups;
-using OTOMCollapse.Models.Helpers;
+using OTOMCollapse.ViewModels.PropertyOwners;
+using OTOMCollapse.ViewModels;
+
 
 namespace OTOMCollapse.Controllers
 {
     public class PropertyOwnersController : Controller
     {
         private OTOMTestsDataContext db = new OTOMTestsDataContext();
-        private Dictionary<string, RepeatGroupContainer> propertyMapping;
+        
 
         public PropertyOwnersController()
         {
-            Mapper.CreateMap<CodeListBase, SelectListItem>()
-                  .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.ABICode))
-                  .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.Text));
-
-            propertyMapping = new Dictionary<string, RepeatGroupContainer>();
-            //propertyMapping.Add("StandardQuestionsGroupViewModel", new StandardQuestionsGroupViewModel());
-            //propertyMapping.Add("SubsidiaryRepeatGroup", new SubsidiaryRepeatGroup());
-            
-
-            //Mapper.CreateMap<SprinklerCodeList, SelectListItem>()
-            //      .ForMember(listItem => listItem.Value, model => model.MapFrom(src => src.ABICode))
-            //      .ForMember(listItem => listItem.Text, model => model.MapFrom(src => src.Text));
                   
         }
 
-        //
-        // GET: /PropertyOwners/
-
-        public ActionResult Index()
-        {
-            Type type = typeof(PropertyOwnersViewModel);
-            var attr = type.GetProperty("Property").CustomAttributes;
-            
-            
-            return View(db.PropertyOwners.ToList());
-
-
-            
-        }
-
-        //
-        // GET: /PropertyOwners/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            PropertyOwnersViewModel propertyowners = db.PropertyOwners.Find(id);
-            if (propertyowners == null)
-            {
-                return HttpNotFound();
-            }
-            return View(propertyowners);
-        }
-
-        //
-        // GET: /PropertyOwners/Create
+   
 
         public ActionResult Create()
         {
 
-            ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
-            IRepository<CodeListBase> sprinklersCodeListRepo = StructureMapContainer.Container.GetInstance<IRepository<CodeListBase>>();
-            //SelectList list = new SelectList(companyStatusRepo.GetAll());
+            //ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
+            //IRepository<CodeListBase> sprinklersCodeListRepo = StructureMapContainer.Container.GetInstance<IRepository<CodeListBase>>();
+            ////SelectList list = new SelectList(companyStatusRepo.GetAll());
             PropertyOwnersViewModel vm = new PropertyOwnersViewModel();
             //IEnumerable<string> codeListNames
-            var x = vm.GetCodeListNames();
+            //var x = vm.GetCodeListNames();
             
             //vm.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
             //vm.Trades = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
-            return View("Object",vm);
+            return View(vm);
         }
 
         //
@@ -99,21 +60,22 @@ namespace OTOMCollapse.Controllers
             //    return RedirectToAction("Create");
             //}
 
-            ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
-            IRepository<CodeListBase> sprinklersCodeListRepo = StructureMapContainer.Container.GetInstance<IRepository<CodeListBase>>();
+            //ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
+            //IRepository<CodeListBase> sprinklersCodeListRepo = StructureMapContainer.Container.GetInstance<IRepository<CodeListBase>>();
 
             //propertyowners.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
             //propertyowners.Trades = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
 
-            return View("Object",propertyowners);
+            return View(propertyowners);
         }
 
-        public ActionResult avais(string property, int nextIndex, string htmlTemplateFieldPrefix)
+        public ActionResult avais(string property, int nextIndex, string htmlTemplateFieldPrefix,string container)
         {
-            PropertyOwnersViewModel viewModel = new PropertyOwnersViewModel();
-            var type = viewModel.GetRepeatGroupContainerType(property);
-            //var x = propertyMapping[container];
-            //x.propertyName = property;
+            //PropertyOwnersViewModel viewModel = new PropertyOwnersViewModel();
+            var containerType = (IRepeatGroupContainer)Activator.CreateInstance(Type.GetType(container));
+            var repeatGroup = containerType.GetPropertyType(property);
+
+            
             ViewData["property"] = property;
             ViewData["Index"] = nextIndex;
             ViewData["idToAppend"] = property;
@@ -121,7 +83,7 @@ namespace OTOMCollapse.Controllers
 
             //htmlTemplateFieldPrefix = htmlTemplateFieldPrefix.Substring(0,(htmlTemplateFieldPrefix.Length-3));
             //ViewData["htmlFieldPrefix"] = String.Format("{0}[{1}]", htmlTemplateFieldPrefix, nextIndex);
-            return PartialView("Partial/_PartialGenericRepeatGroupListStyle", type);
+            return PartialView("Partial/_PartialGenericRepeatGroupListStyle", repeatGroup);
         }
 
 
@@ -142,60 +104,7 @@ namespace OTOMCollapse.Controllers
         //}
 
 
-        //
-        // GET: /PropertyOwners/Edit/5
-
-        public ActionResult Edit(int id = 0)
-        {
-            PropertyOwnersViewModel propertyowners = db.PropertyOwners.Find(id);
-            if (propertyowners == null)
-            {
-                return HttpNotFound();
-            }
-            return View(propertyowners);
-        }
-
-        //
-        // POST: /PropertyOwners/Edit/5
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(PropertyOwnersViewModel propertyowners)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(propertyowners).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(propertyowners);
-        }
-
-        //
-        // GET: /PropertyOwners/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            PropertyOwnersViewModel propertyowners = db.PropertyOwners.Find(id);
-            if (propertyowners == null)
-            {
-                return HttpNotFound();
-            }
-            return View(propertyowners);
-        }
-
-        //
-        // POST: /PropertyOwners/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            PropertyOwnersViewModel propertyowners = db.PropertyOwners.Find(id);
-            db.PropertyOwners.Remove(propertyowners);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+     
 
         protected override void Dispose(bool disposing)
         {

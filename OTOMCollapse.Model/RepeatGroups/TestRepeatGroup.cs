@@ -23,14 +23,6 @@ namespace OTOMCollapse.Models.RepeatGroups
         [MaximumRepeatGroups(3)]
         public List<TestRepeatGroupNested1> TestRepeatGroupsNested1 { get; set; }
 
-        public override IEnumerable<RepeatGroupBase> RepeatGroupProperty
-        {
-            get
-            {
-                return new List<TestRepeatGroup>() { new TestRepeatGroup() }.Cast<RepeatGroupBase>();
-            }
-        }
-
         public IList<RepeatGroupBase> GetPropertyType(string propertyName)
         {
             return null;

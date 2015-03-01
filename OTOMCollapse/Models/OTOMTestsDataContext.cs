@@ -15,10 +15,10 @@ namespace OTOMCollapse.Models
         // 
         // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<OTOMCollapse.Models.OTOMTestsDataContext>());
 
-        public OTOMTestsDataContext() : base("name=OTOMTestsDataContext")
-        {
-        }
+        //public OTOMTestsDataContext() : base("name=OTOMTestsDataContext")
+        //{
+        //}
 
-        public DbSet<PropertyOwnersViewModel> PropertyOwners { get; set; }
+        //public DbSet<PropertyOwnersViewModel> PropertyOwners { get; set; }
     }
 }

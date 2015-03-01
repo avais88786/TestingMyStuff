@@ -4,6 +4,7 @@ using OTOMCollapse.Models.ViewModels.PropertyOwners;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -463,54 +464,54 @@ namespace OTOMCollapse.Helpers
         }
 
 
-        public static MvcHtmlString RenderAddMoreButton<TModel>(this HtmlHelper<TModel> htmlHelper, string propertyName, int? maxValue, bool indexPresent)
+        public static MvcHtmlString RenderAddMoreButton<TModel>(this HtmlHelper<TModel> htmlHelper,int maxValue,string propertyName,string containerName,object Model)
         {
-           
-            StringBuilder htmlFieldPrefix = GetHtmlFieldPrefix<TModel>(htmlHelper, "");  //Get HtmlPrefix that should be used for next repeatinggroup
+            string htmlFieldPrefix;
 
-            string currentHtmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
-           
-
-            var idPrefix = currentHtmlFieldPrefix.Replace('.', '_');
-            idPrefix = idPrefix.Replace('[', '_');
-            idPrefix = idPrefix.Replace(']', '_');
-
-            //Could use Regex:
-            //Regex pattern = new Regex(@"[.\[\]]");
-            //var gggg = pattern.Replace(template, "_");
+             var x = AttributeUtilities.GetFirstAttribute<DisplayAttribute>(htmlHelper.ViewData.ModelMetadata);
+            
+            if (string.IsNullOrEmpty(htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix))
+                htmlFieldPrefix = propertyName + "[0]";
+            else
+                htmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix + "." + propertyName + "[0]";
 
             var outputTags = new StringBuilder();
 
-            if (!indexPresent)
-            {
-                var hiddenElementTagBuilder = new TagBuilder("input");
-                // Create valid id
-                hiddenElementTagBuilder.GenerateId("hidden" + idPrefix);
+            var idPrefix = htmlFieldPrefix.Replace('.', '_');
+            idPrefix = idPrefix.Replace('[', '_');
+            idPrefix = idPrefix.Replace(']', '_');
 
-                // Add attributes
-                hiddenElementTagBuilder.Attributes.Add("type", "hidden");
-                //builder.MergeAttribute("data-container", rpContainer.GetType().Name);
-                //hiddenElementTagBuilder.MergeAttribute("data-container", containerName);
+         
+            var hiddenElementTagBuilder = new TagBuilder("input");
+            // Create valid id
+            hiddenElementTagBuilder.GenerateId("hidden" + idPrefix);
 
-                hiddenElementTagBuilder.MergeAttribute("data-property", propertyName);
-                hiddenElementTagBuilder.MergeAttribute("data-maxpossiblevalue", maxValue.ToString());
-                hiddenElementTagBuilder.MergeAttribute("data-currentdisplayedrepeatinggroupsonpage", ((IList)htmlHelper.ViewData.Model).Count.ToString());
-                hiddenElementTagBuilder.MergeAttribute("data-currentindex", (((IList)htmlHelper.ViewData.Model).Count - 1).ToString());
-                hiddenElementTagBuilder.MergeAttribute("data-htmlfieldprefix", htmlFieldPrefix.ToString());
-                //builder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+            int numberOfElementsinList = ((IList)Model).Count;
+            
+            // Add attributes
+            hiddenElementTagBuilder.Attributes.Add("type", "hidden");
+            hiddenElementTagBuilder.MergeAttribute("data-container", containerName);
+            hiddenElementTagBuilder.MergeAttribute("data-property", propertyName);
+            hiddenElementTagBuilder.MergeAttribute("data-maxpossiblevalue", maxValue.ToString());
+            hiddenElementTagBuilder.MergeAttribute("data-currentdisplayedrepeatinggroupsonpage", numberOfElementsinList.ToString());
+            hiddenElementTagBuilder.MergeAttribute("data-currentindex", (numberOfElementsinList-1).ToString());
+            hiddenElementTagBuilder.MergeAttribute("data-htmlfieldprefix", htmlFieldPrefix.ToString());
 
-                // Render tag
+            // Render tag
 
-                var addButtonTagBuilder = new TagBuilder("input");
-                addButtonTagBuilder.GenerateId("add" + idPrefix + propertyName);
-                addButtonTagBuilder.Attributes.Add("type", "button");
-                addButtonTagBuilder.Attributes.Add("value", "Add");
-                addButtonTagBuilder.Attributes.Add("data-hiddenforelementid", "#hidden" + idPrefix);
-                addButtonTagBuilder.Attributes.Add("data-placeholderelementid", "#RepeatGroupContainer" + idPrefix);
+            var addButtonTagBuilder = new TagBuilder("input");
+            addButtonTagBuilder.GenerateId("add" + propertyName);
+            addButtonTagBuilder.Attributes.Add("type", "button");
+            addButtonTagBuilder.Attributes.Add("value", "Add " + propertyName);
+            addButtonTagBuilder.Attributes.Add("data-hiddenforelementid", "#hidden" + idPrefix);
+            addButtonTagBuilder.Attributes.Add("data-placeholderelementid", "#RepeatGroupContainer" + propertyName);
+            
+            if (numberOfElementsinList >= maxValue)
+                addButtonTagBuilder.MergeAttribute("style", "display:none;");
 
-                outputTags.Append(hiddenElementTagBuilder.ToString(TagRenderMode.SelfClosing));
-                outputTags.Append(addButtonTagBuilder.ToString(TagRenderMode.SelfClosing));
-            }
+            outputTags.Append(hiddenElementTagBuilder.ToString(TagRenderMode.SelfClosing));
+            outputTags.Append(addButtonTagBuilder.ToString(TagRenderMode.SelfClosing));
+  
 
             return MvcHtmlString.Create(outputTags.ToString());
         }
@@ -529,7 +530,7 @@ namespace OTOMCollapse.Helpers
             
             bool indexPresent = htmlHelper.ViewData.ContainsKey("Index");
 
-            return RenderAddMoreButton<TModel>(htmlHelper, propertyName, maxValue, indexPresent);
+            return null;// RenderAddMoreButton<TModel>(htmlHelper, propertyName, maxValue, indexPresent);
 
             #region refactored
             //StringBuilder htmlFieldPrefix = GetHtmlFieldPrefix<TModel>(htmlHelper, "");  //Get HtmlPrefix that should be used for next repeatinggroup
@@ -644,6 +645,41 @@ namespace OTOMCollapse.Helpers
                 htmlHelper.ViewData.Remove("MaxRepeats");
             htmlHelper.ViewData.Add("MaxRepeats", maxValue);
         }
+
+        public static MvcHtmlString RenderRemoveButton<TModel>(this HtmlHelper<TModel> htmlHelper, string propertyName)
+        {
+            StringBuilder outputTags = new StringBuilder();
+           
+
+            if (htmlHelper.ViewData.Model == null || htmlHelper.ViewData.ModelMetadata == null)
+                return null;
+
+            if (htmlHelper.ViewData.ModelMetadata.ModelType.IsSubclassOf(typeof(OTOMCollapse.ViewModels.RepeatGroupBase)) && htmlHelper.ViewData.ModelMetadata.Properties.Last().PropertyName == propertyName)
+            {
+                
+                //non sequential index (in case) setup
+                string htmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
+                string name = htmlFieldPrefix.Substring(0,(htmlFieldPrefix.Length - 3));
+                string indexName = name + ".Index";
+                var index = htmlFieldPrefix.ElementAt(htmlFieldPrefix.Length - 2);
+
+                name = name + "[0]";
+                var idPrefix = name.Replace('.', '_');
+                idPrefix = idPrefix.Replace('[', '_');
+                idPrefix = idPrefix.Replace(']', '_');
+
+                string indexField = "<input type=hidden name=" + indexName + " value=" + index + " />";
+                string removeButton = @"<input type=button value=Remove style=""float:right;"" data-placeholderelementidtoremove=placeholder" + propertyName + " data-mappedsimilarelements=" + indexName + " data-hiddenelementid=#hidden" + idPrefix + " />";
+
+                outputTags.Append(indexField);
+                outputTags.Append(removeButton);
+
+            }
+
+            return MvcHtmlString.Create(outputTags.ToString());
+
+        }
+
 
 
         #region example

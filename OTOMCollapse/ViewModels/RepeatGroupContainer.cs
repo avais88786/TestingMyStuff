@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OTOMCollapse.Models.RepeatGroups
+namespace OTOMCollapse.ViewModels
 {
     public interface IRepeatGroupContainer
     {

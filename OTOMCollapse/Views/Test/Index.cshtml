@@ -8,9 +8,9 @@
     <br/>
     @Html.DisplayFor(model => model.repeatGroups);
     
-    <input type="hidden" name="repeatGroups.Index" value="3"/>
+    
     @Html.TextBox("repeatGroups[3].id");
-
+    
     <input type="hidden" name="repeatGroups.Index" value="2" />
     @Html.TextBox("repeatGroups[2].id");
 
@@ -39,6 +39,6 @@
     @*@Html.EditorFor(model => model.repeatGroups[0].nestedRepeatGroup[0])*@
     
     
-    
+    <input type="hidden" name="repeatGroups.Index" value="3"/>
     <input type="submit" value="submit" />   
 }

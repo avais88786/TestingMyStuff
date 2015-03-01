@@ -8,10 +8,6 @@ namespace OTOMCollapse.Models.RepeatGroups
     public class TestRepeatGroupNested1 : RepeatGroupBase
     {
         public string TestRepeatGroupNestedProperty1 { get; set; }
-
-        public override IEnumerable<RepeatGroupBase> RepeatGroupProperty
-        {
-            get { return null; }
-        }
+        
     }
 }
