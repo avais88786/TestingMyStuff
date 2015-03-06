@@ -6,14 +6,14 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+    @Scripts.Render("~/bundles/jquery")
+@RenderSection("scripts", required: false)
 </head>
 <body>
     <div style="width:10%;float:left;display:inline-block;">PlaceHolderleftMenu </div>
     <div style="width:75%;display:inline-block;">
         @RenderBody()
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
+    
 </body>
 </html>

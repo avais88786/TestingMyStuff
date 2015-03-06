@@ -59,7 +59,7 @@ namespace OTOMCollapse.Controllers
             //    db.SaveChanges();
             //    return RedirectToAction("Create");
             //}
-
+            ModelState.Clear();
             //ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
             //IRepository<CodeListBase> sprinklersCodeListRepo = StructureMapContainer.Container.GetInstance<IRepository<CodeListBase>>();
 

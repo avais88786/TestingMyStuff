@@ -24,7 +24,7 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
         {
             SubsidaryCompanies = new List<SubsidiaryRepeatGroup>() { new SubsidiaryRepeatGroup() };
                 //, new SubsidiaryRepeatGroup() , new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup() };
-            TestRepeatGroups = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
+            //TestRepeatGroups = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
 
        // public ConstructionType ConstructionType { get; set; }
@@ -34,11 +34,11 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
         //[UIHint("SubsidiaryContainer")]
         //public SubsidaryRepeatGroupContainer SubsidaryContainer { get; set; }
 
-        [MaximumRepeatGroups(10)]
+        [MaximumRepeatGroups(15)]
         public List<SubsidiaryRepeatGroup> SubsidaryCompanies { get; set; }
 
-        [MaximumRepeatGroups(5)]
-        public IList<NestedRepeatGroup> TestRepeatGroups { get; set; }
+        //[MaximumRepeatGroups(5)]
+        //public IList<NestedRepeatGroup> TestRepeatGroups { get; set; }
 
         #region hidden
 

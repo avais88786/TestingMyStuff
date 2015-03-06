@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -505,7 +506,7 @@ namespace OTOMCollapse.Helpers
             addButtonTagBuilder.Attributes.Add("value", "Add " + propertyName);
             addButtonTagBuilder.Attributes.Add("data-hiddenforelementid", "#hidden" + idPrefix);
             addButtonTagBuilder.Attributes.Add("data-placeholderelementid", "#RepeatGroupContainer" + propertyName);
-            
+
             if (numberOfElementsinList >= maxValue)
                 addButtonTagBuilder.MergeAttribute("style", "display:none;");
 
@@ -659,9 +660,11 @@ namespace OTOMCollapse.Helpers
                 
                 //non sequential index (in case) setup
                 string htmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
-                string name = htmlFieldPrefix.Substring(0,(htmlFieldPrefix.Length - 3));
+                //string name = htmlFieldPrefix.Substring(0,(htmlFieldPrefix.Length - 3));
+                string name = htmlFieldPrefix.Substring(0, htmlFieldPrefix.LastIndexOf('['));
                 string indexName = name + ".Index";
-                var index = htmlFieldPrefix.ElementAt(htmlFieldPrefix.Length - 2);
+                //var index = htmlFieldPrefix.ElementAt(htmlFieldPrefix.Length - 2);
+                var index = Regex.Match(htmlFieldPrefix, @"\d+", RegexOptions.RightToLeft);
 
                 name = name + "[0]";
                 var idPrefix = name.Replace('.', '_');

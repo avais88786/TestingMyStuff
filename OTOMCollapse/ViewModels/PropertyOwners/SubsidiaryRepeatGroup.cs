@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace OTOMCollapse.Models.RepeatGroups
 {
-    public class SubsidiaryRepeatGroup : RepeatGroupBase,IRepeatGroupContainer
+    public class SubsidiaryRepeatGroup : RepeatGroupBase//,IRepeatGroupContainer
     {
         //private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() {{ "TestRepeatGroups", typeof(TestRepeatGroup) }};
 
         public SubsidiaryRepeatGroup()
         {
-            NestedRepeatGroup = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
+            //NestedRepeatGroup = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
 
         public string CompanyName { get; set; }
 
         public string EmployersReferenceNumber { get;set; }
 
-        [Display(Name="Nested Repeat Group")]
-        [MaximumRepeatGroups(5)]
-        public IList<NestedRepeatGroup> NestedRepeatGroup { get; set; }
+        //[Display(Name="Nested Repeat Group")]
+        //[MaximumRepeatGroups(5)]
+        //public IList<NestedRepeatGroup> NestedRepeatGroup { get; set; }
 
         public RepeatGroupBase GetPropertyType(string propertyName)
         {
