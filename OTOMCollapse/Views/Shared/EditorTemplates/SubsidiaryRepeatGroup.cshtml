@@ -1,0 +1,20 @@
+﻿@model OTOMCollapse.ViewModels.RepeatGroups.SubsidiaryRepeatGroup
+
+
+@{ var index = Html.GetIndexFromTemplateInfo();  }
+
+
+
+        <section class="accordion-section">
+            <a class="accordion-section-title" href=@Html.Raw("#accordion-property"+ index)>
+                Property - @Html.Raw(index + 1)
+            </a>
+            <section id=@Html.Raw("accordion-property"+ index) class="accordion-section-content">
+                @Html.Partial(@"EditorTemplates\Object")
+            </section>
+</section>
+
+
+
+
+

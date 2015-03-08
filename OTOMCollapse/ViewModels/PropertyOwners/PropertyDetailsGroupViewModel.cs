@@ -1,5 +1,5 @@
 ﻿using OTOMCollapse.Infrastructure;
-using OTOMCollapse.Models.RepeatGroups;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

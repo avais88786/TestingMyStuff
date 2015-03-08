@@ -24,8 +24,9 @@
     margin-top:5px;
 }
 .accordion-section-content{
-     padding:15px;
-  
+     width:100%; 
+    padding:15px;
+     background:#f7f7f7;
 }
 
 .accordion-section:last-child .accordion-section-title {

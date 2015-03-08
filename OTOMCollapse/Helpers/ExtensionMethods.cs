@@ -1,5 +1,5 @@
 ﻿using OTOMCollapse.Infrastructure;
-using OTOMCollapse.Models.RepeatGroups;
+
 using OTOMCollapse.Models.ViewModels.PropertyOwners;
 using System;
 using System.Collections;
@@ -683,6 +683,13 @@ namespace OTOMCollapse.Helpers
 
         }
 
+        public static int GetIndexFromTemplateInfo<TModel>(this HtmlHelper<TModel> htmlHelper)
+        {
+            string htmlFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
+            var index = Regex.Match(htmlFieldPrefix, @"\d+", RegexOptions.RightToLeft);
+            return Convert.ToInt32(index.Value);
+
+        }
 
 
         #region example

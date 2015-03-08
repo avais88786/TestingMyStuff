@@ -37,6 +37,8 @@
         
         var xx = $(this).prevAll('section');
         var placeHolder = $(this).siblings('div').last();
+        var isAccordion = placeHolder.has('.accordion-section');
+
 
         var datas = "property=" + property + "&nextIndex=" + nextIndex + "&htmlTemplateFieldPrefix=" + htmlTemplateFieldPrefix + "&container=" + container;
 
@@ -54,6 +56,11 @@
                 $(hiddenElementId).data('currentindex', nextIndex);
                 $(hiddenElementId).attr('data-currentindex', nextIndex);
 
+                if (isAccordion.length > 0) {
+                    HideSections();
+                }
+                
+
                 placeHolder.append(result);
 
                 if (currentDisplayedRepeatingGroups >= maxPossibleValue) {
@@ -69,26 +76,6 @@
                 clickedButton.removeAttr("disabled");
             }
         });
-
-
-        //$.get("PropertyOwners/avais2", datas, function (result,status) {
-        //    currentDisplayedRepeatingGroups = currentDisplayedRepeatingGroups + 1;
-        //    $(hiddenElementId).data('currentdisplayedrepeatinggroupsonpage', currentDisplayedRepeatingGroups);
-        //    $(hiddenElementId).attr('data-currentdisplayedrepeatinggroupsonpage', currentDisplayedRepeatingGroups);
-
-        //    $(hiddenElementId).data('currentindex', nextIndex);
-        //    $(hiddenElementId).attr('data-currentindex', nextIndex);
-
-        //    placeHolder.append(result);
-
-        //    if (currentDisplayedRepeatingGroups >= maxPossibleValue) {
-        //        clickedButton.fadeOut(500);
-        //    }
-
-        //    $(':button[data-hiddenelementid="' + hiddenElementId + '"]').slideDown();
-        //    HideElements();
-        //});
-
     });
 
     $("body").on("click", ":button[data-placeholderelementidtoremove]", function () {
@@ -109,18 +96,51 @@
 
         $(this).parent('section').last().fadeOut(500, function () {
 
-            if (currentDisplayedRepeatingGroups == 1) {
-                $(':button[data-mappedsimilarelements="' + similarElementsName + '"]').hide();
-            }
+                if (currentDisplayedRepeatingGroups == 1) {
+                    $(':button[data-mappedsimilarelements="' + similarElementsName + '"]').hide();
+                }
 
+               
+                if ($(this).parent().parent('.accordion-section').last().length > 0) {
+                    $(this).parent().parent('.accordion-section').last().remove();
+                    HideSections();
+                }
 
-            $(this).remove();
-
-
-        });
-
-        //var addButtonId = $(this).data('mappedaddelementid');
-        //$(addButtonId).slideDown(1000);
+                $(this).remove();
+            });
     });
+
+    InitialPageLoad();
+
+    function InitialPageLoad() {
+        $('.accordion-section-title').eq(0).addClass('active');
+        $('.accordion-section-content').not(':eq(0)').hide();
+        $('.accordion-section-title').not(':eq(0)').removeClass('active');
+
+    }
+    $("body").on("click", ".accordion-section-title", function (e) {
+
+        e.preventDefault();
+        var accordionSectionIdToShow = $(this).attr('href');
+
+        if ($(e.target).is('.active')) {
+            return;
+        }
+
+        HideSections();
+        $(this).addClass('active');
+
+        $(accordionSectionIdToShow).slideDown(500).addClass('open');
+
+
+    });
+
+    function HideSections() {
+
+        $('.accordion-section-title').removeClass('active');
+        $('.accordion-section-content').slideUp(500).removeClass('open');
+
+    }
+
 
 });

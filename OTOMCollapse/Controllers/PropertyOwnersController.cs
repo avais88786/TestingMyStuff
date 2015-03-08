@@ -12,7 +12,7 @@ using StructureMap;
 using OTOMCollapse.DependenctResolver;
 using AutoMapper;
 using OTOMCollapse.Models.ViewModels.PropertyOwners;
-using OTOMCollapse.Models.RepeatGroups;
+
 using OTOMCollapse.ViewModels.PropertyOwners;
 using OTOMCollapse.ViewModels;
 

@@ -1,5 +1,4 @@
-﻿using OTOMCollapse.Models.RepeatGroups;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +7,7 @@ using OTOMCollapse.Infrastructure;
 using System.Web.Mvc;
 using OTOMCollapse.Infrastructure.Infrastructure;
 using System.Collections;
+using OTOMCollapse.ViewModels.RepeatGroups;
 
 namespace OTOMCollapse.ViewModels.PropertyOwners
 {
@@ -29,7 +29,7 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
 
        // public ConstructionType ConstructionType { get; set; }
 
-        public int PropertyOwnersId { get; set; }
+        
 
         //[UIHint("SubsidiaryContainer")]
         //public SubsidaryRepeatGroupContainer SubsidaryContainer { get; set; }

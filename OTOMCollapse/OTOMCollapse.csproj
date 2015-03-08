@@ -277,6 +277,7 @@
     <Content Include="Views\PropertyOwners\EditorTemplates\TestRepeatGroupsNested1.cshtml" />
     <Content Include="Views\PropertyOwners\Partial\_PartialGenericRepeatGroupAccordionStyle.cshtml" />
     <Content Include="Views\PropertyOwners\EditorTemplates\SubsidiaryContainer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SubsidiaryRepeatGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

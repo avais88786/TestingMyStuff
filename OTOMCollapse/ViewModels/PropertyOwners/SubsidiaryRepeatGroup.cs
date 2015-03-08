@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OTOMCollapse.Models.RepeatGroups
+namespace OTOMCollapse.ViewModels.RepeatGroups
 {
-    public class SubsidiaryRepeatGroup : RepeatGroupBase//,IRepeatGroupContainer
+    public class SubsidiaryRepeatGroup : RepeatGroupBase,IRepeatGroupContainer
     {
         //private Dictionary<string, Type> propertyTypeMap = new Dictionary<string, Type>() {{ "TestRepeatGroups", typeof(TestRepeatGroup) }};
 
         public SubsidiaryRepeatGroup()
         {
-            //NestedRepeatGroup = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
+            NestedRepeatGroup = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
 
         public string CompanyName { get; set; }
@@ -23,8 +23,8 @@ namespace OTOMCollapse.Models.RepeatGroups
         public string EmployersReferenceNumber { get;set; }
 
         //[Display(Name="Nested Repeat Group")]
-        //[MaximumRepeatGroups(5)]
-        //public IList<NestedRepeatGroup> NestedRepeatGroup { get; set; }
+        [MaximumRepeatGroups(5)]
+        public IList<NestedRepeatGroup> NestedRepeatGroup { get; set; }
 
         public RepeatGroupBase GetPropertyType(string propertyName)
         {
