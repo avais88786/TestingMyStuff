@@ -25,19 +25,20 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
         public PropertyOwnersViewModel()
         {
             SubsidaryCompanies = new List<SubsidiaryRepeatGroup>() { new SubsidiaryRepeatGroup() };
-            SelectListItem = new SelectListItem() { Text = "asasa", Value = "nfgkjl" };
+            SelectListItem = new List<SelectListItem>() { new SelectListItem() { Text = "asasa", Value = "nfgkjl" }, new SelectListItem() { Text = "asasa2", Value = "nfgkjl2" } };
                 //, new SubsidiaryRepeatGroup() , new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup() };
             //TestRepeatGroups = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
 
        // public ConstructionType ConstructionType { get; set; }
 
-        public SelectListItem SelectListItem { get; set; }
+        public List<SelectListItem> SelectListItem { get; set; }
 
         //[UIHint("SubsidiaryContainer")]
         //public SubsidaryRepeatGroupContainer SubsidaryContainer { get; set; }
 
         [MaximumRepeatGroups(15)]
+        [CustomValidation]
         public List<SubsidiaryRepeatGroup> SubsidaryCompanies { get; set; }
 
         //[MaximumRepeatGroups(5)]
@@ -118,14 +119,16 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
         [CustomValidation]
         public PropertyOwnersViewModel PropertyOwnersViewModel { get; set; }
 
-
+        public string test { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validationResults = new HashSet<ValidationResult>();
-            bool x = Validator.TryValidateObject(this, validationContext, validationResults,true);
+            bool x = Validator.TryValidateObject(PropertyOwnersViewModel, new ValidationContext(PropertyOwnersViewModel), validationResults, true);
             return validationResults;
         }
+
+       
     }
 
     public class CustomValidationAttribute : ValidationAttribute
@@ -145,26 +148,59 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
 
         public override bool IsValid(object value)
         {
-            IEnumerable<PropertyInfo> properties = value.GetType().
-                GetProperties().Where(p => p.GetCustomAttributes(
-                typeof(ValidationAttribute), true).Count() > 0);
-            foreach (PropertyInfo property in properties)
+            try
             {
-                // Validate each property.
-                IEnumerable<ValidationAttribute> validationAttributes =
-                    property.GetCustomAttributes(typeof(ValidationAttribute),
-                    true).Cast<ValidationAttribute>();
-                foreach (ValidationAttribute validationAttribute in
-                    validationAttributes)
+
+
+                Type objectType = value.GetType();
+                bool isList = false;
+                if (value is IList && value.GetType().IsGenericType)
                 {
-                    object propertyValue = property.GetValue(value, null);
-                    if (!validationAttribute.IsValid(propertyValue))
+                    objectType = value.GetType().GetGenericArguments()[0];
+                    isList = true;
+                }
+
+                IEnumerable<PropertyInfo> properties = objectType.
+                    GetProperties().Where(p => p.GetCustomAttributes(
+                    typeof(ValidationAttribute), true).Count() > 0);
+                foreach (PropertyInfo property in properties)
+                {
+                    // Validate each property.
+                    IEnumerable<ValidationAttribute> validationAttributes =
+                        property.GetCustomAttributes(typeof(ValidationAttribute),
+                        true).Cast<ValidationAttribute>();
+                    foreach (ValidationAttribute validationAttribute in
+                        validationAttributes)
                     {
-                        // Return false if one value is found to be invalid.
-                        return false;
+
+                        if (isList)
+                        {
+                            foreach (var item in (IList)value)
+                            {
+                                //value = item.GetType().GetProperty(property.Name).GetValue(item);
+                                object propertyValue = property.GetValue(item, null);
+                                if (!validationAttribute.IsValid(propertyValue))
+                                {
+
+                                    // Return false if one value is found to be invalid.
+                                    return false;
+                                }
+                            }
+                        }
+                        else 
+                        { 
+                            object propertyValue = property.GetValue(value, null);
+                            if (!validationAttribute.IsValid(propertyValue))
+                                {
+                            
+                                    // Return false if one value is found to be invalid.
+                                    return false;
+                                }
+                        }
                     }
                 }
             }
+            catch { }
             return true;
         }
         // If everything is valid, return true.
