@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using OTOMCollapse.Infrastructure.Infrastructure;
 using System.Collections;
 using OTOMCollapse.ViewModels.RepeatGroups;
+using System.Reflection;
 
 namespace OTOMCollapse.ViewModels.PropertyOwners
 {
@@ -106,6 +107,71 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
             return templateName;
         }
     }
+
+    public class PropertyOwnersViewModelContainer : IValidatableObject
+    {
+        public PropertyOwnersViewModelContainer()
+        {
+            PropertyOwnersViewModel = new PropertyOwnersViewModel();
+        }
+
+        [CustomValidation]
+        public PropertyOwnersViewModel PropertyOwnersViewModel { get; set; }
+
+
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var validationResults = new HashSet<ValidationResult>();
+            bool x = Validator.TryValidateObject(this, validationContext, validationResults,true);
+            return validationResults;
+        }
+    }
+
+    public class CustomValidationAttribute : ValidationAttribute
+    {
+        //protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        //{
+        //     var validationResults = new HashSet<ValidationResult>();
+        //     bool y = Validator.TryValidateObject(value, new ValidationContext(value), validationResults, true);
+
+        //     if (!y)
+        //     {
+        //         return new ValidationResult("taaaaa error");
+        //     }
+
+        //     return ValidationResult.Success;
+        //}
+
+        public override bool IsValid(object value)
+        {
+            IEnumerable<PropertyInfo> properties = value.GetType().
+                GetProperties().Where(p => p.GetCustomAttributes(
+                typeof(ValidationAttribute), true).Count() > 0);
+            foreach (PropertyInfo property in properties)
+            {
+                // Validate each property.
+                IEnumerable<ValidationAttribute> validationAttributes =
+                    property.GetCustomAttributes(typeof(ValidationAttribute),
+                    true).Cast<ValidationAttribute>();
+                foreach (ValidationAttribute validationAttribute in
+                    validationAttributes)
+                {
+                    object propertyValue = property.GetValue(value, null);
+                    if (!validationAttribute.IsValid(propertyValue))
+                    {
+                        // Return false if one value is found to be invalid.
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        // If everything is valid, return true.
+        
+        }
+
+
 
     //public class SubsidaryRepeatGroupContainer : RepeatGroupContainer
     //{

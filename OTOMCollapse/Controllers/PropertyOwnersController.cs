@@ -44,12 +44,14 @@ namespace OTOMCollapse.Controllers
             
             
             PropertyOwnersViewModel vm = new PropertyOwnersViewModel();
-            XmlSerializer xmlSerializer2 = new XmlSerializer(typeof(PropertyOwnersViewModel));
+            PropertyOwnersViewModelContainer container = new PropertyOwnersViewModelContainer();
+            container.PropertyOwnersViewModel = vm;
+            XmlSerializer xmlSerializer2 = new XmlSerializer(typeof(PropertyOwnersViewModelContainer));
             string xml;
             using (StringWriter sw = new StringWriter()){
                 using (XmlWriter xw = XmlWriter.Create(sw))
                 {
-                    xmlSerializer2.Serialize(xw,vm);
+                    xmlSerializer2.Serialize(xw, container);
                     xml=sw.ToString();
                 }
             }
@@ -76,15 +78,16 @@ namespace OTOMCollapse.Controllers
             //    db.SaveChanges();
             //    return RedirectToAction("Create");
             //}
-            XmlSerializer xmlSerializer2 = new XmlSerializer(typeof(PropertyOwnersViewModel));
+            XmlSerializer xmlSerializer2 = new XmlSerializer(typeof(PropertyOwnersViewModelContainer));
             string s = (string)Session["test"];
-            PropertyOwnersViewModel vm;
+            PropertyOwnersViewModelContainer vmC;
             StringReader sr = new StringReader(s);
             using (XmlReader reader = XmlReader.Create(sr))
             {
-                vm = (PropertyOwnersViewModel)xmlSerializer2.Deserialize(reader);
+                vmC = (PropertyOwnersViewModelContainer)xmlSerializer2.Deserialize(reader);
             }
-            
+            vmC.PropertyOwnersViewModel = propertyowners;
+            vmC.Validate(new System.ComponentModel.DataAnnotations.ValidationContext(vmC));
             
             ModelState.Clear();
             //ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();

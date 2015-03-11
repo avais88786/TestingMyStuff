@@ -19,8 +19,11 @@ namespace OTOMCollapse.ViewModels.RepeatGroups
             //NestedRepeatGroup = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
 
+        [Required]
         public string CompanyName { get; set; }
 
+        [Required]
+        [Range(0,9999999)]
         public string EmployersReferenceNumber { get;set; }
 
         //[Display(Name="Nested Repeat Group")]
