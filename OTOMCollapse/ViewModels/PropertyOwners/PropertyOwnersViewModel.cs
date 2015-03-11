@@ -11,6 +11,7 @@ using OTOMCollapse.ViewModels.RepeatGroups;
 
 namespace OTOMCollapse.ViewModels.PropertyOwners
 {
+    [Serializable]
     public class PropertyOwnersViewModel : IRepeatGroupContainer
     {
         private Dictionary<string, Type> propertyMapping = new Dictionary<string, Type>() { 
@@ -23,13 +24,14 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
         public PropertyOwnersViewModel()
         {
             SubsidaryCompanies = new List<SubsidiaryRepeatGroup>() { new SubsidiaryRepeatGroup() };
+            SelectListItem = new SelectListItem() { Text = "asasa", Value = "nfgkjl" };
                 //, new SubsidiaryRepeatGroup() , new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup() };
             //TestRepeatGroups = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
 
        // public ConstructionType ConstructionType { get; set; }
 
-        
+        public SelectListItem SelectListItem { get; set; }
 
         //[UIHint("SubsidiaryContainer")]
         //public SubsidaryRepeatGroupContainer SubsidaryContainer { get; set; }

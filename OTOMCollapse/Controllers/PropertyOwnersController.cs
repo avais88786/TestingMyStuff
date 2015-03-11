@@ -15,6 +15,9 @@ using OTOMCollapse.Models.ViewModels.PropertyOwners;
 
 using OTOMCollapse.ViewModels.PropertyOwners;
 using OTOMCollapse.ViewModels;
+using System.Xml.Serialization;
+using System.IO;
+using System.Xml;
 
 
 namespace OTOMCollapse.Controllers
@@ -37,10 +40,24 @@ namespace OTOMCollapse.Controllers
             //ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
             //IRepository<CodeListBase> sprinklersCodeListRepo = StructureMapContainer.Container.GetInstance<IRepository<CodeListBase>>();
             ////SelectList list = new SelectList(companyStatusRepo.GetAll());
+            
+            
+            
             PropertyOwnersViewModel vm = new PropertyOwnersViewModel();
+            XmlSerializer xmlSerializer2 = new XmlSerializer(typeof(PropertyOwnersViewModel));
+            string xml;
+            using (StringWriter sw = new StringWriter()){
+                using (XmlWriter xw = XmlWriter.Create(sw))
+                {
+                    xmlSerializer2.Serialize(xw,vm);
+                    xml=sw.ToString();
+                }
+            }
             //IEnumerable<string> codeListNames
             //var x = vm.GetCodeListNames();
-            
+
+            Session["test"] = xml;
+
             //vm.CompanyStatuses = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(companyStatusRepo.GetAll());
             //vm.Trades = Mapper.Map<IList<CodeListBase>, IList<SelectListItem>>(sprinklersCodeListRepo.GetAll());
             return View(vm);
@@ -59,6 +76,16 @@ namespace OTOMCollapse.Controllers
             //    db.SaveChanges();
             //    return RedirectToAction("Create");
             //}
+            XmlSerializer xmlSerializer2 = new XmlSerializer(typeof(PropertyOwnersViewModel));
+            string s = (string)Session["test"];
+            PropertyOwnersViewModel vm;
+            StringReader sr = new StringReader(s);
+            using (XmlReader reader = XmlReader.Create(sr))
+            {
+                vm = (PropertyOwnersViewModel)xmlSerializer2.Deserialize(reader);
+            }
+            
+            
             ModelState.Clear();
             //ICompanyStatusRepository companyStatusRepo = StructureMapContainer.Container.GetInstance<ICompanyStatusRepository>(); // ObjectFactory.GetInstance<ICompanyStatusRepository>();
             //IRepository<CodeListBase> sprinklersCodeListRepo = StructureMapContainer.Container.GetInstance<IRepository<CodeListBase>>();
