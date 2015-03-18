@@ -4,8 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
+using System.Xml.Serialization;
 
 namespace OTOMCollapse.ViewModels.RepeatGroups
 {
@@ -16,8 +19,13 @@ namespace OTOMCollapse.ViewModels.RepeatGroups
 
         public SubsidiaryRepeatGroup()
         {
-            //NestedRepeatGroup = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
+            NestedRepeatGroup = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
+
+        //[XmlAttribute("id")]
+        //[HiddenInput(DisplayValue = false)]
+        //public int Id { get { return base.Id; } set { base.Id = value; } }
+
 
         [Required]
         public string CompanyName { get; set; }
@@ -26,9 +34,10 @@ namespace OTOMCollapse.ViewModels.RepeatGroups
         [Range(0,9999999)]
         public string EmployersReferenceNumber { get;set; }
 
-        //[Display(Name="Nested Repeat Group")]
-        //[MaximumRepeatGroups(5)]
-        //public IList<NestedRepeatGroup> NestedRepeatGroup { get; set; }
+        [XmlElement(typeof(NestedRepeatGroup))]
+        [Display(Name = "Nested Repeat Group")]
+        [MaximumRepeatGroups(5)]
+        public List<NestedRepeatGroup> NestedRepeatGroup { get; set; }
 
         public RepeatGroupBase GetPropertyType(string propertyName)
         {
@@ -43,6 +52,12 @@ namespace OTOMCollapse.ViewModels.RepeatGroups
             return templateName;
         }
 
+
+
+        public RepeatGroupBase GetPropertyType(Type thisType, string propertyName)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [Serializable]

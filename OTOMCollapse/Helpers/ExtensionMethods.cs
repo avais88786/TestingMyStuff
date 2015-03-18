@@ -1,6 +1,6 @@
 ﻿using OTOMCollapse.Infrastructure;
-
 using OTOMCollapse.Models.ViewModels.PropertyOwners;
+using OTOMCollapse.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -655,7 +655,10 @@ namespace OTOMCollapse.Helpers
             if (htmlHelper.ViewData.Model == null || htmlHelper.ViewData.ModelMetadata == null)
                 return null;
 
-            if (htmlHelper.ViewData.ModelMetadata.ModelType.IsSubclassOf(typeof(OTOMCollapse.ViewModels.RepeatGroupBase)) && htmlHelper.ViewData.ModelMetadata.Properties.Last().PropertyName == propertyName)
+            //if (!(htmlHelper.ViewData.ModelMetadata.ModelType is IList))
+            //    return null;
+
+            if (htmlHelper.ViewData.ModelMetadata.ModelType.IsSubclassOf(typeof(OTOMCollapse.ViewModels.RepeatGroupBase)) && htmlHelper.ViewData.ModelMetadata.Properties.Where(p=> !p.HideSurroundingHtml).Last().PropertyName == propertyName)
             {
                 
                 //non sequential index (in case) setup

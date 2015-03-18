@@ -9,10 +9,13 @@ using OTOMCollapse.Infrastructure.Infrastructure;
 using System.Collections;
 using OTOMCollapse.ViewModels.RepeatGroups;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace OTOMCollapse.ViewModels.PropertyOwners
 {
     [Serializable]
+    [DataContract()]
     public class PropertyOwnersViewModel : IRepeatGroupContainer
     {
         private Dictionary<string, Type> propertyMapping = new Dictionary<string, Type>() { 
@@ -24,15 +27,16 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
 
         public PropertyOwnersViewModel()
         {
-            SubsidaryCompanies = new List<SubsidiaryRepeatGroup>() { new SubsidiaryRepeatGroup() };
-            SelectListItem = new List<SelectListItem>() { new SelectListItem() { Text = "asasa", Value = "nfgkjl" }, new SelectListItem() { Text = "asasa2", Value = "nfgkjl2" } };
+            SubsidaryCompanies = new List<SubsidiaryRepeatGroup>() { new SubsidiaryRepeatGroup(){CompanyName = "Company Name",EmployersReferenceNumber = "Emp Ref No",Id = 0} };
+            //SelectListItem = new List<SelectListItem>() { new SelectListItem() { Text = "asasa", Value = "nfgkjl" }, new SelectListItem() { Text = "asasa2", Value = "nfgkjl2" } };
+            //SubsidaryCompanies2 = new SubsidiaryRepeatGroup();
                 //, new SubsidiaryRepeatGroup() , new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup(), new SubsidiaryRepeatGroup() };
             //TestRepeatGroups = new List<NestedRepeatGroup>() { new NestedRepeatGroup() };
         }
 
        // public ConstructionType ConstructionType { get; set; }
 
-        public List<SelectListItem> SelectListItem { get; set; }
+        //public List<SelectListItem> SelectListItem { get; set; }
 
         //[UIHint("SubsidiaryContainer")]
         //public SubsidaryRepeatGroupContainer SubsidaryContainer { get; set; }
@@ -107,8 +111,16 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
 
             return templateName;
         }
+
+
+        public RepeatGroupBase GetPropertyType(Type thisType, string propertyName)
+        {
+            return null;
+        }
     }
 
+    
+    [Serializable]
     public class PropertyOwnersViewModelContainer : IValidatableObject
     {
         public PropertyOwnersViewModelContainer()
@@ -116,9 +128,10 @@ namespace OTOMCollapse.ViewModels.PropertyOwners
             PropertyOwnersViewModel = new PropertyOwnersViewModel();
         }
 
-        [CustomValidation]
+       
         public PropertyOwnersViewModel PropertyOwnersViewModel { get; set; }
 
+       
         public string test { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
